@@ -1,4 +1,6 @@
-﻿using Proyecto_Pokemon;
+﻿using System;
+using System.Collections.Generic;
+using Proyecto_Pokemon;
 
 class Program
 {
