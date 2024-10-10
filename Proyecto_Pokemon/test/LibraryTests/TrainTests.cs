@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-using ClassLibrary;
+using Proyecto_Pokemon;
 using NUnit.Framework;
 
 namespace Tests
