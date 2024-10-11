@@ -10,7 +10,7 @@ public class Batallas
     private Pokemon pokemonActivo2;
     private int turno;
     private IHabilidades habilidadCargando = null;
-
+    public int Turno { get => turno; }
     public Batallas(Entrenadores entrenador1, Entrenadores entrenador2)
     {
         this.entrenador1 = entrenador1;
