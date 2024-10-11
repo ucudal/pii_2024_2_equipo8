@@ -9,6 +9,7 @@ public class Batallas
     private Pokemon pokemonActivo1;
     private Pokemon pokemonActivo2;
     private int turno;
+    private IHabilidades habilidadCargando = null;
 
     public Batallas(Entrenadores entrenador1, Entrenadores entrenador2)
     {
@@ -39,7 +40,14 @@ public class Batallas
     {
         Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
         Pokemon defensor = entrenadorActual == entrenador1 ? pokemonActivo2 : pokemonActivo1;
-        
+
+        if (atacante.HabilidadCargando != null)
+        {
+            EjecutarAtaque(atacante, defensor, atacante.HabilidadCargando);
+            atacante.HabilidadCargando = null; 
+            return;
+        }
+
         Console.WriteLine($"{entrenadorActual.Nombre}, elige una habilidad para atacar:");
         atacante.MostrarHabilidades();
         int habilidadElegida = Convert.ToInt32(Console.ReadLine()) - 1;
@@ -58,15 +66,21 @@ public class Batallas
             habilidadElegida = Convert.ToInt32(Console.ReadLine()) - 1;
             habilidad = atacante.Habilidades[habilidadElegida];
         }
-        
         habilidad.PP--;
-        
+
         if (habilidad.EsDobleTurno)
         {
             Console.WriteLine($"{atacante.Nombre} está cargando la habilidad {habilidad.Nombre}...");
+            atacante.HabilidadCargando = habilidad; 
             return;
         }
 
+        EjecutarAtaque(atacante, defensor, habilidad);
+    }
+
+
+    private void EjecutarAtaque(Pokemon atacante, Pokemon defensor, IHabilidades habilidad)
+    {
         double efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoPrincipal);
         int daño = (int)(habilidad.Daño * efectividad);
         if (defensor.TipoSecundario != null)
@@ -74,8 +88,7 @@ public class Batallas
             efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoSecundario);
             daño = (int)(daño * efectividad);
         }
-        
-        
+
         Random random = new Random();
         int probabilidad = random.Next(0, 100);
         if (probabilidad <= habilidad.Precision)
@@ -85,7 +98,7 @@ public class Batallas
             {
                 defensor.Vida = 0;
             }
-            Console.WriteLine($"{atacante.Nombre} usó {habilidad.Nombre}, hizo {daño} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida} ");
+            Console.WriteLine($"{atacante.Nombre} usó {habilidad.Nombre}, hizo {daño} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}");
         }
         else
         {
@@ -105,9 +118,10 @@ public class Batallas
                 Console.WriteLine($"El {defensor.Nombre} de {entrenadorActual.Nombre} fue derrotado, cambia el pokemon");
                 CambiarPokemon();
             }
-            
         }
     }
+
+
 
     public void CambiarPokemon()
     {

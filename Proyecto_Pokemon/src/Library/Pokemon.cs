@@ -7,6 +7,8 @@ public class Pokemon : IPokemon
     public List<IHabilidades> Habilidades { get; }
     public ITipo TipoPrincipal { get; }
     public ITipo TipoSecundario { get; }
+    public IHabilidades HabilidadCargando { get; set; }
+
 
     public Pokemon(string nombre, int vida, ITipo tipoPrincipal, ITipo tipoSecundario = null)
     {
@@ -15,6 +17,7 @@ public class Pokemon : IPokemon
         TipoPrincipal = tipoPrincipal;
         TipoSecundario = tipoSecundario;
         Habilidades = new List<IHabilidades>();
+        HabilidadCargando = null;
     }
 
     public void AprenderHabilidad(IHabilidades habilidad)
