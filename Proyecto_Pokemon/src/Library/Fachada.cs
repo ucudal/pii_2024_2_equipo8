@@ -26,11 +26,12 @@ public class Fachada
         bool opcionvalida = false;
         while (!opcionvalida)
         {
+            Console.WriteLine();
             Console.WriteLine("1. Atacar");
             Console.WriteLine("2. Cambiar Pokémon");
             Console.WriteLine("3. Esquivar");
             string opcion = Console.ReadLine();
-
+            Console.WriteLine();
             switch (opcion)
             {
                 case "1":
