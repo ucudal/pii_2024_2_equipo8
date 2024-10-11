@@ -78,7 +78,22 @@ public class Batalla
 
     private Entrenador DeterminarGanador()
     {
-        // Falta desarollo de determinarganador
-        return Entrenador1; // return momentario
+        // Usamos el método ObtenerPokemonsDisponibles para contar los Pokémon vivos
+        int pokemonsConVidaEntrenador1 = Entrenador1.ObtenerPokemonsDisponibles().Count;
+        int pokemonsConVidaEntrenador2 = Entrenador2.ObtenerPokemonsDisponibles().Count;
+
+        // Comparar las cantidades y retornar al entrenador con más Pokémon con vida
+        if (pokemonsConVidaEntrenador1 > pokemonsConVidaEntrenador2)
+        {
+            return Entrenador1;
+        }
+        else if (pokemonsConVidaEntrenador2 > pokemonsConVidaEntrenador1)
+        {
+            return Entrenador2;
+        }
+        else
+        {
+            return null; // Empate
+        }
     }
 }

@@ -34,7 +34,19 @@ public class Entrenador
             Console.WriteLine($"{pokemon.Nombre} (HP: {pokemon.Vida})");
         }
     }
-
+    public List<Pokemon> ObtenerPokemonsDisponibles()
+    {   
+        List<Pokemon> pokemonsDisponibles = new List<Pokemon>();
+        // Retorna los Pokémon cuya vida es mayor a 0
+        foreach (Pokemon pokemon in ListaPokemons)
+        {
+            if (pokemon.Vida > 0)
+            {
+                pokemonsDisponibles.Add(pokemon);
+            } 
+        }
+        return pokemonsDisponibles;
+    }
     public void CambiarPokemon(int indiceActual, int indiceNuevo)
     {
         if (indiceNuevo >= 0 && indiceNuevo < ListaPokemons.Count)
