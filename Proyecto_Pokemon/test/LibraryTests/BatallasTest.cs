@@ -41,7 +41,7 @@ public class BatallaTest
         IHabilidades ataque = new Habilidades("Impactrueno", null, 20, 80,30, false);
         batalla.Atacar();
 
-        Assert.That(charmander.Vida, Is.LessThan(100));  // La vida de Charmander debería ser menor después del ataque
+        Assert.That(charmander.Vida, Is.LessThan(100));
     }
 
     

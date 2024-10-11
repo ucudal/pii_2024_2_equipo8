@@ -5,7 +5,7 @@ public class Fachada
     private Pokemon Sceptile;
     private Pokemon Arcanine;
     private Pokemon Blastoise;
-    private Pokemon Eevee;
+    private Pokemon Snorlax;
     private Pokemon Pikachu;
     private Pokemon Jynx;
     private Pokemon Lucario;
@@ -234,54 +234,228 @@ public class Fachada
         ITipo tipoNormal = new Tipo("Normal", elementoNormal);
         ITipo tipoVolador = new Tipo("Volador", elementoVolador);
 
-        Sceptile = new Pokemon("Sceptile", 100, tipoPlanta);
-        Arcanine = new Pokemon("Arcanine", 100, tipoFuego);
-        Blastoise = new Pokemon("Blastoise", 100, tipoAgua);
-        Eevee = new Pokemon("Eevee", 1000, tipoNormal);
-        Pikachu = new Pokemon("Pikachu", 1000, tipoElectrico);
-        Jynx = new Pokemon("Jynx", 1000, tipoPsiquico, tipoHielo);
-        Lucario = new Pokemon("Lucario", 1000, tipoLucha, tipoAcero);
-        Tyranitar = new Pokemon("Tyranitar", 1000, tipoRoca, tipoSiniestro);
-        Flygon = new Pokemon("Flygon", 1000, tipoTierra, tipoDragon);
-        Pidgeot = new Pokemon("Pidgeot", 1000, tipoVolador, tipoNormal);
-        Scyther = new Pokemon("Scyther", 1000, tipoBicho, tipoVolador);
-        Amoonguss = new Pokemon("Amoonguss", 1000, tipoVeneno, tipoPlanta);
-        Umbreon = new Pokemon("Umbreon", 1000, tipoSiniestro);
-        Gengar = new Pokemon("Gengar", 1000, tipoFantasma, tipoSiniestro);
-        Lapras = new Pokemon("Lapras", 1000, tipoHielo, tipoAgua);
-        Metagross = new Pokemon("Metagross", 1000, tipoAcero, tipoPsiquico);
-        Dragonite = new Pokemon("Dragonite", 1000, tipoDragon, tipoVolador);
-        Sylveon = new Pokemon("Sylveon", 1000, tipoHada);
+        Sceptile = new Pokemon("SCEPTILE", 500, tipoPlanta);
+        Arcanine = new Pokemon("ARCANINE", 500, tipoFuego);
+        Blastoise = new Pokemon("BLASTOISE", 500, tipoAgua);
+        Snorlax = new Pokemon("SNORLAX", 500, tipoNormal);
+        Pikachu = new Pokemon("PIKACHU", 500, tipoElectrico);
+        Jynx = new Pokemon("JYNX", 500, tipoPsiquico, tipoHielo);
+        Lucario = new Pokemon("LUCARIO", 500, tipoLucha, tipoAcero);
+        Tyranitar = new Pokemon("TYRANITAR", 500, tipoRoca, tipoSiniestro);
+        Flygon = new Pokemon("FLYGON", 500, tipoTierra, tipoDragon);
+        Pidgeot = new Pokemon("PIDGEOT", 500, tipoVolador, tipoNormal);
+        Scyther = new Pokemon("SCYTHER", 500, tipoBicho, tipoVolador);
+        Amoonguss = new Pokemon("AMOONGUSS", 500, tipoVeneno, tipoPlanta);
+        Umbreon = new Pokemon("UMBREON", 500, tipoSiniestro);
+        Gengar = new Pokemon("GENGAR", 500, tipoFantasma, tipoSiniestro);
+        Lapras = new Pokemon("LAPRAS", 500, tipoHielo, tipoAgua);
+        Metagross = new Pokemon("METAGROSS", 500, tipoAcero, tipoPsiquico);
+        Dragonite = new Pokemon("DRAGONITE", 500, tipoDragon, tipoVolador);
+        Sylveon = new Pokemon("SYLVEON", 500, tipoHada);
 
+        // SCEPTILE
         IHabilidades cortefuria = new Habilidades("Corte furia", tipoBicho, 40, 95, 20, false);
         IHabilidades energibola = new Habilidades("Energibola", tipoPlanta, 90, 100, 10, false);
         IHabilidades hojaguda = new Habilidades("Hoja Aguda", tipoPlanta, 90, 100, 15, false);
         IHabilidades lluevehojas = new Habilidades("Lluevehojas", tipoPlanta, 130, 80, 5, true);
-
-        IHabilidades ascuas = new Habilidades("Ascuas", tipoFuego, 40, 100, 25, false);
-        IHabilidades lanzallamas = new Habilidades("Lanzallamas", tipoFuego, 90, 90, 15, false);
-        IHabilidades velocidadExtrema = new Habilidades("Velocidad Extrema", tipoNormal, 80, 70, 5, false);
-        IHabilidades enviteigneo = new Habilidades("Envite Ígneo", tipoFuego, 120, 60, 15, true);
-
-        IHabilidades hidroBomba = new Habilidades("HidroBomba", tipoAgua, 110, 80, 5, true);
-        IHabilidades pistolaAgua = new Habilidades("Pistola Agua", tipoAgua, 40, 100, 25, false);
-        IHabilidades hidropulso = new Habilidades("Hidropulso", tipoAgua, 60, 100, 20, false);
-        IHabilidades acuacola = new Habilidades("Acua cola", tipoAgua, 90, 90, 10, false);
 
         Sceptile.AprenderHabilidad(cortefuria);
         Sceptile.AprenderHabilidad(energibola);
         Sceptile.AprenderHabilidad(lluevehojas);
         Sceptile.AprenderHabilidad(hojaguda);
 
+        // ARCANINE
+
+        IHabilidades ascuas = new Habilidades("Ascuas", tipoFuego, 40, 100, 25, false);
+        IHabilidades lanzallamas = new Habilidades("Lanzallamas", tipoFuego, 90, 90, 15, false);
+        IHabilidades velocidadExtrema = new Habilidades("Velocidad Extrema", tipoNormal, 80, 70, 5, false);
+        IHabilidades enviteigneo = new Habilidades("Envite Ígneo", tipoFuego, 120, 60, 15, true);
+
         Arcanine.AprenderHabilidad(ascuas);
         Arcanine.AprenderHabilidad(lanzallamas);
         Arcanine.AprenderHabilidad(velocidadExtrema);
         Arcanine.AprenderHabilidad(enviteigneo);
 
+        // BLASTOISE
+        
+        IHabilidades pistolaAgua = new Habilidades("Pistola Agua", tipoAgua, 40, 100, 25, false);
+        IHabilidades hidropulso = new Habilidades("Hidropulso", tipoAgua, 60, 100, 20, false);
+        IHabilidades acuacola = new Habilidades("Acua cola", tipoAgua, 90, 90, 10, false);
+        IHabilidades hidroBomba = new Habilidades("HidroBomba", tipoAgua, 110, 80, 5, true);
+
         Blastoise.AprenderHabilidad(hidroBomba);
         Blastoise.AprenderHabilidad(hidropulso);
         Blastoise.AprenderHabilidad(acuacola);
         Blastoise.AprenderHabilidad(pistolaAgua);
+
+        // SNORLAX
+        
+        IHabilidades golpecuerpo = new Habilidades("Golpe cuerpo", tipoNormal, 85, 100, 15, false);
+        IHabilidades mordisco = new Habilidades("Mordisco", tipoSiniestro, 60, 100, 25, false);
+        IHabilidades fuerzaequina = new Habilidades("Fuerza equina", tipoTierra, 95, 95, 10, false);
+        IHabilidades gigaimpacto = new Habilidades("Gigaimpacto", tipoNormal, 150, 60, 5, true);
+
+        Snorlax.AprenderHabilidad(gigaimpacto);
+        Snorlax.AprenderHabilidad(golpecuerpo);
+        Snorlax.AprenderHabilidad(mordisco);
+        Snorlax.AprenderHabilidad(fuerzaequina);
+
+        // PIKACHU
+        IHabilidades electrobola = new Habilidades("Electrobola", tipoElectrico, 90, 90, 6, false);
+        IHabilidades rayo = new Habilidades("Rayo", tipoElectrico, 110, 70, 15, false);
+        IHabilidades puñotrueno = new Habilidades("Puño Trueno", tipoElectrico, 60, 100, 15, false);
+        IHabilidades trueno = new Habilidades("Trueno", tipoElectrico, 120, 50, 5, true);
+
+        Pikachu.AprenderHabilidad(electrobola);
+        Pikachu.AprenderHabilidad(rayo);
+        Pikachu.AprenderHabilidad(puñotrueno);
+        Pikachu.AprenderHabilidad(trueno);
+
+        // JYNX
+        IHabilidades bolasombra = new Habilidades("Bola Sombra", tipoFantasma, 70, 80, 15, false);
+        IHabilidades psiquico = new Habilidades("Psíquico", tipoPsiquico, 90, 90, 10, false);
+        IHabilidades confusion = new Habilidades("Confusión", tipoPsiquico, 70, 100, 20, false);
+        IHabilidades cabezazozen = new Habilidades("Cabezazo Zen", tipoPsiquico, 130, 70, 5, true);
+
+        Jynx.AprenderHabilidad(bolasombra);
+        Jynx.AprenderHabilidad(psiquico);
+        Jynx.AprenderHabilidad(confusion);
+        Jynx.AprenderHabilidad(cabezazozen);
+
+        // LUCARIO
+        IHabilidades golperoca = new Habilidades("Golpe Roca", tipoLucha, 40, 100, 15, false);
+        IHabilidades puñodehierro = new Habilidades("Puño de Hierro", tipoAcero, 80, 100, 10, false);
+        IHabilidades garrametal = new Habilidades("Garra Metal", tipoAcero, 95, 90, 15, false);
+        IHabilidades abocajarro = new Habilidades("A bocajarro", tipoLucha, 120, 80, 5, true);
+
+        Lucario.AprenderHabilidad(golperoca);
+        Lucario.AprenderHabilidad(puñodehierro);
+        Lucario.AprenderHabilidad(garrametal);
+        Lucario.AprenderHabilidad(abocajarro);
+
+        // FLYGON
+        IHabilidades terremoto = new Habilidades("Terremoto", tipoTierra, 70, 70, 15, false);
+        IHabilidades pataleta = new Habilidades("Pataleta", tipoTierra, 75, 100, 10, false);
+        IHabilidades danzadeldragon = new Habilidades("Danza del Dragón", tipoDragon, 80, 90, 20, false);
+        IHabilidades cataclismo = new Habilidades("Cataclismo", tipoTierra, 140, 60, 5, true);
+
+        Flygon.AprenderHabilidad(terremoto);
+        Flygon.AprenderHabilidad(pataleta);
+        Flygon.AprenderHabilidad(danzadeldragon);
+        Flygon.AprenderHabilidad(cataclismo);
+
+        // TYRANITAR
+        IHabilidades terratemblor = new Habilidades("Terratemblor", tipoTierra, 60, 100, 20, false);
+        IHabilidades avalancha = new Habilidades("Avalancha", tipoRoca, 75, 80, 15, false);
+        IHabilidades lanzarrocas = new Habilidades("Lanzarrocas", tipoRoca, 50, 100, 20, false);
+        IHabilidades rocaafilada = new Habilidades("Roca afilada", tipoRoca, 110, 70, 10, true);
+
+        Flygon.AprenderHabilidad(terratemblor);
+        Flygon.AprenderHabilidad(avalancha);
+        Flygon.AprenderHabilidad(lanzarrocas);
+        Flygon.AprenderHabilidad(rocaafilada);
+
+        // PIDGEOT
+        IHabilidades aereocontrol = new Habilidades("Aereocontrol", tipoVolador, 85, 100, 10, false);
+        IHabilidades corteAereo = new Habilidades("Corte Aéreo", tipoVolador, 90, 100, 15, false);
+        IHabilidades vientoAullador = new Habilidades("Viento Aullador", tipoVolador, 75, 95, 20, false);
+        IHabilidades tormentaAerea = new Habilidades("Tormenta Aérea", tipoVolador, 130, 70, 5, true);
+
+        Pidgeot.AprenderHabilidad(aereocontrol);
+        Pidgeot.AprenderHabilidad(corteAereo);
+        Pidgeot.AprenderHabilidad(vientoAullador);
+        Pidgeot.AprenderHabilidad(tormentaAerea);
+
+        // SCYTHER
+        IHabilidades tajoAereo = new Habilidades("Tajo Aéreo", tipoBicho, 80, 100, 15, false);
+        IHabilidades danzaDeHojas = new Habilidades("Danza de Hojas", tipoPlanta, 70, 100, 20, false);
+        IHabilidades puñoDeAcero = new Habilidades("Puño de Acero", tipoBicho, 75, 100, 15, false);
+        IHabilidades tormentaBichos = new Habilidades("Tormenta Bichos", tipoBicho, 130, 60, 5, true); // habilidad especial
+
+        Scyther.AprenderHabilidad(tajoAereo);
+        Scyther.AprenderHabilidad(danzaDeHojas);
+        Scyther.AprenderHabilidad(puñoDeAcero);
+        Scyther.AprenderHabilidad(tormentaBichos);
+
+
+        // AMOONGUSS
+        IHabilidades tijeraDeHojas = new Habilidades("Tijera de Hojas", tipoPlanta, 65, 90, 15, false);
+        IHabilidades bombardeoDeEsporas = new Habilidades("Bombardeo de Esporas", tipoVeneno, 70, 95, 15, false);
+        IHabilidades ataqueVenenoso = new Habilidades("Ataque Venenoso", tipoVeneno, 80, 80, 15, false);
+        IHabilidades tormentaVenenosa = new Habilidades("Tormenta Venenosa", tipoVeneno, 130, 60, 5, true);
+
+        Amoonguss.AprenderHabilidad(tijeraDeHojas);
+        Amoonguss.AprenderHabilidad(bombardeoDeEsporas);
+        Amoonguss.AprenderHabilidad(ataqueVenenoso);
+        Amoonguss.AprenderHabilidad(tormentaVenenosa);
+
+        // UMBREON
+        IHabilidades sombraVil = new Habilidades("Sombra Vil", tipoSiniestro, 90, 80, 10, false);
+        IHabilidades puñoFuego = new Habilidades("Puño Fuego", tipoFuego, 75, 100, 15, false);
+        IHabilidades oscuro = new Habilidades("Oscuro", tipoSiniestro, 80, 100, 15, false);
+        IHabilidades mareaOscura = new Habilidades("Marea Oscura", tipoSiniestro, 130, 70, 5, true);
+
+        Umbreon.AprenderHabilidad(sombraVil);
+        Umbreon.AprenderHabilidad(puñoFuego);
+        Umbreon.AprenderHabilidad(oscuro);
+        Umbreon.AprenderHabilidad(mareaOscura);
+
+        // GENGAR
+        IHabilidades sombraBola = new Habilidades("Sombra Bola", tipoFantasma, 80, 100, 15, false);
+        IHabilidades sombraAterradora = new Habilidades("Sombra Aterradora", tipoSiniestro, 75, 100, 15, false);
+        IHabilidades puñoSiniestro = new Habilidades("Puño Siniestro", tipoSiniestro, 70, 100, 20, false);
+        IHabilidades tormentaSombria = new Habilidades("Tormenta Sombría", tipoFantasma, 155, 60, 5, true);
+
+        Gengar.AprenderHabilidad(sombraBola);
+        Gengar.AprenderHabilidad(sombraAterradora);
+        Gengar.AprenderHabilidad(puñoSiniestro);
+        Gengar.AprenderHabilidad(tormentaSombria);
+
+
+        // LAPRAS
+        IHabilidades rayoHielo = new Habilidades("Rayo Hielo", tipoHielo, 90, 100, 10, false);
+        IHabilidades cascada = new Habilidades("Cascada", tipoAgua, 80, 100, 15, false);
+        IHabilidades hipnosis = new Habilidades("Hipnosis", tipoPsiquico, 50, 70, 20, false);
+        IHabilidades tormentaDeHielo = new Habilidades("Tormenta de Hielo", tipoHielo, 130, 60, 5, true);
+
+        Lapras.AprenderHabilidad(rayoHielo);
+        Lapras.AprenderHabilidad(cascada);
+        Lapras.AprenderHabilidad(hipnosis);
+        Lapras.AprenderHabilidad(tormentaDeHielo);
+
+        // METAGROSS
+        IHabilidades puñoAcero = new Habilidades("Puño de Acero", tipoAcero, 90, 90, 10, false);
+        IHabilidades poderPsiquico = new Habilidades("Poder Psíquico", tipoPsiquico, 90, 60, 10, false);
+        IHabilidades golpePsíquico = new Habilidades("Golpe Psíquico", tipoPsiquico, 40, 100, 15, false);
+        IHabilidades meteorito = new Habilidades("Meteorito", tipoAcero, 140, 50, 5, true);
+
+        Metagross.AprenderHabilidad(puñoAcero);
+        Metagross.AprenderHabilidad(poderPsiquico);
+        Metagross.AprenderHabilidad(golpePsíquico);
+        Metagross.AprenderHabilidad(meteorito);
+
+
+        // DRAGONITE
+        IHabilidades golpeDragon = new Habilidades("Golpe Dragón", tipoDragon, 75, 100, 15, false);
+        IHabilidades hiperrayo = new Habilidades("Hiperrayo", tipoNormal, 100, 90, 5, false);
+        IHabilidades colasDeFuego = new Habilidades("Colas de Fuego", tipoFuego, 90, 100, 15, false);
+        IHabilidades tormentaDeDragones = new Habilidades("Tormenta de Dragones", tipoDragon, 150, 50, 5, true);
+
+        Dragonite.AprenderHabilidad(golpeDragon);
+        Dragonite.AprenderHabilidad(hiperrayo);
+        Dragonite.AprenderHabilidad(colasDeFuego);
+        Dragonite.AprenderHabilidad(tormentaDeDragones);
+
+        // SYLVEON
+        IHabilidades besoEncantado = new Habilidades("Beso Encantado", tipoHada, 90, 100, 10, false);
+        IHabilidades vientoHadas = new Habilidades("Viento Hadas", tipoHada, 75, 100, 15, false);
+        IHabilidades golpeHada = new Habilidades("Golpe Hada", tipoHada, 80, 100, 15, false);
+        IHabilidades poderDeLosSuenos = new Habilidades("Poder de los Sueños", tipoHada, 130, 60, 5, true);
+
+        Sylveon.AprenderHabilidad(besoEncantado);
+        Sylveon.AprenderHabilidad(vientoHadas);
+        Sylveon.AprenderHabilidad(golpeHada);
+        Sylveon.AprenderHabilidad(poderDeLosSuenos);
     }
 
     public Pokemon ObtenerSceptile() => Sceptile;
