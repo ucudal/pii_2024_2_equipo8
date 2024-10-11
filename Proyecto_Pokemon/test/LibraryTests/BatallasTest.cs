@@ -25,7 +25,7 @@ public class BatallaTest
     [Test]
     public void Batalla_DeberiaIniciarConTurno1()
     {
-        Assert.That( batalla.Turno, Is.EqualTo(1));
+        Assert.That(batalla.Turno, Is.EqualTo(1));
     }
 
     [Test]

@@ -11,7 +11,7 @@ public class Batallas
     private int turno;
     private IHabilidades habilidadCargando = null;
     private bool esquivo;
-
+    public int Turno { get => turno; }
     public Batallas(Entrenadores entrenador1, Entrenadores entrenador2)
     {
         this.entrenador1 = entrenador1;
@@ -92,9 +92,8 @@ public class Batallas
     public void Esquivar()
     {
         Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
-        Pokemon defensor = entrenadorActual == entrenador1 ? pokemonActivo2 : pokemonActivo1;
         esquivo = true;
-        Console.WriteLine($"{atacante.Nombre} está preparado para esquivar el proximo movimiento");
+        Console.WriteLine($"{atacante.Nombre} de {entrenadorActual.Nombre} está preparado para esquivar el proximo movimiento");
     }
 
     private void EjecutarAtaque(Pokemon atacante, Pokemon defensor, IHabilidades habilidad)
