@@ -10,6 +10,7 @@ public class Batallas
     private Pokemon pokemonActivo2;
     private int turno;
     private IHabilidades habilidadCargando = null;
+    private bool esquivo;
 
     public Batallas(Entrenadores entrenador1, Entrenadores entrenador2)
     {
@@ -22,70 +23,78 @@ public class Batallas
     }
 
     public void Iniciar()
-{
-    while (entrenador1.TienePokemonesVivos() && entrenador2.TienePokemonesVivos())
+    {
+        while (entrenador1.TienePokemonesVivos() && entrenador2.TienePokemonesVivos())
+        {
+            Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
+            if (atacante.HabilidadCargando != null)
+            {
+                Console.WriteLine($"{atacante.Nombre} está preparado para usar {atacante.HabilidadCargando.Nombre}.");
+                Atacar();
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine(
+                    $"Turno {turno}: {atacante.Nombre} de {entrenadorActual.Nombre} elija su proximo movimiento");
+                fachada.MostrarOpciones(this);
+            }
+
+            turno++;
+            CambiarTurno();
+        }
+    }
+
+    public void Atacar()
     {
         Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
+        Pokemon defensor = entrenadorActual == entrenador1 ? pokemonActivo2 : pokemonActivo1;
         if (atacante.HabilidadCargando != null)
         {
-            Console.WriteLine($"{atacante.Nombre} está preparado para usar {atacante.HabilidadCargando.Nombre}.");
-            Atacar();
+            EjecutarAtaque(atacante, defensor, atacante.HabilidadCargando);
+            atacante.HabilidadCargando = null;
+            return;
         }
-        else
+
+        Console.WriteLine($"{entrenadorActual.Nombre}, elige una habilidad para atacar:");
+        atacante.MostrarHabilidades();
+        int habilidadElegida = Convert.ToInt32(Console.ReadLine()) - 1;
+        while (habilidadElegida > 3 || habilidadElegida < 0)
         {
-            Console.WriteLine();
-            Console.WriteLine($"Turno {turno}: {entrenadorActual.Nombre} elija su proximo movimiento");
-            fachada.MostrarOpciones(this);
+            Console.WriteLine("La habilidad que queres usar no existe, ingreselo de nuevo: ");
+            atacante.MostrarHabilidades();
+            habilidadElegida = Convert.ToInt32(Console.ReadLine()) - 1;
         }
-        turno++;
-        CambiarTurno();
-    }
-}
 
-public void Atacar()
-{
-    Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
-    Pokemon defensor = entrenadorActual == entrenador1 ? pokemonActivo2 : pokemonActivo1;
-    if (atacante.HabilidadCargando != null)
-    {
-        EjecutarAtaque(atacante, defensor, atacante.HabilidadCargando);
-        atacante.HabilidadCargando = null;
-        return;
-    }
-    Console.WriteLine($"{entrenadorActual.Nombre}, elige una habilidad para atacar:");
-    atacante.MostrarHabilidades();
-    int habilidadElegida = Convert.ToInt32(Console.ReadLine()) - 1;
-    while (habilidadElegida > 3 || habilidadElegida < 0)
-    {
-        Console.WriteLine("La habilidad que queres usar no existe, ingreselo de nuevo: ");
-        atacante.MostrarHabilidades();
-        habilidadElegida = Convert.ToInt32(Console.ReadLine()) - 1;
-    }
-    IHabilidades habilidad = atacante.Habilidades[habilidadElegida];
+        IHabilidades habilidad = atacante.Habilidades[habilidadElegida];
 
-    while (habilidad.PP <= 0)
-    {
-        Console.WriteLine($"La habilidad {habilidad.Nombre} no tiene PP suficientes, elige otra habilidad:");
-        atacante.MostrarHabilidades();
-        habilidadElegida = Convert.ToInt32(Console.ReadLine()) - 1;
-        habilidad = atacante.Habilidades[habilidadElegida];
-    }
-    habilidad.PP--;
+        while (habilidad.PP <= 0)
+        {
+            Console.WriteLine($"La habilidad {habilidad.Nombre} no tiene PP suficientes, elige otra habilidad:");
+            atacante.MostrarHabilidades();
+            habilidadElegida = Convert.ToInt32(Console.ReadLine()) - 1;
+            habilidad = atacante.Habilidades[habilidadElegida];
+        }
 
-    if (habilidad.EsDobleTurno)
-    {
-        Console.WriteLine($"{atacante.Nombre} está cargando la habilidad {habilidad.Nombre}...");
-        atacante.HabilidadCargando = habilidad;
-        return;
-    }
-    EjecutarAtaque(atacante, defensor, habilidad);
-}
+        habilidad.PP--;
 
-    
+        if (habilidad.EsDobleTurno)
+        {
+            Console.WriteLine($"{atacante.Nombre} está cargando la habilidad {habilidad.Nombre}...");
+            atacante.HabilidadCargando = habilidad;
+            return;
+        }
+
+        EjecutarAtaque(atacante, defensor, habilidad);
+    }
+
+
     public void Esquivar()
     {
-
-    bool Esquivo;
+        Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
+        Pokemon defensor = entrenadorActual == entrenador1 ? pokemonActivo2 : pokemonActivo1;
+        esquivo = true;
+        Console.WriteLine($"{atacante.Nombre} está preparado para esquivar el proximo movimiento");
     }
 
     private void EjecutarAtaque(Pokemon atacante, Pokemon defensor, IHabilidades habilidad)
@@ -100,14 +109,25 @@ public void Atacar()
 
         Random random = new Random();
         int probabilidad = random.Next(0, 100);
-        if (probabilidad <= habilidad.Precision)
+        int precisionfinal = habilidad.Precision;
+        if (esquivo)
+        {
+            Console.WriteLine(precisionfinal);
+            precisionfinal -= 30;
+            Console.WriteLine(precisionfinal);
+        }
+
+        if (probabilidad <= precisionfinal)
         {
             defensor.Vida -= daño;
             if (defensor.Vida < 0)
             {
                 defensor.Vida = 0;
             }
-            Console.WriteLine($"{atacante.Nombre} usó {habilidad.Nombre}, hizo {daño} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}");
+
+            Console.WriteLine();
+            Console.WriteLine(
+                $"{atacante.Nombre} usó {habilidad.Nombre}, hizo {daño} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}");
         }
         else
         {
@@ -124,12 +144,12 @@ public void Atacar()
             }
             else
             {
-                Console.WriteLine($"El {defensor.Nombre} de {entrenadorActual.Nombre} fue derrotado, cambia el pokemon");
+                Console.WriteLine(
+                    $"El {defensor.Nombre} de {entrenadorActual.Nombre} fue derrotado, cambia el pokemon");
                 CambiarPokemon();
             }
         }
     }
-
 
 
     public void CambiarPokemon()
@@ -143,7 +163,7 @@ public void Atacar()
             entrenadorActual.MostrarPokemones();
             indicePokemon = Convert.ToInt32(Console.ReadLine()) - 1;
         }
-        
+
         if (entrenadorActual.Pokemones[indicePokemon].Vida > 0)
         {
             if (entrenadorActual == entrenador1)
@@ -159,7 +179,7 @@ public void Atacar()
         }
         else
         {
-            Console.WriteLine("No puedes elegir un Pokémon debilitado."); 
+            Console.WriteLine("No puedes elegir un Pokémon debilitado.");
             CambiarPokemon();
         }
     }
@@ -168,5 +188,4 @@ public void Atacar()
     {
         entrenadorActual = entrenadorActual == entrenador1 ? entrenador2 : entrenador1;
     }
-    
 }
