@@ -7,5 +7,6 @@ public interface IPokemon
     List<IHabilidades> Habilidades { get; }
     ITipo TipoPrincipal { get; }
     ITipo TipoSecundario { get; }
+    IHabilidades HabilidadCargando { get; set; }
     void AprenderHabilidad(IHabilidades habilidad);
 }

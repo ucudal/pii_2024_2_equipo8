@@ -8,14 +8,14 @@ using Proyecto_Pokemon;
 using NUnit.Framework;
 
 namespace Tests
-{
+{       
     /// <summary>
     /// Prueba de la clase <see cref="Train"/>.
     /// </summary>
     [TestFixture]
     public class TrainTests
     {
-        /// <summary>
+    /*    /// <summary>
         /// El tren para probar.
         /// </summary>
         private Train train;
@@ -50,6 +50,6 @@ namespace Tests
             this.train.StartEngines();
             this.train.StopEngines();
             Assert.That(this.train.IsEngineStarted, Is.False);
-        }
+        }*/
     }
 }

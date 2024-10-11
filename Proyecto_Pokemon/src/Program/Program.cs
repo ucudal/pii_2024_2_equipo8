@@ -1,11 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using Proyecto_Pokemon;
 
-public static class Program
+namespace Proyecto_Pokemon
 {
-    public static void Main() // El método Main es el punto de entrada del programa
+    class Program
     {
-        Console.WriteLine("Hola"); // Aquí dentro puedes llamar a Console.WriteLine
+        static void Main(string[] args)
+        {
+            Fachada fachada = new Fachada();
+            fachada.InicializarDatos();
+            
+            Entrenadores entrenador1 = new Entrenadores("Elon Musk", new List<Pokemon> { fachada.ObtenerArcanine() });
+            Entrenadores entrenador2 = new Entrenadores("Ash Ketchup", new List<Pokemon> { fachada.ObtenerBlastoise(), fachada.ObtenerSceptile() });
+
+            Batallas batalla = new Batallas(entrenador1, entrenador2);
+            batalla.Iniciar();
+        }
     }
 }
