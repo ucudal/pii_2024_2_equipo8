@@ -47,7 +47,11 @@ public class Batalla
                 Console.WriteLine($"{defensorPokemon.Nombre} ha sido derrotado.");
             }
 
-            TerminarTurno();
+            VerificarGanador();
+            if (!batallaFinalizada)
+            {
+                TerminarTurno();
+            }
         }
     }
 
@@ -62,18 +66,34 @@ public class Batalla
         batallaFinalizada = true;
         Console.WriteLine($"{entrenador.Nombre} ha abandonado la batalla. ¡El otro entrenador es el ganador!");
     }
-
+    
+    private void VerificarGanador()
+    {
+        if (Entrenador1.ObtenerPokemonsDisponibles().Count == 0 || Entrenador2.ObtenerPokemonsDisponibles().Count == 0)
+        {
+            batallaFinalizada = true;
+            ImprimirGanador();
+        }
+    }
+    
     public void ImprimirGanador()
     {
         if (!batallaFinalizada)
         {
             Console.WriteLine("La batalla no ha terminado todavía.");
-            return;
         }
-
-        // Lógica para determinar el ganador. Si ambos jugadores tienen 0 pokémons, hay empate.
-        // Sino, se verifica quién tiene más Pokémon en pie.
-        Console.WriteLine($"La batalla ha terminado. ¡El ganador es {DeterminarGanador().Nombre}!");
+        else
+        {
+            Entrenador ganador = DeterminarGanador();
+            if (ganador != null)
+            {
+                Console.WriteLine($"La batalla ha terminado. ¡El ganador es {ganador.Nombre}!");
+            }
+            else
+            {
+                Console.WriteLine("La batalla ha terminado en empate.");
+            }
+        }
     }
 
     private Entrenador DeterminarGanador()
