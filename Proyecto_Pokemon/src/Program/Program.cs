@@ -6,30 +6,8 @@ namespace Proyecto_Pokemon
     {
         static void Main(string[] args)
         {
-            Fachada fachada = new Fachada();
-            fachada.InicializarDatos();
-            
-            List<Pokemon> todosLosPokemones = new List<Pokemon>
-            {
-                fachada.ObtenerSceptile(),
-                fachada.ObtenerArcanine(),
-                fachada.ObtenerBlastoise(),
-                fachada.ObtenerSnorlax(),
-                fachada.ObtenerPikachu(),
-                fachada.ObtenerJynx(),
-                fachada.ObtenerLucario(),
-                fachada.ObtenerTyranitar(),
-                fachada.ObtenerFlygon(),
-                fachada.ObtenerPidgeot(),
-                fachada.ObtenerScyther(),
-                fachada.ObtenerAmoonguss(),
-                fachada.ObtenerUmbreon(),
-                fachada.ObtenerGengar(),
-                fachada.ObtenerLapras(),
-                fachada.ObtenerMetagross(),
-                fachada.ObtenerDragonite(),
-                fachada.ObtenerSylveon()
-            };
+            LogicaDePokemones todoslospoke = new LogicaDePokemones();
+            List<Pokemon> todosLosPokemones = todoslospoke.InicializarPokemones();
 
             Entrenadores entrenador1 = new Entrenadores("Elon Musk", new List<Pokemon>());
             Fachada.SeleccionarEquipo(entrenador1, todosLosPokemones);

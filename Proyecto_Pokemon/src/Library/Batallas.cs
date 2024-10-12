@@ -51,7 +51,7 @@ public class Batallas
         Pokemon defensor = entrenadorActual == entrenador1 ? pokemonActivo2 : pokemonActivo1;
         if (atacante.HabilidadCargando != null)
         {
-            EjecutarAtaque(atacante, defensor, atacante.HabilidadCargando);
+            fachada.EjecutarAtaque(atacante, defensor, atacante.HabilidadCargando, esquivo);
             atacante.HabilidadCargando = null;
             return;
         }
@@ -85,51 +85,8 @@ public class Batallas
             return;
         }
 
-        EjecutarAtaque(atacante, defensor, habilidad);
-    }
-
-
-    public void Esquivar()
-    {
-        Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
-        esquivo = true;
-        Console.WriteLine($"{atacante.Nombre} de {entrenadorActual.Nombre} está preparado para esquivar el proximo movimiento");
-    }
-
-    private void EjecutarAtaque(Pokemon atacante, Pokemon defensor, IHabilidades habilidad)
-    {
-        double efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoPrincipal);
-        int daño = (int)(habilidad.Daño * efectividad);
-        if (defensor.TipoSecundario != null)
-        {
-            efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoSecundario);
-            daño = (int)(daño * efectividad);
-        }
-
-        Random random = new Random();
-        int probabilidad = random.Next(0, 100);
-        int precisionfinal = habilidad.Precision;
-        if (esquivo)
-        {
-            Console.WriteLine(precisionfinal);
-            precisionfinal -= 30;
-            Console.WriteLine(precisionfinal);
-        }
-        Console.WriteLine();
-        if (probabilidad <= precisionfinal)
-        {
-            defensor.Vida -= daño;
-            if (defensor.Vida < 0)
-            {
-                defensor.Vida = 0;
-            }
-            Console.WriteLine($"{atacante.Nombre} usó {habilidad.Nombre}, hizo {daño} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}");
-        }
-        else
-        {
-            Console.WriteLine($"{atacante.Nombre} falló el ataque");
-        }
-
+        fachada.EjecutarAtaque(atacante, defensor, habilidad, esquivo);
+        
         if (defensor.Vida <= 0)
         {
             CambiarTurno();
@@ -145,6 +102,14 @@ public class Batallas
                 CambiarPokemon();
             }
         }
+    }
+
+
+    public void Esquivar()
+    {
+        Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
+        esquivo = true;
+        Console.WriteLine($"{atacante.Nombre} de {entrenadorActual.Nombre} está preparado para esquivar el proximo movimiento");
     }
 
 

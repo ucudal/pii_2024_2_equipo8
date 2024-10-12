@@ -2,25 +2,6 @@ namespace Proyecto_Pokemon;
 
 public class Fachada
 {
-    private Pokemon Sceptile;
-    private Pokemon Arcanine;
-    private Pokemon Blastoise;
-    private Pokemon Snorlax;
-    private Pokemon Pikachu;
-    private Pokemon Jynx;
-    private Pokemon Lucario;
-    private Pokemon Tyranitar;
-    private Pokemon Flygon;
-    private Pokemon Pidgeot;
-    private Pokemon Scyther;
-    private Pokemon Amoonguss;
-    private Pokemon Umbreon;
-    private Pokemon Gengar;
-    private Pokemon Lapras;
-    private Pokemon Metagross;
-    private Pokemon Dragonite;
-    private Pokemon Sylveon;
-
     public void MostrarOpciones(Batallas batalla)
     {
         bool opcionvalida = false;
@@ -52,475 +33,71 @@ public class Fachada
             }
         }
     }
-
-    public void InicializarDatos()
+    
+    public void EjecutarAtaque(Pokemon atacante, Pokemon defensor, IHabilidades habilidad, bool esquivo)
     {
-        var elementoFuego = new Dictionary<string, double>
+        double efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoPrincipal);
+        int daño = (int)(habilidad.Daño * efectividad);
+        if (defensor.TipoSecundario != null)
         {
-            { "Acero", 2.0 }, { "Volador", 0.5 }, { "Agua", 0.5 }, { "Hielo", 2.0 }, { "Planta", 2.0 },
-            { "Bicho", 2.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 }, { "Roca", 2.0 }, { "Tierra", 1.0 },
-            { "Fuego", 0.5 }, { "Lucha", 1.0 }, { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 },
-            { "Dragon", 1.0 }, { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
-        };
+            efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoSecundario);
+            daño = (int)(daño * efectividad);
+        }
 
-        var elementoAgua = new Dictionary<string, double>
+        Random random = new Random();
+        int probabilidad = random.Next(0, 100);
+        int precisionfinal = habilidad.Precision;
+        if (esquivo)
         {
-            { "Acero", 1.0 }, { "Volador", 0.5 }, { "Agua", 0.5 }, { "Hielo", 1.0 }, { "Planta", 0.5 },
-            { "Bicho", 1.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 }, { "Roca", 2.0 }, { "Tierra", 2.0 },
-            { "Fuego", 2.0 }, { "Lucha", 1.0 }, { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 },
-            { "Dragon", 1.0 }, { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
-        };
-
-        var elementoPlanta = new Dictionary<string, double>
+            precisionfinal -= 30;
+        }
+        Console.WriteLine();
+        if (probabilidad <= precisionfinal)
         {
-            { "Acero", 0.5 }, { "Volador", 0.5 }, { "Agua", 2.0 }, { "Hielo", 1.0 },
-            { "Planta", 0.5 }, { "Bicho", 0.5 }, { "Electrico", 1.0 }, { "Normal", 1.0 },
-            { "Roca", 2.0 }, { "Tierra", 2.0 }, { "Fuego", 0.5 }, { "Lucha", 1.0 },
-            { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 0.5 }, { "Dragon", 0.5 },
-            { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
-        };
-
-        var elementoVolador = new Dictionary<string, double>
+            defensor.Vida -= daño;
+            if (defensor.Vida < 0)
+            {
+                defensor.Vida = 0;
+            }
+            Console.WriteLine($"{atacante.Nombre} usó {habilidad.Nombre}, hizo {daño} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}");
+        }
+        else
         {
-            { "Acero", 0.5 }, { "Volador", 1.0 }, { "Agua", 1.0 }, { "Hielo", 1.0 },
-            { "Planta", 2.0 }, { "Bicho", 2.0 }, { "Electrico", 0.5 }, { "Normal", 1.0 },
-            { "Roca", 0.5 }, { "Tierra", 1.0 }, { "Fuego", 1.0 }, { "Lucha", 2.0 },
-            { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 }, { "Dragon", 1.0 },
-            { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
-        };
-
-        var elementoAcero = new Dictionary<string, double>
-        {
-            { "Acero", 0.5 }, { "Volador", 1.0 }, { "Agua", 0.5 }, { "Hielo", 2.0 },
-            { "Planta", 1.0 }, { "Bicho", 1.0 }, { "Electrico", 0.5 }, { "Normal", 1.0 },
-            { "Roca", 2.0 }, { "Tierra", 1.0 }, { "Fuego", 0.5 }, { "Lucha", 1.0 },
-            { "Hada", 2.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 }, { "Dragon", 1.0 },
-            { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
-        };
-
-        var elementoBicho = new Dictionary<string, double>
-        {
-            { "Acero", 0.5 }, { "Volador", 0.5 }, { "Agua", 1.0 }, { "Hielo", 1.0 },
-            { "Planta", 2.0 }, { "Bicho", 1.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 },
-            { "Roca", 0.5 }, { "Tierra", 1.0 }, { "Fuego", 0.5 }, { "Lucha", 0.5 },
-            { "Hada", 0.5 }, { "Psiquico", 2.0 }, { "Veneno", 0.5 }, { "Dragon", 1.0 },
-            { "Fantasma", 0.5 }, { "Siniestro", 2.0 }
-        };
-
-        var elementoElectrico = new Dictionary<string, double>
-        {
-            { "Acero", 1.0 }, { "Volador", 2.0 }, { "Agua", 2.0 }, { "Hielo", 1.0 },
-            { "Planta", 0.5 }, { "Bicho", 1.0 }, { "Electrico", 0.5 }, { "Normal", 1.0 },
-            { "Roca", 0.5 }, { "Tierra", 0.0 }, { "Fuego", 1.0 }, { "Lucha", 1.0 },
-            { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 }, { "Dragon", 0.5 },
-            { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
-        };
-
-        var elementoNormal = new Dictionary<string, double>
-        {
-            { "Acero", 0.5 }, { "Volador", 1.0 }, { "Agua", 1.0 }, { "Hielo", 1.0 },
-            { "Planta", 1.0 }, { "Bicho", 1.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 },
-            { "Roca", 0.5 }, { "Tierra", 1.0 }, { "Fuego", 1.0 }, { "Lucha", 1.0 },
-            { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 }, { "Dragon", 1.0 },
-            { "Fantasma", 0.0 }, { "Siniestro", 1.0 }
-        };
-
-        var elementoHielo = new Dictionary<string, double>
-        {
-            { "Acero", 0.5 }, { "Volador", 2.0 }, { "Agua", 0.5 }, { "Hielo", 0.5 },
-            { "Planta", 2.0 }, { "Bicho", 1.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 },
-            { "Roca", 2.0 }, { "Tierra", 2.0 }, { "Fuego", 0.5 }, { "Lucha", 1.0 },
-            { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 }, { "Dragon", 2.0 },
-            { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
-        };
-
-        var elementoLucha = new Dictionary<string, double>
-        {
-            { "Acero", 2.0 }, { "Volador", 0.5 }, { "Agua", 1.0 }, { "Hielo", 2.0 },
-            { "Planta", 1.0 }, { "Bicho", 0.5 }, { "Electrico", 1.0 }, { "Normal", 2.0 },
-            { "Roca", 2.0 }, { "Tierra", 1.0 }, { "Fuego", 1.0 }, { "Lucha", 1.0 },
-            { "Hada", 0.5 }, { "Psiquico", 0.5 }, { "Veneno", 0.5 }, { "Dragon", 1.0 },
-            { "Fantasma", 0.0 }, { "Siniestro", 2.0 }
-        };
-
-        var elementoHada = new Dictionary<string, double>
-        {
-            { "Acero", 0.5 }, { "Volador", 1.0 }, { "Agua", 1.0 }, { "Hielo", 1.0 },
-            { "Planta", 1.0 }, { "Bicho", 1.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 },
-            { "Roca", 1.0 }, { "Tierra", 1.0 }, { "Fuego", 0.5 }, { "Lucha", 2.0 },
-            { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 0.5 }, { "Dragon", 2.0 },
-            { "Fantasma", 1.0 }, { "Siniestro", 2.0 }
-        };
-
-        var elementoPsiquico = new Dictionary<string, double>
-        {
-            { "Acero", 0.5 }, { "Volador", 1.0 }, { "Agua", 1.0 }, { "Hielo", 1.0 },
-            { "Planta", 1.0 }, { "Bicho", 1.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 },
-            { "Roca", 1.0 }, { "Tierra", 1.0 }, { "Fuego", 1.0 }, { "Lucha", 2.0 },
-            { "Hada", 1.0 }, { "Psiquico", 0.5 }, { "Veneno", 2.0 }, { "Dragon", 1.0 },
-            { "Fantasma", 1.0 }, { "Siniestro", 0.5 }
-        };
-
-        var elementoVeneno = new Dictionary<string, double>
-        {
-            { "Acero", 0.0 }, { "Volador", 1.0 }, { "Agua", 1.0 }, { "Hielo", 1.0 },
-            { "Planta", 2.0 }, { "Bicho", 1.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 },
-            { "Roca", 0.5 }, { "Tierra", 0.5 }, { "Fuego", 1.0 }, { "Lucha", 1.0 },
-            { "Hada", 2.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 }, { "Dragon", 1.0 },
-            { "Fantasma", 0.5 }, { "Siniestro", 1.0 }
-        };
-
-        var elementoRoca = new Dictionary<string, double>
-        {
-            { "Acero", 0.5 }, { "Volador", 2.0 }, { "Agua", 1.0 }, { "Hielo", 2.0 },
-            { "Planta", 1.0 }, { "Bicho", 2.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 },
-            { "Roca", 1.0 }, { "Tierra", 0.5 }, { "Fuego", 2.0 }, { "Lucha", 0.5 },
-            { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 }, { "Dragon", 1.0 },
-            { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
-        };
-
-        var elementoTierra = new Dictionary<string, double>
-        {
-            { "Acero", 2.0 }, { "Volador", 0.0 }, { "Agua", 1.0 }, { "Hielo", 1.0 },
-            { "Planta", 0.5 }, { "Bicho", 0.5 }, { "Electrico", 2.0 }, { "Normal", 1.0 },
-            { "Roca", 2.0 }, { "Tierra", 1.0 }, { "Fuego", 2.0 }, { "Lucha", 1.0 },
-            { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 2.0 }, { "Dragon", 1.0 },
-            { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
-        };
-
-        var elementoFantasma = new Dictionary<string, double>
-        {
-            { "Acero", 1.0 }, { "Volador", 1.0 }, { "Agua", 1.0 }, { "Hielo", 1.0 },
-            { "Planta", 1.0 }, { "Bicho", 1.0 }, { "Electrico", 1.0 }, { "Normal", 0.0 },
-            { "Roca", 1.0 }, { "Tierra", 1.0 }, { "Fuego", 1.0 }, { "Lucha", 1.0 },
-            { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 }, { "Dragon", 1.0 },
-            { "Fantasma", 2.0 }, { "Siniestro", 0.5 }
-        };
-
-        var elementoSiniestro = new Dictionary<string, double>
-        {
-            { "Acero", 1.0 }, { "Volador", 1.0 }, { "Agua", 1.0 }, { "Hielo", 1.0 },
-            { "Planta", 1.0 }, { "Bicho", 1.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 },
-            { "Roca", 1.0 }, { "Tierra", 1.0 }, { "Fuego", 1.0 }, { "Lucha", 0.5 },
-            { "Hada", 0.5 }, { "Psiquico", 2.0 }, { "Veneno", 1.0 }, { "Dragon", 1.0 },
-            { "Fantasma", 2.0 }, { "Siniestro", 0.5 }
-        };
-
-        var elementoDragon = new Dictionary<string, double>
-        {
-            { "Acero", 0.5 }, { "Volador", 1.0 }, { "Agua", 1.0 }, { "Hielo", 2.0 },
-            { "Planta", 1.0 }, { "Bicho", 1.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 },
-            { "Roca", 1.0 }, { "Tierra", 1.0 }, { "Fuego", 1.0 }, { "Lucha", 1.0 },
-            { "Hada", 0.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 }, { "Dragon", 2.0 },
-            { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
-        };
-
-        ITipo tipoFuego = new Tipo("Fuego", elementoFuego);
-        ITipo tipoAgua = new Tipo("Agua", elementoAgua);
-        ITipo tipoHielo = new Tipo("Hielo", elementoHielo);
-        ITipo tipoLucha = new Tipo("Lucha", elementoLucha);
-        ITipo tipoHada = new Tipo("Hada", elementoHada);
-        ITipo tipoPsiquico = new Tipo("Psiquico", elementoPsiquico);
-        ITipo tipoVeneno = new Tipo("Veneno", elementoVeneno);
-        ITipo tipoDragon = new Tipo("Dragon", elementoDragon);
-        ITipo tipoFantasma = new Tipo("Fantasma", elementoFantasma);
-        ITipo tipoSiniestro = new Tipo("Siniestro", elementoSiniestro);
-        ITipo tipoElectrico = new Tipo("Electrico", elementoElectrico);
-        ITipo tipoBicho = new Tipo("Bicho", elementoBicho);
-        ITipo tipoPlanta = new Tipo("Planta", elementoPlanta);
-        ITipo tipoTierra = new Tipo("Tierra", elementoTierra);
-        ITipo tipoRoca = new Tipo("Roca", elementoRoca);
-        ITipo tipoAcero = new Tipo("Acero", elementoAcero);
-        ITipo tipoNormal = new Tipo("Normal", elementoNormal);
-        ITipo tipoVolador = new Tipo("Volador", elementoVolador);
-
-        Sceptile = new Pokemon("SCEPTILE", 500, tipoPlanta);
-        Arcanine = new Pokemon("ARCANINE", 500, tipoFuego);
-        Blastoise = new Pokemon("BLASTOISE", 500, tipoAgua);
-        Snorlax = new Pokemon("SNORLAX", 500, tipoNormal);
-        Pikachu = new Pokemon("PIKACHU", 500, tipoElectrico);
-        Jynx = new Pokemon("JYNX", 500, tipoPsiquico, tipoHielo);
-        Lucario = new Pokemon("LUCARIO", 500, tipoLucha, tipoAcero);
-        Tyranitar = new Pokemon("TYRANITAR", 500, tipoRoca, tipoSiniestro);
-        Flygon = new Pokemon("FLYGON", 500, tipoTierra, tipoDragon);
-        Pidgeot = new Pokemon("PIDGEOT", 500, tipoVolador, tipoNormal);
-        Scyther = new Pokemon("SCYTHER", 500, tipoBicho, tipoVolador);
-        Amoonguss = new Pokemon("AMOONGUSS", 500, tipoVeneno, tipoPlanta);
-        Umbreon = new Pokemon("UMBREON", 500, tipoSiniestro);
-        Gengar = new Pokemon("GENGAR", 500, tipoFantasma, tipoSiniestro);
-        Lapras = new Pokemon("LAPRAS", 500, tipoHielo, tipoAgua);
-        Metagross = new Pokemon("METAGROSS", 500, tipoAcero, tipoPsiquico);
-        Dragonite = new Pokemon("DRAGONITE", 500, tipoDragon, tipoVolador);
-        Sylveon = new Pokemon("SYLVEON", 500, tipoHada);
-
-        // SCEPTILE
-        IHabilidades cortefuria = new Habilidades("Corte furia", tipoBicho, 40, 95, 20, false);
-        IHabilidades energibola = new Habilidades("Energibola", tipoPlanta, 90, 100, 10, false);
-        IHabilidades hojaguda = new Habilidades("Hoja Aguda", tipoPlanta, 90, 100, 15, false);
-        IHabilidades lluevehojas = new Habilidades("Lluevehojas", tipoPlanta, 130, 80, 5, true);
-
-        Sceptile.AprenderHabilidad(cortefuria);
-        Sceptile.AprenderHabilidad(energibola);
-        Sceptile.AprenderHabilidad(lluevehojas);
-        Sceptile.AprenderHabilidad(hojaguda);
-
-        // ARCANINE
-
-        IHabilidades ascuas = new Habilidades("Ascuas", tipoFuego, 40, 100, 25, false);
-        IHabilidades lanzallamas = new Habilidades("Lanzallamas", tipoFuego, 90, 90, 15, false);
-        IHabilidades velocidadExtrema = new Habilidades("Velocidad Extrema", tipoNormal, 80, 70, 5, false);
-        IHabilidades enviteigneo = new Habilidades("Envite Ígneo", tipoFuego, 120, 60, 15, true);
-
-        Arcanine.AprenderHabilidad(ascuas);
-        Arcanine.AprenderHabilidad(lanzallamas);
-        Arcanine.AprenderHabilidad(velocidadExtrema);
-        Arcanine.AprenderHabilidad(enviteigneo);
-
-        // BLASTOISE
-        
-        IHabilidades pistolaAgua = new Habilidades("Pistola Agua", tipoAgua, 40, 100, 25, false);
-        IHabilidades hidropulso = new Habilidades("Hidropulso", tipoAgua, 60, 100, 20, false);
-        IHabilidades acuacola = new Habilidades("Acua cola", tipoAgua, 90, 90, 10, false);
-        IHabilidades hidroBomba = new Habilidades("HidroBomba", tipoAgua, 110, 80, 5, true);
-
-        Blastoise.AprenderHabilidad(hidroBomba);
-        Blastoise.AprenderHabilidad(hidropulso);
-        Blastoise.AprenderHabilidad(acuacola);
-        Blastoise.AprenderHabilidad(pistolaAgua);
-
-        // SNORLAX
-        
-        IHabilidades golpecuerpo = new Habilidades("Golpe cuerpo", tipoNormal, 85, 100, 15, false);
-        IHabilidades mordisco = new Habilidades("Mordisco", tipoSiniestro, 60, 100, 25, false);
-        IHabilidades fuerzaequina = new Habilidades("Fuerza equina", tipoTierra, 95, 95, 10, false);
-        IHabilidades gigaimpacto = new Habilidades("Gigaimpacto", tipoNormal, 150, 60, 5, true);
-
-        Snorlax.AprenderHabilidad(gigaimpacto);
-        Snorlax.AprenderHabilidad(golpecuerpo);
-        Snorlax.AprenderHabilidad(mordisco);
-        Snorlax.AprenderHabilidad(fuerzaequina);
-
-        // PIKACHU
-        IHabilidades electrobola = new Habilidades("Electrobola", tipoElectrico, 90, 90, 6, false);
-        IHabilidades rayo = new Habilidades("Rayo", tipoElectrico, 110, 70, 15, false);
-        IHabilidades puñotrueno = new Habilidades("Puño Trueno", tipoElectrico, 60, 100, 15, false);
-        IHabilidades trueno = new Habilidades("Trueno", tipoElectrico, 120, 50, 5, true);
-
-        Pikachu.AprenderHabilidad(electrobola);
-        Pikachu.AprenderHabilidad(rayo);
-        Pikachu.AprenderHabilidad(puñotrueno);
-        Pikachu.AprenderHabilidad(trueno);
-
-        // JYNX
-        IHabilidades bolasombra = new Habilidades("Bola Sombra", tipoFantasma, 70, 80, 15, false);
-        IHabilidades psiquico = new Habilidades("Psíquico", tipoPsiquico, 90, 90, 10, false);
-        IHabilidades confusion = new Habilidades("Confusión", tipoPsiquico, 70, 100, 20, false);
-        IHabilidades cabezazozen = new Habilidades("Cabezazo Zen", tipoPsiquico, 130, 70, 5, true);
-
-        Jynx.AprenderHabilidad(bolasombra);
-        Jynx.AprenderHabilidad(psiquico);
-        Jynx.AprenderHabilidad(confusion);
-        Jynx.AprenderHabilidad(cabezazozen);
-
-        // LUCARIO
-        IHabilidades golperoca = new Habilidades("Golpe Roca", tipoLucha, 40, 100, 15, false);
-        IHabilidades puñodehierro = new Habilidades("Puño de Hierro", tipoAcero, 80, 100, 10, false);
-        IHabilidades garrametal = new Habilidades("Garra Metal", tipoAcero, 95, 90, 15, false);
-        IHabilidades abocajarro = new Habilidades("A bocajarro", tipoLucha, 120, 80, 5, true);
-
-        Lucario.AprenderHabilidad(golperoca);
-        Lucario.AprenderHabilidad(puñodehierro);
-        Lucario.AprenderHabilidad(garrametal);
-        Lucario.AprenderHabilidad(abocajarro);
-
-        // FLYGON
-        IHabilidades terremoto = new Habilidades("Terremoto", tipoTierra, 70, 70, 15, false);
-        IHabilidades pataleta = new Habilidades("Pataleta", tipoTierra, 75, 100, 10, false);
-        IHabilidades danzadeldragon = new Habilidades("Danza del Dragón", tipoDragon, 80, 90, 20, false);
-        IHabilidades cataclismo = new Habilidades("Cataclismo", tipoTierra, 140, 60, 5, true);
-
-        Flygon.AprenderHabilidad(terremoto);
-        Flygon.AprenderHabilidad(pataleta);
-        Flygon.AprenderHabilidad(danzadeldragon);
-        Flygon.AprenderHabilidad(cataclismo);
-
-        // TYRANITAR
-        IHabilidades terratemblor = new Habilidades("Terratemblor", tipoTierra, 60, 100, 20, false);
-        IHabilidades avalancha = new Habilidades("Avalancha", tipoRoca, 75, 80, 15, false);
-        IHabilidades lanzarrocas = new Habilidades("Lanzarrocas", tipoRoca, 50, 100, 20, false);
-        IHabilidades rocaafilada = new Habilidades("Roca afilada", tipoRoca, 110, 70, 10, true);
-
-        Tyranitar.AprenderHabilidad(terratemblor);
-        Tyranitar.AprenderHabilidad(avalancha);
-        Tyranitar.AprenderHabilidad(lanzarrocas);
-        Tyranitar.AprenderHabilidad(rocaafilada);
-
-        // PIDGEOT
-        IHabilidades aereocontrol = new Habilidades("Aereocontrol", tipoVolador, 85, 100, 10, false);
-        IHabilidades corteAereo = new Habilidades("Corte Aéreo", tipoVolador, 90, 100, 15, false);
-        IHabilidades vientoAullador = new Habilidades("Viento Aullador", tipoVolador, 75, 95, 20, false);
-        IHabilidades tormentaAerea = new Habilidades("Tormenta Aérea", tipoVolador, 130, 70, 5, true);
-
-        Pidgeot.AprenderHabilidad(aereocontrol);
-        Pidgeot.AprenderHabilidad(corteAereo);
-        Pidgeot.AprenderHabilidad(vientoAullador);
-        Pidgeot.AprenderHabilidad(tormentaAerea);
-
-        // SCYTHER
-        IHabilidades tajoAereo = new Habilidades("Tajo Aéreo", tipoBicho, 80, 100, 15, false);
-        IHabilidades danzaDeHojas = new Habilidades("Danza de Hojas", tipoPlanta, 70, 100, 20, false);
-        IHabilidades puñoDeAcero = new Habilidades("Puño de Acero", tipoBicho, 75, 100, 15, false);
-        IHabilidades tormentaBichos = new Habilidades("Tormenta Bichos", tipoBicho, 130, 60, 5, true); // habilidad especial
-
-        Scyther.AprenderHabilidad(tajoAereo);
-        Scyther.AprenderHabilidad(danzaDeHojas);
-        Scyther.AprenderHabilidad(puñoDeAcero);
-        Scyther.AprenderHabilidad(tormentaBichos);
-
-
-        // AMOONGUSS
-        IHabilidades tijeraDeHojas = new Habilidades("Tijera de Hojas", tipoPlanta, 65, 90, 15, false);
-        IHabilidades bombardeoDeEsporas = new Habilidades("Bombardeo de Esporas", tipoVeneno, 70, 95, 15, false);
-        IHabilidades ataqueVenenoso = new Habilidades("Ataque Venenoso", tipoVeneno, 80, 80, 15, false);
-        IHabilidades tormentaVenenosa = new Habilidades("Tormenta Venenosa", tipoVeneno, 130, 60, 5, true);
-
-        Amoonguss.AprenderHabilidad(tijeraDeHojas);
-        Amoonguss.AprenderHabilidad(bombardeoDeEsporas);
-        Amoonguss.AprenderHabilidad(ataqueVenenoso);
-        Amoonguss.AprenderHabilidad(tormentaVenenosa);
-
-        // UMBREON
-        IHabilidades sombraVil = new Habilidades("Sombra Vil", tipoSiniestro, 90, 80, 10, false);
-        IHabilidades puñoFuego = new Habilidades("Puño Fuego", tipoFuego, 75, 100, 15, false);
-        IHabilidades oscuro = new Habilidades("Oscuro", tipoSiniestro, 80, 100, 15, false);
-        IHabilidades mareaOscura = new Habilidades("Marea Oscura", tipoSiniestro, 130, 70, 5, true);
-
-        Umbreon.AprenderHabilidad(sombraVil);
-        Umbreon.AprenderHabilidad(puñoFuego);
-        Umbreon.AprenderHabilidad(oscuro);
-        Umbreon.AprenderHabilidad(mareaOscura);
-
-        // GENGAR
-        IHabilidades sombraBola = new Habilidades("Sombra Bola", tipoFantasma, 80, 100, 15, false);
-        IHabilidades sombraAterradora = new Habilidades("Sombra Aterradora", tipoSiniestro, 75, 100, 15, false);
-        IHabilidades puñoSiniestro = new Habilidades("Puño Siniestro", tipoSiniestro, 70, 100, 20, false);
-        IHabilidades tormentaSombria = new Habilidades("Tormenta Sombría", tipoFantasma, 155, 60, 5, true);
-
-        Gengar.AprenderHabilidad(sombraBola);
-        Gengar.AprenderHabilidad(sombraAterradora);
-        Gengar.AprenderHabilidad(puñoSiniestro);
-        Gengar.AprenderHabilidad(tormentaSombria);
-
-
-        // LAPRAS
-        IHabilidades rayoHielo = new Habilidades("Rayo Hielo", tipoHielo, 90, 100, 10, false);
-        IHabilidades cascada = new Habilidades("Cascada", tipoAgua, 80, 100, 15, false);
-        IHabilidades hipnosis = new Habilidades("Hipnosis", tipoPsiquico, 50, 70, 20, false);
-        IHabilidades tormentaDeHielo = new Habilidades("Tormenta de Hielo", tipoHielo, 130, 60, 5, true);
-
-        Lapras.AprenderHabilidad(rayoHielo);
-        Lapras.AprenderHabilidad(cascada);
-        Lapras.AprenderHabilidad(hipnosis);
-        Lapras.AprenderHabilidad(tormentaDeHielo);
-
-        // METAGROSS
-        IHabilidades puñoAcero = new Habilidades("Puño de Acero", tipoAcero, 90, 90, 10, false);
-        IHabilidades poderPsiquico = new Habilidades("Poder Psíquico", tipoPsiquico, 90, 60, 10, false);
-        IHabilidades golpePsíquico = new Habilidades("Golpe Psíquico", tipoPsiquico, 40, 100, 15, false);
-        IHabilidades meteorito = new Habilidades("Meteorito", tipoAcero, 140, 50, 5, true);
-
-        Metagross.AprenderHabilidad(puñoAcero);
-        Metagross.AprenderHabilidad(poderPsiquico);
-        Metagross.AprenderHabilidad(golpePsíquico);
-        Metagross.AprenderHabilidad(meteorito);
-
-
-        // DRAGONITE
-        IHabilidades golpeDragon = new Habilidades("Golpe Dragón", tipoDragon, 75, 100, 15, false);
-        IHabilidades hiperrayo = new Habilidades("Hiperrayo", tipoNormal, 100, 90, 5, false);
-        IHabilidades colasDeFuego = new Habilidades("Colas de Fuego", tipoFuego, 90, 100, 15, false);
-        IHabilidades tormentaDeDragones = new Habilidades("Tormenta de Dragones", tipoDragon, 150, 50, 5, true);
-
-        Dragonite.AprenderHabilidad(golpeDragon);
-        Dragonite.AprenderHabilidad(hiperrayo);
-        Dragonite.AprenderHabilidad(colasDeFuego);
-        Dragonite.AprenderHabilidad(tormentaDeDragones);
-
-        // SYLVEON
-        IHabilidades besoEncantado = new Habilidades("Beso Encantado", tipoHada, 90, 100, 10, false);
-        IHabilidades vientoHadas = new Habilidades("Viento Hadas", tipoHada, 75, 100, 15, false);
-        IHabilidades golpeHada = new Habilidades("Golpe Hada", tipoHada, 80, 100, 15, false);
-        IHabilidades poderDeLosSuenos = new Habilidades("Poder de los Sueños", tipoHada, 130, 60, 5, true);
-
-        Sylveon.AprenderHabilidad(besoEncantado);
-        Sylveon.AprenderHabilidad(vientoHadas);
-        Sylveon.AprenderHabilidad(golpeHada);
-        Sylveon.AprenderHabilidad(poderDeLosSuenos);
+            Console.WriteLine($"{atacante.Nombre} falló el ataque");
+        }
     }
     
     public static void SeleccionarEquipo(Entrenadores entrenador, List<Pokemon> todosLosPokemones)
     {
         Console.WriteLine($"{entrenador.Nombre}, selecciona los 6 Pokémon para tu equipo:");
-
         List<Pokemon> equipo = new List<Pokemon>();
 
         for (int i = 0; i < 6; i++)
         {
-            Console.WriteLine($"\nElige el Pokémon {i + 1}:");
+            Console.WriteLine($"\nElegí el Pokémon {i + 1}:");
 
             for (int j = 0; j < todosLosPokemones.Count; j++)
             {
                 Console.WriteLine($"{j + 1}. {todosLosPokemones[j].Nombre} (HP: {todosLosPokemones[j].Vida}, Tipo: {todosLosPokemones[j].TipoPrincipal.Nombre})");
             }
             Console.WriteLine();
-            int eleccion = int.Parse(Console.ReadLine());
 
-            Pokemon pokemonElegido = todosLosPokemones[eleccion - 1];
-            if (equipo.Contains(pokemonElegido))
+            int eleccion;
+            bool eleccionValida = int.TryParse(Console.ReadLine(), out eleccion);
+            if (!eleccionValida || eleccion < 1 || eleccion > todosLosPokemones.Count)
             {
-                Console.WriteLine("Ya seleccionaste este Pokémon. Elige otro.");
+                
+                Console.WriteLine("La opciión que elegiste no es valido, ingrese de nuevo: ");
                 i--;
+                continue;
             }
-            else
-            {
-                equipo.Add(pokemonElegido);
-                Console.WriteLine($"Has agregado a {pokemonElegido.Nombre} a tu equipo.");
-            }
+            Pokemon pokemonElegido = todosLosPokemones[eleccion - 1];
+            equipo.Add(pokemonElegido);
+            Console.WriteLine();
+            Console.WriteLine($"Has agregado a {pokemonElegido.Nombre} a tu equipo");
+            todosLosPokemones.RemoveAt(eleccion - 1);
         }
         entrenador.Pokemones.AddRange(equipo);
     }
 
-    public static void ElegirPokemonInicial(Entrenadores jugador)
-    {
-        for (int i = 0; i < jugador.Pokemones.Count; i++)
-        {
-            Console.WriteLine(
-                $"{i + 1}.{jugador.Pokemones[i].Nombre}(HP:{jugador.Pokemones[i].Vida},Tipo Principal:{jugador.Pokemones[i].TipoPrincipal.Nombre})");
-        }
-        Console.WriteLine();
-        Console.WriteLine($"\n{jugador.Nombre}, elige tu pokemon para la batalla, ingresa un numero valido");
-        int eleccion = int.Parse(Console.ReadLine());
-        jugador.Pokemonelegido = jugador.Pokemones[eleccion - 1];
-    }
-
-    public Pokemon ObtenerSceptile() => Sceptile;
-    public Pokemon ObtenerArcanine() => Arcanine;
-    public Pokemon ObtenerBlastoise() => Blastoise;
-    public Pokemon ObtenerSnorlax() => Snorlax;
-    public Pokemon ObtenerPikachu() => Pikachu;
-    public Pokemon ObtenerJynx() => Jynx;
-    public Pokemon ObtenerLucario() => Lucario;
-    public Pokemon ObtenerTyranitar() => Tyranitar;
-    public Pokemon ObtenerFlygon() => Flygon;
-    public Pokemon ObtenerPidgeot() => Pidgeot;
-    public Pokemon ObtenerScyther() => Scyther;
-    public Pokemon ObtenerAmoonguss() => Amoonguss;
-    public Pokemon ObtenerUmbreon() => Umbreon;
-    public Pokemon ObtenerGengar() => Gengar;
-    public Pokemon ObtenerLapras() => Lapras;
-    public Pokemon ObtenerMetagross() => Metagross;
-    public Pokemon ObtenerDragonite() => Dragonite;
-    public Pokemon ObtenerSylveon() => Sylveon;
-
-    
 }
