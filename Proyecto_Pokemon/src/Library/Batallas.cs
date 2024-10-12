@@ -115,7 +115,7 @@ public class Batallas
             precisionfinal -= 30;
             Console.WriteLine(precisionfinal);
         }
-
+        Console.WriteLine();
         if (probabilidad <= precisionfinal)
         {
             defensor.Vida -= daño;
@@ -123,10 +123,7 @@ public class Batallas
             {
                 defensor.Vida = 0;
             }
-
-            Console.WriteLine();
-            Console.WriteLine(
-                $"{atacante.Nombre} usó {habilidad.Nombre}, hizo {daño} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}");
+            Console.WriteLine($"{atacante.Nombre} usó {habilidad.Nombre}, hizo {daño} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}");
         }
         else
         {

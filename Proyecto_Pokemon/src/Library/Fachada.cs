@@ -350,10 +350,10 @@ public class Fachada
         IHabilidades lanzarrocas = new Habilidades("Lanzarrocas", tipoRoca, 50, 100, 20, false);
         IHabilidades rocaafilada = new Habilidades("Roca afilada", tipoRoca, 110, 70, 10, true);
 
-        Flygon.AprenderHabilidad(terratemblor);
-        Flygon.AprenderHabilidad(avalancha);
-        Flygon.AprenderHabilidad(lanzarrocas);
-        Flygon.AprenderHabilidad(rocaafilada);
+        Tyranitar.AprenderHabilidad(terratemblor);
+        Tyranitar.AprenderHabilidad(avalancha);
+        Tyranitar.AprenderHabilidad(lanzarrocas);
+        Tyranitar.AprenderHabilidad(rocaafilada);
 
         // PIDGEOT
         IHabilidades aereocontrol = new Habilidades("Aereocontrol", tipoVolador, 85, 100, 10, false);
@@ -457,8 +457,70 @@ public class Fachada
         Sylveon.AprenderHabilidad(golpeHada);
         Sylveon.AprenderHabilidad(poderDeLosSuenos);
     }
+    
+    public static void SeleccionarEquipo(Entrenadores entrenador, List<Pokemon> todosLosPokemones)
+    {
+        Console.WriteLine($"{entrenador.Nombre}, selecciona los 6 Pokémon para tu equipo:");
+
+        List<Pokemon> equipo = new List<Pokemon>();
+
+        for (int i = 0; i < 6; i++)
+        {
+            Console.WriteLine($"\nElige el Pokémon {i + 1}:");
+
+            for (int j = 0; j < todosLosPokemones.Count; j++)
+            {
+                Console.WriteLine($"{j + 1}. {todosLosPokemones[j].Nombre} (HP: {todosLosPokemones[j].Vida}, Tipo: {todosLosPokemones[j].TipoPrincipal.Nombre})");
+            }
+            Console.WriteLine();
+            int eleccion = int.Parse(Console.ReadLine());
+
+            Pokemon pokemonElegido = todosLosPokemones[eleccion - 1];
+            if (equipo.Contains(pokemonElegido))
+            {
+                Console.WriteLine("Ya seleccionaste este Pokémon. Elige otro.");
+                i--;
+            }
+            else
+            {
+                equipo.Add(pokemonElegido);
+                Console.WriteLine($"Has agregado a {pokemonElegido.Nombre} a tu equipo.");
+            }
+        }
+        entrenador.Pokemones.AddRange(equipo);
+    }
+
+    public static void ElegirPokemonInicial(Entrenadores jugador)
+    {
+        for (int i = 0; i < jugador.Pokemones.Count; i++)
+        {
+            Console.WriteLine(
+                $"{i + 1}.{jugador.Pokemones[i].Nombre}(HP:{jugador.Pokemones[i].Vida},Tipo Principal:{jugador.Pokemones[i].TipoPrincipal.Nombre})");
+        }
+        Console.WriteLine();
+        Console.WriteLine($"\n{jugador.Nombre}, elige tu pokemon para la batalla, ingresa un numero valido");
+        int eleccion = int.Parse(Console.ReadLine());
+        jugador.Pokemonelegido = jugador.Pokemones[eleccion - 1];
+    }
 
     public Pokemon ObtenerSceptile() => Sceptile;
     public Pokemon ObtenerArcanine() => Arcanine;
     public Pokemon ObtenerBlastoise() => Blastoise;
+    public Pokemon ObtenerSnorlax() => Snorlax;
+    public Pokemon ObtenerPikachu() => Pikachu;
+    public Pokemon ObtenerJynx() => Jynx;
+    public Pokemon ObtenerLucario() => Lucario;
+    public Pokemon ObtenerTyranitar() => Tyranitar;
+    public Pokemon ObtenerFlygon() => Flygon;
+    public Pokemon ObtenerPidgeot() => Pidgeot;
+    public Pokemon ObtenerScyther() => Scyther;
+    public Pokemon ObtenerAmoonguss() => Amoonguss;
+    public Pokemon ObtenerUmbreon() => Umbreon;
+    public Pokemon ObtenerGengar() => Gengar;
+    public Pokemon ObtenerLapras() => Lapras;
+    public Pokemon ObtenerMetagross() => Metagross;
+    public Pokemon ObtenerDragonite() => Dragonite;
+    public Pokemon ObtenerSylveon() => Sylveon;
+
+    
 }

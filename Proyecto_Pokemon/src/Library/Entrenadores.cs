@@ -4,6 +4,7 @@ public class Entrenadores
 {
     public string Nombre { get; }
     public List<Pokemon> Pokemones { get; }
+    public Pokemon Pokemonelegido { get; set; }
 
     public Entrenadores(string nombre, List<Pokemon> pokemones)
     {
@@ -25,15 +26,4 @@ public class Entrenadores
         return Pokemones.Any(pokemon => pokemon.Vida > 0);
     }
     
-    public void AgregarPokemon(Pokemon pokemon)
-    {
-        if (Pokemones.Count < 6)
-        {
-            Pokemones.Add(pokemon);
-        }
-        else
-        {
-            Console.WriteLine("No se pueden agregar más Pokémon. Ya tienes 6.");
-        }
-    }
 }
