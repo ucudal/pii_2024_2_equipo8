@@ -4,7 +4,6 @@ public class Entrenadores
 {
     public string Nombre { get; }
     public List<Pokemon> Pokemones { get; }
-    public Pokemon Pokemonelegido { get; set; }
 
     public Entrenadores(string nombre, List<Pokemon> pokemones)
     {
