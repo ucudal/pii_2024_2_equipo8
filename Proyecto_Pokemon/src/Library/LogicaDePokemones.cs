@@ -271,12 +271,12 @@ public class LogicaDePokemones
         // PIKACHU
         IHabilidades electrobola = new Habilidades("Electrobola", tipoElectrico, 90, 90, 6, false);
         IHabilidades rayo = new Habilidades("Rayo", tipoElectrico, 110, 70, 15, false);
-        IHabilidades puñotrueno = new Habilidades("Puño Trueno", tipoElectrico, 60, 100, 15, false);
+        IHabilidades puniotrueno = new Habilidades("Puño Trueno", tipoElectrico, 60, 100, 15, false);
         IHabilidades trueno = new Habilidades("Trueno", tipoElectrico, 120, 50, 5, true);
 
         Pikachu.AprenderHabilidad(electrobola);
         Pikachu.AprenderHabilidad(rayo);
-        Pikachu.AprenderHabilidad(puñotrueno);
+        Pikachu.AprenderHabilidad(puniotrueno);
         Pikachu.AprenderHabilidad(trueno);
 
         // JYNX
@@ -292,12 +292,12 @@ public class LogicaDePokemones
 
         // LUCARIO
         IHabilidades golperoca = new Habilidades("Golpe Roca", tipoLucha, 40, 100, 15, false);
-        IHabilidades puñodehierro = new Habilidades("Puño de Hierro", tipoAcero, 80, 100, 10, false);
+        IHabilidades puniodehierro = new Habilidades("Puño de Hierro", tipoAcero, 80, 100, 10, false);
         IHabilidades garrametal = new Habilidades("Garra Metal", tipoAcero, 95, 90, 15, false);
         IHabilidades abocajarro = new Habilidades("A bocajarro", tipoLucha, 120, 80, 5, true);
 
         Lucario.AprenderHabilidad(golperoca);
-        Lucario.AprenderHabilidad(puñodehierro);
+        Lucario.AprenderHabilidad(puniodehierro);
         Lucario.AprenderHabilidad(garrametal);
         Lucario.AprenderHabilidad(abocajarro);
 
@@ -337,12 +337,12 @@ public class LogicaDePokemones
         // SCYTHER
         IHabilidades tajoAereo = new Habilidades("Tajo Aéreo", tipoBicho, 80, 100, 15, false);
         IHabilidades danzaDeHojas = new Habilidades("Danza de Hojas", tipoPlanta, 70, 100, 20, false);
-        IHabilidades puñoDeAcero = new Habilidades("Puño de Acero", tipoBicho, 75, 100, 15, false);
+        IHabilidades punioDeAcero = new Habilidades("Puño de Acero", tipoBicho, 75, 100, 15, false);
         IHabilidades tormentaBichos = new Habilidades("Tormenta Bichos", tipoBicho, 130, 60, 5, true);
 
         Scyther.AprenderHabilidad(tajoAereo);
         Scyther.AprenderHabilidad(danzaDeHojas);
-        Scyther.AprenderHabilidad(puñoDeAcero);
+        Scyther.AprenderHabilidad(punioDeAcero);
         Scyther.AprenderHabilidad(tormentaBichos);
 
 
@@ -359,24 +359,24 @@ public class LogicaDePokemones
 
         // UMBREON
         IHabilidades sombraVil = new Habilidades("Sombra Vil", tipoSiniestro, 90, 80, 10, false);
-        IHabilidades puñoFuego = new Habilidades("Puño Fuego", tipoFuego, 75, 100, 15, false);
+        IHabilidades punioFuego = new Habilidades("Puño Fuego", tipoFuego, 75, 100, 15, false);
         IHabilidades oscuro = new Habilidades("Oscuro", tipoSiniestro, 80, 100, 15, false);
         IHabilidades mareaOscura = new Habilidades("Marea Oscura", tipoSiniestro, 130, 70, 5, true);
 
         Umbreon.AprenderHabilidad(sombraVil);
-        Umbreon.AprenderHabilidad(puñoFuego);
+        Umbreon.AprenderHabilidad(punioFuego);
         Umbreon.AprenderHabilidad(oscuro);
         Umbreon.AprenderHabilidad(mareaOscura);
 
         // GENGAR
         IHabilidades sombraBola = new Habilidades("Sombra Bola", tipoFantasma, 80, 100, 15, false);
         IHabilidades sombraAterradora = new Habilidades("Sombra Aterradora", tipoSiniestro, 75, 100, 15, false);
-        IHabilidades puñoSiniestro = new Habilidades("Puño Siniestro", tipoSiniestro, 70, 100, 20, false);
+        IHabilidades punioSiniestro = new Habilidades("Puño Siniestro", tipoSiniestro, 70, 100, 20, false);
         IHabilidades tormentaSombria = new Habilidades("Tormenta Sombría", tipoFantasma, 155, 60, 5, true);
 
         Gengar.AprenderHabilidad(sombraBola);
         Gengar.AprenderHabilidad(sombraAterradora);
-        Gengar.AprenderHabilidad(puñoSiniestro);
+        Gengar.AprenderHabilidad(punioSiniestro);
         Gengar.AprenderHabilidad(tormentaSombria);
 
 
@@ -392,12 +392,12 @@ public class LogicaDePokemones
         Lapras.AprenderHabilidad(tormentaDeHielo);
 
         // METAGROSS
-        IHabilidades puñoAcero = new Habilidades("Puño de Acero", tipoAcero, 90, 90, 10, false);
+        IHabilidades punioAcero = new Habilidades("Puño de Acero", tipoAcero, 90, 90, 10, false);
         IHabilidades poderPsiquico = new Habilidades("Poder Psíquico", tipoPsiquico, 90, 60, 10, false);
         IHabilidades golpePsíquico = new Habilidades("Golpe Psíquico", tipoPsiquico, 40, 100, 15, false);
         IHabilidades meteorito = new Habilidades("Meteorito", tipoAcero, 140, 50, 5, true);
 
-        Metagross.AprenderHabilidad(puñoAcero);
+        Metagross.AprenderHabilidad(punioAcero);
         Metagross.AprenderHabilidad(poderPsiquico);
         Metagross.AprenderHabilidad(golpePsíquico);
         Metagross.AprenderHabilidad(meteorito);

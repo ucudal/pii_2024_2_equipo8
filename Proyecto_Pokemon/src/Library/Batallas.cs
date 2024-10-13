@@ -35,8 +35,7 @@ public class Batallas
             else
             {
                 Console.WriteLine();
-                Console.WriteLine(
-                    $"Turno {turno}: {atacante.Nombre} de {entrenadorActual.Nombre} elija su proximo movimiento");
+                Console.WriteLine($"Turno {turno}: {atacante.Nombre} de {entrenadorActual.Nombre} elija su proximo movimiento");
                 fachada.MostrarOpciones(this);
             }
 

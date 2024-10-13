@@ -35,9 +35,9 @@ namespace Proyecto_Pokemon
         }
 
         [Test]
-        public void Habilidad_DeberiaTenerDañoCorrecto()
+        public void Habilidad_DeberiaTenerDanioCorrecto()
         {
-            Assert.That(habilidad.Daño, Is.EqualTo(50));
+            Assert.That(habilidad.Danio, Is.EqualTo(50));
         }
 
         [Test]

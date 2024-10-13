@@ -103,7 +103,7 @@ public class BatallasTest
     public void Atacar_PokemonDefensorDeberiaDebilitarse_CambiarTurno()
     {
         charmander.Vida = 10;
-        impactrueno.Daño = 20;
+        impactrueno.Danio = 20;
 
         batalla.Atacar();
 

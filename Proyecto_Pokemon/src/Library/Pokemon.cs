@@ -30,7 +30,7 @@ public class Pokemon : IPokemon
         for (int i = 0; i < Habilidades.Count; i++)
         {
             var habilidad = Habilidades[i];
-            Console.WriteLine($"{i + 1}. {habilidad.Nombre} - Daño: {habilidad.Daño}, Precisión: {habilidad.Precision}, Tipo: {habilidad.Tipo.Nombre}, PP: {habilidad.PP}, Doble turno: {habilidad.EsDobleTurno}");
+            Console.WriteLine($"{i + 1}. {habilidad.Nombre} - Daño: {habilidad.Danio}, Precisión: {habilidad.Precision}, Tipo: {habilidad.Tipo.Nombre}, PP: {habilidad.PP}, Doble turno: {habilidad.EsDobleTurno}");
         }
     }
 

@@ -37,11 +37,11 @@ public class Fachada
     public void EjecutarAtaque(Pokemon atacante, Pokemon defensor, IHabilidades habilidad, bool esquivo)
     {
         double efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoPrincipal);
-        int daño = (int)(habilidad.Daño * efectividad);
+        int danio = (int)(habilidad.Danio * efectividad);
         if (defensor.TipoSecundario != null)
         {
             efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoSecundario);
-            daño = (int)(daño * efectividad);
+            danio = (int)(danio * efectividad);
         }
 
         Random random = new Random();
@@ -54,12 +54,12 @@ public class Fachada
         Console.WriteLine();
         if (probabilidad <= precisionfinal)
         {
-            defensor.Vida -= daño;
+            defensor.Vida -= danio;
             if (defensor.Vida < 0)
             {
                 defensor.Vida = 0;
             }
-            Console.WriteLine($"{atacante.Nombre} usó {habilidad.Nombre}, hizo {daño} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}");
+            Console.WriteLine($"{atacante.Nombre} usó {habilidad.Nombre}, hizo {danio} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}");
         }
         else
         {
