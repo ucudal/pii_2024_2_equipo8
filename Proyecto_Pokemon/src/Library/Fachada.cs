@@ -8,9 +8,10 @@ public class Fachada
         while (!opcionvalida)
         {
             Console.WriteLine();
-            Console.WriteLine("1. Atacar");
-            Console.WriteLine("2. Cambiar Pokémon");
-            Console.WriteLine("3. Esquivar");
+            Console.WriteLine("1. ATACAR");
+            Console.WriteLine("2. CAMBIAR POKEMON");
+            Console.WriteLine("3. ESQUIVAR");
+            Console.WriteLine("4. MOCHILA");
             string opcion = Console.ReadLine();
             Console.WriteLine();
             switch (opcion)
@@ -51,6 +52,7 @@ public class Fachada
         {
             precisionfinal -= 30;
         }
+
         Console.WriteLine();
         if (probabilidad <= precisionfinal)
         {
@@ -60,21 +62,28 @@ public class Fachada
                 defensor.Vida = 0;
             }
             Console.WriteLine($"{atacante.Nombre} usó {habilidad.Nombre}, hizo {danio} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}");
+        
+            if (habilidad.Efectos != null && random.Next(0, 100) < 50)
+            {
+                defensor.Estado = habilidad.Efectos.Nombre;
+                Console.WriteLine($"{defensor.Nombre} ahora está {defensor.Estado}!");
+            }
         }
         else
         {
             Console.WriteLine($"{atacante.Nombre} falló el ataque");
         }
     }
+
     
     public static void SeleccionarEquipo(Entrenadores entrenador, List<Pokemon> todosLosPokemones)
     {
-        Console.WriteLine($"{entrenador.Nombre}, selecciona los 6 Pokémon para tu equipo:");
+        Console.WriteLine($"{entrenador.Nombre}, selecciona los 6 Pokemon para tu equipo:");
         List<Pokemon> equipo = new List<Pokemon>();
 
         for (int i = 0; i < 6; i++)
         {
-            Console.WriteLine($"\nElegí el Pokémon {i + 1}:");
+            Console.WriteLine($"\nElegi el Pokemon {i + 1}:");
 
             for (int j = 0; j < todosLosPokemones.Count; j++)
             {

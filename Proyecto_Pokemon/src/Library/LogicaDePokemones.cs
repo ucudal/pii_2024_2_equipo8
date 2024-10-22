@@ -202,6 +202,11 @@ public class LogicaDePokemones
         ITipo tipoNormal = new Tipo("Normal", elementoNormal);
         ITipo tipoVolador = new Tipo("Volador", elementoVolador);
 
+        IEfectos paralisis = new Efectos("paralizado");
+        IEfectos noqueado = new Efectos("noqueado");
+        IEfectos quemadura = new Efectos("quemado");
+        IEfectos envenenado = new Efectos("envenenado");
+
         Sceptile = new Pokemon("SCEPTILE", 500, tipoPlanta);
         Arcanine = new Pokemon("ARCANINE", 500, tipoFuego);
         Blastoise = new Pokemon("BLASTOISE", 500, tipoAgua);
@@ -237,7 +242,7 @@ public class LogicaDePokemones
         IHabilidades ascuas = new Habilidades("Ascuas", tipoFuego, 40, 100, 25, false);
         IHabilidades lanzallamas = new Habilidades("Lanzallamas", tipoFuego, 90, 90, 15, false);
         IHabilidades velocidadExtrema = new Habilidades("Velocidad Extrema", tipoNormal, 80, 70, 5, false);
-        IHabilidades enviteigneo = new Habilidades("Envite Ígneo", tipoFuego, 120, 60, 15, true);
+        IHabilidades enviteigneo = new Habilidades("Envite Ígneo", tipoFuego, 120, 60, 15, true, quemadura);
 
         Arcanine.AprenderHabilidad(ascuas);
         Arcanine.AprenderHabilidad(lanzallamas);
@@ -261,18 +266,18 @@ public class LogicaDePokemones
         IHabilidades golpecuerpo = new Habilidades("Golpe cuerpo", tipoNormal, 85, 100, 15, false);
         IHabilidades mordisco = new Habilidades("Mordisco", tipoSiniestro, 60, 100, 25, false);
         IHabilidades fuerzaequina = new Habilidades("Fuerza equina", tipoTierra, 95, 95, 10, false);
-        IHabilidades gigaimpacto = new Habilidades("Gigaimpacto", tipoNormal, 150, 60, 5, true);
-
-        Snorlax.AprenderHabilidad(gigaimpacto);
+        IHabilidades gigaimpacto = new Habilidades("Gigaimpacto", tipoNormal, 150, 60, 5, true, noqueado);
+        
         Snorlax.AprenderHabilidad(golpecuerpo);
         Snorlax.AprenderHabilidad(mordisco);
         Snorlax.AprenderHabilidad(fuerzaequina);
+        Snorlax.AprenderHabilidad(gigaimpacto);
 
         // PIKACHU
         IHabilidades electrobola = new Habilidades("Electrobola", tipoElectrico, 90, 90, 6, false);
         IHabilidades rayo = new Habilidades("Rayo", tipoElectrico, 110, 70, 15, false);
         IHabilidades puniotrueno = new Habilidades("Puño Trueno", tipoElectrico, 60, 100, 15, false);
-        IHabilidades trueno = new Habilidades("Trueno", tipoElectrico, 120, 50, 5, true);
+        IHabilidades trueno = new Habilidades("Trueno", tipoElectrico, 120, 50, 5, true, paralisis);
 
         Pikachu.AprenderHabilidad(electrobola);
         Pikachu.AprenderHabilidad(rayo);
@@ -283,7 +288,7 @@ public class LogicaDePokemones
         IHabilidades bolasombra = new Habilidades("Bola Sombra", tipoFantasma, 70, 80, 15, false);
         IHabilidades psiquico = new Habilidades("Psíquico", tipoPsiquico, 90, 90, 10, false);
         IHabilidades confusion = new Habilidades("Confusión", tipoPsiquico, 70, 100, 20, false);
-        IHabilidades cabezazozen = new Habilidades("Cabezazo Zen", tipoPsiquico, 130, 70, 5, true);
+        IHabilidades cabezazozen = new Habilidades("Cabezazo Zen", tipoPsiquico, 130, 70, 5, true, noqueado);
 
         Jynx.AprenderHabilidad(bolasombra);
         Jynx.AprenderHabilidad(psiquico);
@@ -305,7 +310,7 @@ public class LogicaDePokemones
         IHabilidades terremoto = new Habilidades("Terremoto", tipoTierra, 70, 70, 15, false);
         IHabilidades pataleta = new Habilidades("Pataleta", tipoTierra, 75, 100, 10, false);
         IHabilidades danzadeldragon = new Habilidades("Danza del Dragón", tipoDragon, 80, 90, 20, false);
-        IHabilidades cataclismo = new Habilidades("Cataclismo", tipoTierra, 140, 60, 5, true);
+        IHabilidades cataclismo = new Habilidades("Cataclismo", tipoTierra, 140, 60, 5, true, noqueado);
 
         Flygon.AprenderHabilidad(terremoto);
         Flygon.AprenderHabilidad(pataleta);
@@ -338,7 +343,7 @@ public class LogicaDePokemones
         IHabilidades tajoAereo = new Habilidades("Tajo Aéreo", tipoBicho, 80, 100, 15, false);
         IHabilidades danzaDeHojas = new Habilidades("Danza de Hojas", tipoPlanta, 70, 100, 20, false);
         IHabilidades punioDeAcero = new Habilidades("Puño de Acero", tipoBicho, 75, 100, 15, false);
-        IHabilidades tormentaBichos = new Habilidades("Tormenta Bichos", tipoBicho, 130, 60, 5, true);
+        IHabilidades tormentaBichos = new Habilidades("Tormenta Bichos", tipoBicho, 130, 60, 5, true, envenenado);
 
         Scyther.AprenderHabilidad(tajoAereo);
         Scyther.AprenderHabilidad(danzaDeHojas);
@@ -350,7 +355,7 @@ public class LogicaDePokemones
         IHabilidades tijeraDeHojas = new Habilidades("Tijera de Hojas", tipoPlanta, 65, 90, 15, false);
         IHabilidades bombardeoDeEsporas = new Habilidades("Bombardeo de Esporas", tipoVeneno, 70, 95, 15, false);
         IHabilidades ataqueVenenoso = new Habilidades("Ataque Venenoso", tipoVeneno, 80, 80, 15, false);
-        IHabilidades tormentaVenenosa = new Habilidades("Tormenta Venenosa", tipoVeneno, 130, 60, 5, true);
+        IHabilidades tormentaVenenosa = new Habilidades("Tormenta Venenosa", tipoVeneno, 130, 60, 5, true, envenenado);
 
         Amoonguss.AprenderHabilidad(tijeraDeHojas);
         Amoonguss.AprenderHabilidad(bombardeoDeEsporas);
@@ -407,7 +412,7 @@ public class LogicaDePokemones
         IHabilidades golpeDragon = new Habilidades("Golpe Dragón", tipoDragon, 75, 100, 15, false);
         IHabilidades hiperrayo = new Habilidades("Hiperrayo", tipoNormal, 100, 90, 5, false);
         IHabilidades colasDeFuego = new Habilidades("Colas de Fuego", tipoFuego, 90, 100, 15, false);
-        IHabilidades tormentaDeDragones = new Habilidades("Tormenta de Dragones", tipoDragon, 150, 50, 5, true);
+        IHabilidades tormentaDeDragones = new Habilidades("Furia Dragón", tipoDragon, 150, 50, 5, true, paralisis);
 
         Dragonite.AprenderHabilidad(golpeDragon);
         Dragonite.AprenderHabilidad(hiperrayo);

@@ -8,5 +8,6 @@ public interface IHabilidades
     int Precision { get; set; }
     int PP { get; set; }
     bool EsDobleTurno { get; set; }
+    public IEfectos Efectos { get; set; }
     
 }
