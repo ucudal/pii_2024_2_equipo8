@@ -277,7 +277,7 @@ public class LogicaDePokemones
         IHabilidades electrobola = new Habilidades("Electrobola", tipoElectrico, 90, 90, 6, false);
         IHabilidades rayo = new Habilidades("Rayo", tipoElectrico, 110, 70, 15, false);
         IHabilidades puniotrueno = new Habilidades("Puño Trueno", tipoElectrico, 60, 100, 15, false);
-        IHabilidades trueno = new Habilidades("Trueno", tipoElectrico, 120, 50, 5, true, paralisis);
+        IHabilidades trueno = new Habilidades("Trueno", tipoElectrico, 120, 100, 5, true, paralisis);
 
         Pikachu.AprenderHabilidad(electrobola);
         Pikachu.AprenderHabilidad(rayo);

@@ -63,7 +63,7 @@ public class Fachada
             }
             Console.WriteLine($"{atacante.Nombre} usó {habilidad.Nombre}, hizo {danio} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}");
         
-            if (habilidad.Efectos != null && random.Next(0, 100) < 50)
+            if (habilidad.Efectos != null && random.Next(0, 100) < 100)
             {
                 defensor.Estado = habilidad.Efectos.Nombre;
                 Console.WriteLine($"{defensor.Nombre} ahora está {defensor.Estado}!");

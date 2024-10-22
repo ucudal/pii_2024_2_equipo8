@@ -43,7 +43,8 @@ public class Batallas
                     case "envenenado":
                         int danoveneno = (int)(500 * 0.05);
                         atacante.Vida -= danoveneno;
-                        Console.WriteLine($"{atacante.Nombre} pierde vida por envenenamiento. Vida restante: {atacante.Vida} / 500");
+                        Console.WriteLine(
+                            $"{atacante.Nombre} pierde vida por envenenamiento. Vida restante: {atacante.Vida} / 500");
                         if (atacante.Vida <= 0)
                         {
                             Console.WriteLine($"{atacante.Nombre} fue derrotado por el veneno!");
@@ -51,11 +52,13 @@ public class Batallas
                             CambiarTurno();
                             continue;
                         }
+
                         break;
                     case "noqueado":
                         if (random.Next(1, 5) < turnos_noqueado)
                         {
-                            Console.WriteLine($"{atacante.Nombre} se ha recuperado del noqueo y puede volver a atacar.");
+                            Console.WriteLine(
+                                $"{atacante.Nombre} se ha recuperado del noqueo y puede volver a atacar.");
                             turnos_noqueado = 4;
                             atacante.Estado = null;
                         }
@@ -65,11 +68,13 @@ public class Batallas
                             turnos_noqueado--;
                             CambiarTurno();
                         }
+
                         break;
                     case "quemado":
                         int danoquemadura = (int)(500 * 0.10);
                         atacante.Vida -= danoquemadura;
-                        Console.WriteLine($"{atacante.Nombre} está quemado y pierde {danoquemadura} HP. Vida restante: {atacante.Vida} / 500");
+                        Console.WriteLine(
+                            $"{atacante.Nombre} está quemado y pierde {danoquemadura} HP. Vida restante: {atacante.Vida} / 500");
                         if (atacante.Vida <= 0)
                         {
                             Console.WriteLine($"{atacante.Nombre} fue derrotado por la quemadura!");
@@ -77,25 +82,30 @@ public class Batallas
                             CambiarTurno();
                             continue;
                         }
+
                         break;
                 }
             }
 
-            if (atacante.HabilidadCargando != null && atacante.Estado == null)
+            if (atacante.Estado != "noqueado")
             {
-                Console.WriteLine($"{atacante.Nombre} está preparado para usar {atacante.HabilidadCargando.Nombre}.");
-                Atacar();
+                if (atacante.HabilidadCargando != null)
+                {
+                    Console.WriteLine(
+                        $"{atacante.Nombre} está preparado para usar {atacante.HabilidadCargando.Nombre}.");
+                    Atacar();
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(
+                        $"Turno {turno}: {atacante.Nombre} de {entrenadorActual.Nombre} elija su proximo movimiento");
+                    fachada.MostrarOpciones(this);
+                    CambiarTurno();
+                }
             }
-            
-            if (atacante.HabilidadCargando == null && atacante.Estado == null)
-            {
-                Console.WriteLine();
-                Console.WriteLine($"Turno {turno}: {atacante.Nombre} de {entrenadorActual.Nombre} elija su proximo movimiento");
-                fachada.MostrarOpciones(this);
-                CambiarTurno();
-            }
+
             turno++;
-            
         }
     }
 
@@ -104,11 +114,18 @@ public class Batallas
         Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
         Pokemon defensor = entrenadorActual == entrenador1 ? pokemonActivo2 : pokemonActivo1;
 
-        if (atacante.HabilidadCargando != null && atacante.Estado == null)
+        if (atacante.HabilidadCargando != null)
         {
-            fachada.EjecutarAtaque(atacante, defensor, atacante.HabilidadCargando, esquivo);
-            atacante.HabilidadCargando = null;
-            return;
+            if (atacante.Estado == "paralizado" && new Random().Next(0, 100) < 20)
+            {
+                Console.WriteLine($"{atacante.Nombre} está paralizado. No se puede mover.");
+            }
+            else
+            {
+                fachada.EjecutarAtaque(atacante, defensor, atacante.HabilidadCargando, esquivo);
+                atacante.HabilidadCargando = null;
+                return;
+            }
         }
 
         Console.WriteLine($"{entrenadorActual.Nombre}, elige una habilidad para atacar (0 para VOLVER):");
@@ -138,25 +155,22 @@ public class Batallas
 
         habilidad.PP--;
 
-        if (atacante.Estado != null)
-        {
-            if (atacante.Estado == "paralizado" && new Random().Next(0, 100) < 20)
-            {
-                Console.WriteLine($"{atacante.Nombre} está paralizado y no puede moverse!");
-                CambiarTurno();
-            }
-        }
-        else
-        {
-            if (habilidad.EsDobleTurno)
-            {
-                Console.WriteLine($"{atacante.Nombre} está cargando la habilidad {habilidad.Nombre}...");
-                atacante.HabilidadCargando = habilidad;
-                return;
-            }
 
-            fachada.EjecutarAtaque(atacante, defensor, habilidad, esquivo);
+        if (atacante.Estado == "paralizado" && new Random().Next(0, 100) < 20)
+        {
+            Console.WriteLine($"{atacante.Nombre} está paralizado. No se puede mover.");
+            CambiarTurno();
+            return;
         }
+
+        if (habilidad.EsDobleTurno)
+        {
+            Console.WriteLine($"{atacante.Nombre} está cargando la habilidad {habilidad.Nombre}...");
+            atacante.HabilidadCargando = habilidad;
+            return;
+        }
+
+        fachada.EjecutarAtaque(atacante, defensor, habilidad, esquivo);
 
         if (defensor.Vida <= 0)
         {
