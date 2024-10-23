@@ -41,9 +41,9 @@ public class Batallas
                 switch (atacante.Estado)
                 {
                     case "envenenado":
-                        atacante.Vida -= (int)(500 * 0.05);
+                        atacante.Vida -= (int)(atacante.VidaBase * 0.05);
                         Console.WriteLine(
-                            $"{atacante.Nombre} pierde vida por envenenamiento. Vida restante: {atacante.Vida} / 500");
+                            $"{atacante.Nombre} pierde vida por envenenamiento. Vida restante: {atacante.Vida} / {atacante.VidaBase}");
                         if (atacante.Vida <= 0)
                         {
                             Console.WriteLine($"{atacante.Nombre} fue derrotado por el veneno!");
@@ -69,8 +69,8 @@ public class Batallas
 
                         break;
                     case "quemado":
-                        atacante.Vida -= (int)(500 * 0.10);
-                        Console.WriteLine($"{atacante.Nombre} está quemado y pierde {(int)(500 * 0.10)} HP. Vida restante: {atacante.Vida} / 500");
+                        atacante.Vida -= (int)(atacante.VidaBase * 0.10);
+                        Console.WriteLine($"{atacante.Nombre} está quemado y pierde {(int)(atacante.VidaBase * 0.10)} HP. Vida restante: {atacante.Vida} / {atacante.VidaBase}");
                         if (atacante.Vida <= 0)
                         {
                             Console.WriteLine($"{atacante.Nombre} fue derrotado por la quemadura!");
@@ -229,7 +229,7 @@ public class Batallas
     public void UsarMochila()
     {
         Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
-        Console.WriteLine($"{entrenadorActual.Nombre}, elige el objeto que deseas usar (0 para VOLVER):");
+        Console.WriteLine($"{entrenadorActual.Nombre}, elegí el objeto que deseas usar (0 para VOLVER):");
         entrenadorActual.MostrarMochila();
         int objetoElegido = Convert.ToInt32(Console.ReadLine()) - 1;
 
@@ -240,7 +240,7 @@ public class Batallas
 
         while (objetoElegido >= entrenadorActual.Mochila.Count || objetoElegido < -1)
         {
-            Console.WriteLine("El objeto que quieres usar no existe, ingrese el número nuevamente: ");
+            Console.WriteLine("El objeto que querés usar no existe, ingresa el numero nuevamente: ");
             entrenadorActual.MostrarMochila();
             objetoElegido = Convert.ToInt32(Console.ReadLine()) - 1;
         }

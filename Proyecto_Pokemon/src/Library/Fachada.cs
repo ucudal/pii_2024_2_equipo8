@@ -60,10 +60,10 @@ public class Fachada
         Console.WriteLine();
         if (probabilidad <= precisionfinal)
         {
-            if (random.Next(0, 100) < 20)
+            if (random.Next(0, 100) < 20 && habilidad.EsDobleTurno)
             {
                 danio = (int)(danio * 1.2);
-                Console.WriteLine("Golpe critico!");
+                Console.WriteLine("- Piña critica -");
             }
             defensor.Vida -= danio;
             if (defensor.Vida < 0)
@@ -72,7 +72,7 @@ public class Fachada
             }
             Console.WriteLine($"{atacante.Nombre} usó {habilidad.Nombre}, hizo {danio} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}");
         
-            if (habilidad.Efectos != null && random.Next(0, 100) < 100)
+            if (habilidad.Efectos != null && random.Next(0, 100) < 100 && defensor.Estado == null)
             {
                 defensor.Estado = habilidad.Efectos.Nombre;
                 Console.WriteLine($"{defensor.Nombre} ahora está {defensor.Estado}!");

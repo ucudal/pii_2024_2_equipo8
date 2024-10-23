@@ -4,6 +4,7 @@ public class Pokemon : IPokemon
 {
     public string Nombre { get; }
     public int Vida { get; set; }
+    public int VidaBase { get; set; }
     public List<IHabilidades> Habilidades { get; }
     public ITipo TipoPrincipal { get; }
     public ITipo TipoSecundario { get; }
@@ -14,6 +15,7 @@ public class Pokemon : IPokemon
     {
         Nombre = nombre;
         Vida = vida;
+        VidaBase = Vida;
         TipoPrincipal = tipoPrincipal;
         TipoSecundario = tipoSecundario;
         Habilidades = new List<IHabilidades>();
