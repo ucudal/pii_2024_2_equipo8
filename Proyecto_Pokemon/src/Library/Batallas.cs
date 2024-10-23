@@ -195,7 +195,7 @@ public class Batallas
 
     public void CambiarPokemon()
     {
-        Console.WriteLine($"{entrenadorActual.Nombre}, elegí el Pokemon que quieras usar (0 para VOLVER):");
+        Console.WriteLine($"{entrenadorActual.Nombre}, elegí el Pokemon que quieras usar:");
         entrenadorActual.MostrarPokemones();
         int indicePokemon = Convert.ToInt32(Console.ReadLine()) - 1;
 
