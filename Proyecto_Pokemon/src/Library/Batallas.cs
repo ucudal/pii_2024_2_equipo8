@@ -86,14 +86,12 @@ public class Batallas
             {
                 if (atacante.HabilidadCargando != null)
                 {
-                    Console.WriteLine("EFECTO");
                     Console.WriteLine(
                         $"{atacante.Nombre} está preparado para usar {atacante.HabilidadCargando.Nombre}.");
                     Atacar();
                 }
                 else
                 {
-                    Console.WriteLine("NOEFECTO");
                     Console.WriteLine();
                     Console.WriteLine(
                         $"Turno {turno}: {atacante.Nombre} de {entrenadorActual.Nombre} elija su proximo movimiento");
@@ -179,7 +177,7 @@ public class Batallas
             else
             {
                 Console.WriteLine(
-                    $"El {defensor.Nombre} de {entrenadorActual.Nombre} fue derrotado, cambia el pokemon");
+                        $"El {defensor.Nombre} de {entrenadorActual.Nombre} fue derrotado, cambia el pokemon");
                 CambiarPokemon();
             }
         }
