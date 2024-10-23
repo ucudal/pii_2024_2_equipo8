@@ -69,7 +69,7 @@ public class Fachada
             if (random.Next(0, 100) < 20 && habilidad.EsDobleTurno)
             {
                 danio = (int)(danio * 1.2);
-                Console.WriteLine("- Piña critica -");
+                Console.WriteLine("Piña Critica!");
             }
             defensor.Vida -= danio;
             if (defensor.Vida < 0)

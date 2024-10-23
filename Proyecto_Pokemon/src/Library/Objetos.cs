@@ -52,7 +52,7 @@ public class Objetos
             return;
         }
         int vidaRecuperada = 70;
-        if ((vidaRecuperada + pokemon.Vida) > 500)
+        if ((vidaRecuperada + pokemon.Vida) > pokemon.VidaBase)
         {
             Console.WriteLine($"{pokemon.Nombre} no puede curarse más de la vida base, pierdes el objeto.");
             return;
@@ -71,7 +71,7 @@ public class Objetos
 
         if (pokemonParaRevivir.Vida <= 0)
         {
-            pokemonParaRevivir.Vida = 500 / 2;
+            pokemonParaRevivir.Vida = (int)(pokemonParaRevivir.VidaBase / 2);
             Console.WriteLine($"{pokemonParaRevivir.Nombre} ha sido revivido con {pokemonParaRevivir.Vida} puntos de vida.");
         }
         else
@@ -82,7 +82,7 @@ public class Objetos
 
     private void UsarCuraTotal(Pokemon pokemon, Entrenadores entrenador)
     {
-        if (pokemon.Estado != null)
+        if (pokemon.Estado == null)
         {
             Console.WriteLine($"{pokemon.Nombre} no está afectado por ningún estado alterado.");
             return;
