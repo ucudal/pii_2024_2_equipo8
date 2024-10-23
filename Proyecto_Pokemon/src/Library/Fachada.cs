@@ -36,7 +36,6 @@ public class Fachada
                     break;
                 case "5":
                     batalla.VerVida();
-                    opcionvalida = true;
                     break;
                 default:
                     Console.WriteLine("Opción invalida. Ingrese nuevamente");
