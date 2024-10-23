@@ -252,4 +252,13 @@ public class Batallas
     {
         entrenadorActual = entrenadorActual == entrenador1 ? entrenador2 : entrenador1;
     }
+
+    public void VerVida() 
+    {
+        Console.WriteLine($"Pokémons de {entrenador1.Nombre}:");
+        entrenador1.MostrarPokemones();
+        Console.WriteLine($"Pokémons de {entrenador2.Nombre}:");
+        entrenador2.MostrarPokemones();
+        
+    }
 }

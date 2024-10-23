@@ -12,6 +12,8 @@ public class Fachada
             Console.WriteLine("2. CAMBIAR POKEMON");
             Console.WriteLine("3. MOCHILA");
             Console.WriteLine("4. ESQUIVAR");
+            Console.WriteLine("5. VIDA POKEMONS");
+
             string opcion = Console.ReadLine();
             Console.WriteLine();
             switch (opcion)
@@ -31,6 +33,9 @@ public class Fachada
                 case "4":
                     batalla.Esquivar();
                     opcionvalida = true;
+                    break;
+                case "5":
+                    batalla.VerVida();
                     break;
                 default:
                     Console.WriteLine("Opción invalida. Ingrese nuevamente");
