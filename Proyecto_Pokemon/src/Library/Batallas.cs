@@ -41,8 +41,7 @@ public class Batallas
                 switch (atacante.Estado)
                 {
                     case "envenenado":
-                        int danoveneno = (int)(500 * 0.05);
-                        atacante.Vida -= danoveneno;
+                        atacante.Vida -= (int)(500 * 0.05);
                         Console.WriteLine(
                             $"{atacante.Nombre} pierde vida por envenenamiento. Vida restante: {atacante.Vida} / 500");
                         if (atacante.Vida <= 0)
@@ -57,8 +56,7 @@ public class Batallas
                     case "noqueado":
                         if (random.Next(1, 5) < turnos_noqueado)
                         {
-                            Console.WriteLine(
-                                $"{atacante.Nombre} se ha recuperado del noqueo y puede volver a atacar.");
+                            Console.WriteLine($"{atacante.Nombre} se ha recuperado del noqueo y puede volver a atacar.");
                             turnos_noqueado = 4;
                             atacante.Estado = null;
                         }
@@ -71,10 +69,8 @@ public class Batallas
 
                         break;
                     case "quemado":
-                        int danoquemadura = (int)(500 * 0.10);
-                        atacante.Vida -= danoquemadura;
-                        Console.WriteLine(
-                            $"{atacante.Nombre} está quemado y pierde {danoquemadura} HP. Vida restante: {atacante.Vida} / 500");
+                        atacante.Vida -= (int)(500 * 0.10);
+                        Console.WriteLine($"{atacante.Nombre} está quemado y pierde {(int)(500 * 0.10)} HP. Vida restante: {atacante.Vida} / 500");
                         if (atacante.Vida <= 0)
                         {
                             Console.WriteLine($"{atacante.Nombre} fue derrotado por la quemadura!");
@@ -111,12 +107,13 @@ public class Batallas
 
     public void Atacar()
     {
+        Random random = new Random();
         Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
         Pokemon defensor = entrenadorActual == entrenador1 ? pokemonActivo2 : pokemonActivo1;
 
         if (atacante.HabilidadCargando != null)
         {
-            if (atacante.Estado == "paralizado" && new Random().Next(0, 100) < 20)
+            if (atacante.Estado == "paralizado" && random.Next(0, 100) < 20)
             {
                 Console.WriteLine($"{atacante.Nombre} está paralizado. No se puede mover.");
             }
@@ -155,11 +152,9 @@ public class Batallas
 
         habilidad.PP--;
 
-
-        if (atacante.Estado == "paralizado" && new Random().Next(0, 100) < 20)
+        if (atacante.Estado == "paralizado" && random.Next(0, 100) < 20)
         {
             Console.WriteLine($"{atacante.Nombre} está paralizado. No se puede mover.");
-            CambiarTurno();
             return;
         }
 
@@ -189,7 +184,6 @@ public class Batallas
         }
     }
 
-
     public void Esquivar()
     {
         Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
@@ -204,12 +198,8 @@ public class Batallas
         Console.WriteLine($"{entrenadorActual.Nombre}, elegí el Pokemon que quieras usar (0 para VOLVER):");
         entrenadorActual.MostrarPokemones();
         int indicePokemon = Convert.ToInt32(Console.ReadLine()) - 1;
-        if (indicePokemon == -1)
-        {
-            fachada.MostrarOpciones(this);
-        }
 
-        while (indicePokemon >= entrenadorActual.Pokemones.Count || indicePokemon < -1)
+        while (indicePokemon >= entrenadorActual.Pokemones.Count || indicePokemon < 0)
         {
             Console.WriteLine("El pokemon que queres usar no existe, ingrese el cambio nuevamente: ");
             entrenadorActual.MostrarPokemones();
@@ -236,6 +226,30 @@ public class Batallas
         }
     }
 
+    public void UsarMochila()
+    {
+        Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
+        Console.WriteLine($"{entrenadorActual.Nombre}, elige el objeto que deseas usar (0 para VOLVER):");
+        entrenadorActual.MostrarMochila();
+        int objetoElegido = Convert.ToInt32(Console.ReadLine()) - 1;
+
+        if (objetoElegido == -1)
+        {
+            fachada.MostrarOpciones(this);
+        }
+
+        while (objetoElegido >= entrenadorActual.Mochila.Count || objetoElegido < -1)
+        {
+            Console.WriteLine("El objeto que quieres usar no existe, ingrese el número nuevamente: ");
+            entrenadorActual.MostrarMochila();
+            objetoElegido = Convert.ToInt32(Console.ReadLine()) - 1;
+        }
+
+        Objetos objeto = entrenadorActual.Mochila[objetoElegido];
+        objeto.Usar(atacante, entrenadorActual);
+        entrenadorActual.Mochila.RemoveAt(objetoElegido);
+    }
+    
     private void CambiarTurno()
     {
         entrenadorActual = entrenadorActual == entrenador1 ? entrenador2 : entrenador1;

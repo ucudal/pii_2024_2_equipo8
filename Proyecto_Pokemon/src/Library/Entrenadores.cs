@@ -4,11 +4,27 @@ public class Entrenadores
 {
     public string Nombre { get; }
     public List<Pokemon> Pokemones { get; }
+    public List<Objetos> Mochila { get; }
 
-    public Entrenadores(string nombre, List<Pokemon> pokemones)
+    public Entrenadores(string nombre, List<Pokemon> pokemones, List<Objetos> mochila = null)
     {
         Nombre = nombre;
         Pokemones = pokemones;
+        Mochila = mochila ?? InicializarMochila();
+    }
+    
+    private List<Objetos> InicializarMochila()
+    {
+        return new List<Objetos>
+        {
+            new Objetos(TipoObjeto.SuperPocion),
+            new Objetos(TipoObjeto.SuperPocion),
+            new Objetos(TipoObjeto.SuperPocion),
+            new Objetos(TipoObjeto.SuperPocion),
+            new Objetos(TipoObjeto.Revivir),
+            new Objetos(TipoObjeto.CuraTotal),
+            new Objetos(TipoObjeto.CuraTotal)
+        };
     }
     
     public void MostrarPokemones()
@@ -23,6 +39,15 @@ public class Entrenadores
     public bool TienePokemonesVivos()
     {
         return Pokemones.Any(pokemon => pokemon.Vida > 0);
+    }
+    
+    public void MostrarMochila()
+    {
+        Console.WriteLine("Objetos disponibles:");
+        for (int i = 0; i < Mochila.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {Mochila[i].Nombre}");
+        }
     }
     
 }

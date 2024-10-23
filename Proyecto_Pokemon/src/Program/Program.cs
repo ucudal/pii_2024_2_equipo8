@@ -8,6 +8,7 @@ namespace Proyecto_Pokemon
         {
             LogicaDePokemones todoslospoke = new LogicaDePokemones();
             List<Pokemon> todosLosPokemones = todoslospoke.InicializarPokemones();
+            
 
             Entrenadores entrenador1 = new Entrenadores("Elon Musk", new List<Pokemon>());
             Fachada.SeleccionarEquipo(entrenador1, todosLosPokemones);

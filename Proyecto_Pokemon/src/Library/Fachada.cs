@@ -10,8 +10,8 @@ public class Fachada
             Console.WriteLine();
             Console.WriteLine("1. ATACAR");
             Console.WriteLine("2. CAMBIAR POKEMON");
-            Console.WriteLine("3. ESQUIVAR");
-            Console.WriteLine("4. MOCHILA");
+            Console.WriteLine("3. MOCHILA");
+            Console.WriteLine("4. ESQUIVAR");
             string opcion = Console.ReadLine();
             Console.WriteLine();
             switch (opcion)
@@ -25,6 +25,10 @@ public class Fachada
                     opcionvalida = true;
                     break;
                 case "3":
+                    batalla.UsarMochila();
+                    opcionvalida = true;
+                    break;
+                case "4":
                     batalla.Esquivar();
                     opcionvalida = true;
                     break;
@@ -56,6 +60,11 @@ public class Fachada
         Console.WriteLine();
         if (probabilidad <= precisionfinal)
         {
+            if (random.Next(0, 100) < 20)
+            {
+                danio = (int)(danio * 1.2);
+                Console.WriteLine("Golpe critico!");
+            }
             defensor.Vida -= danio;
             if (defensor.Vida < 0)
             {
