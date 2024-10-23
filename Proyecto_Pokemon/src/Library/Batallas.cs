@@ -78,7 +78,6 @@ public class Batallas
                             CambiarTurno();
                             continue;
                         }
-
                         break;
                 }
             }
@@ -87,12 +86,14 @@ public class Batallas
             {
                 if (atacante.HabilidadCargando != null)
                 {
+                    Console.WriteLine("EFECTO");
                     Console.WriteLine(
                         $"{atacante.Nombre} está preparado para usar {atacante.HabilidadCargando.Nombre}.");
                     Atacar();
                 }
                 else
                 {
+                    Console.WriteLine("NOEFECTO");
                     Console.WriteLine();
                     Console.WriteLine(
                         $"Turno {turno}: {atacante.Nombre} de {entrenadorActual.Nombre} elija su proximo movimiento");
@@ -100,7 +101,6 @@ public class Batallas
                     CambiarTurno();
                 }
             }
-
             turno++;
         }
     }
@@ -121,6 +121,7 @@ public class Batallas
             {
                 fachada.EjecutarAtaque(atacante, defensor, atacante.HabilidadCargando, esquivo);
                 atacante.HabilidadCargando = null;
+                CambiarTurno();
                 return;
             }
         }
@@ -191,7 +192,6 @@ public class Batallas
         Console.WriteLine(
             $"{atacante.Nombre} de {entrenadorActual.Nombre} está preparado para esquivar el proximo movimiento");
     }
-
 
     public void CambiarPokemon()
     {
