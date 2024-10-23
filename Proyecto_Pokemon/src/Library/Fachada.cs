@@ -12,7 +12,7 @@ public class Fachada
             Console.WriteLine("2. CAMBIAR POKEMON");
             Console.WriteLine("3. MOCHILA");
             Console.WriteLine("4. ESQUIVAR");
-            Console.WriteLine("5. VIDA POKEMONS");
+            Console.WriteLine("5. VIDA POKEMONES");
 
             string opcion = Console.ReadLine();
             Console.WriteLine();
@@ -65,7 +65,7 @@ public class Fachada
         Console.WriteLine();
         if (probabilidad <= precisionfinal)
         {
-            if (random.Next(0, 100) < 20 && habilidad.EsDobleTurno)
+            if (random.Next(0, 100) < 10 && habilidad.EsDobleTurno)
             {
                 danio = (int)(danio * 1.2);
                 Console.WriteLine("Piña Critica!");

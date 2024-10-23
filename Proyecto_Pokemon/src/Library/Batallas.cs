@@ -124,26 +124,33 @@ public class Batallas
             }
         }
 
-        Console.WriteLine($"{entrenadorActual.Nombre}, elige una habilidad para atacar (0 para VOLVER):");
-        atacante.MostrarHabilidades();
-        int habilidadElegida = Convert.ToInt32(Console.ReadLine()) - 1;
-        if (habilidadElegida == -1)
+        int habilidadElegida;
+        do
         {
-            fachada.MostrarOpciones(this);
-        }
-
-        while (habilidadElegida > 3 || habilidadElegida < -1)
-        {
-            Console.WriteLine("La habilidad que queres usar no existe, ingreselo de nuevo: ");
+            Console.WriteLine($"{entrenadorActual.Nombre}, elige una habilidad para atacar (0 para VOLVER):");
             atacante.MostrarHabilidades();
+    
             habilidadElegida = Convert.ToInt32(Console.ReadLine()) - 1;
-        }
+
+            if (habilidadElegida == -1)
+            {
+                fachada.MostrarOpciones(this);
+                return;
+            }
+
+            if (habilidadElegida < 0 || habilidadElegida > 3)
+            {
+                Console.WriteLine("La habilidad que elegiste no existe. Inténtalo de nuevo.");
+                Console.WriteLine("");
+            }
+
+        } while (habilidadElegida < 0 || habilidadElegida > 3);
 
         IHabilidades habilidad = atacante.Habilidades[habilidadElegida];
 
         while (habilidad.PP <= 0)
         {
-            Console.WriteLine($"La habilidad {habilidad.Nombre} no tiene PP suficientes, elige otra habilidad:");
+            Console.WriteLine($"La habilidad {habilidad.Nombre} no tiene PP suficientes, elegí otra habilidad:");
             atacante.MostrarHabilidades();
             habilidadElegida = Convert.ToInt32(Console.ReadLine()) - 1;
             habilidad = atacante.Habilidades[habilidadElegida];
@@ -193,16 +200,27 @@ public class Batallas
 
     public void CambiarPokemon()
     {
-        Console.WriteLine($"{entrenadorActual.Nombre}, elegí el Pokemon que quieras usar:");
-        entrenadorActual.MostrarPokemones();
-        int indicePokemon = Convert.ToInt32(Console.ReadLine()) - 1;
+        int indicePokemon;
 
-        while (indicePokemon >= entrenadorActual.Pokemones.Count || indicePokemon < 0)
+        do
         {
-            Console.WriteLine("El pokemon que queres usar no existe, ingrese el cambio nuevamente: ");
+            Console.WriteLine($"{entrenadorActual.Nombre}, elegí el Pokemon que quieras usar (0 para VOLVER):");
             entrenadorActual.MostrarPokemones();
+
             indicePokemon = Convert.ToInt32(Console.ReadLine()) - 1;
-        }
+
+            if (indicePokemon == -1)
+            {
+                fachada.MostrarOpciones(this);
+                return;
+            }
+
+            if (indicePokemon >= entrenadorActual.Pokemones.Count || indicePokemon < 0)
+            {
+                Console.WriteLine("El Pokémon que elegiste no existe. Inténtalo de nuevo.");
+            }
+
+        } while (indicePokemon >= entrenadorActual.Pokemones.Count || indicePokemon < 0);
 
         if (entrenadorActual.Pokemones[indicePokemon].Vida > 0)
         {
@@ -227,22 +245,26 @@ public class Batallas
     public void UsarMochila()
     {
         Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
-        Console.WriteLine($"{entrenadorActual.Nombre}, elegí el objeto que deseas usar (0 para VOLVER):");
-        entrenadorActual.MostrarMochila();
-        int objetoElegido = Convert.ToInt32(Console.ReadLine()) - 1;
-
-        if (objetoElegido == -1)
+        int objetoElegido;
+        do
         {
-            fachada.MostrarOpciones(this);
-        }
-
-        while (objetoElegido >= entrenadorActual.Mochila.Count || objetoElegido < -1)
-        {
-            Console.WriteLine("El objeto que querés usar no existe, ingresa el numero nuevamente: ");
+            Console.WriteLine($"{entrenadorActual.Nombre}, elegí el objeto que deseas usar (0 para VOLVER):");
             entrenadorActual.MostrarMochila();
+        
             objetoElegido = Convert.ToInt32(Console.ReadLine()) - 1;
-        }
 
+            if (objetoElegido == -1)
+            {
+                fachada.MostrarOpciones(this);
+                return;
+            }
+
+            if (objetoElegido >= entrenadorActual.Mochila.Count || objetoElegido < 0)
+            {
+                Console.WriteLine("El objeto que elegiste no existe. Inténtalo de nuevo.");
+            }
+
+        } while (objetoElegido >= entrenadorActual.Mochila.Count || objetoElegido < 0);
         Objetos objeto = entrenadorActual.Mochila[objetoElegido];
         objeto.Usar(atacante, entrenadorActual);
         entrenadorActual.Mochila.RemoveAt(objetoElegido);
@@ -255,10 +277,10 @@ public class Batallas
 
     public void VerVida() 
     {
-        Console.WriteLine($"Pokémons de {entrenador1.Nombre}:");
+        Console.WriteLine($"Pokemones de {entrenador1.Nombre}:");
         entrenador1.MostrarPokemones();
-        Console.WriteLine($"Pokémons de {entrenador2.Nombre}:");
+        Console.WriteLine();
+        Console.WriteLine($"Pokemones de {entrenador2.Nombre}:");
         entrenador2.MostrarPokemones();
-        
     }
 }
