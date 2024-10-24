@@ -242,7 +242,7 @@ public class LogicaDePokemones
         IHabilidades ascuas = new Habilidades("Ascuas", tipoFuego, 40, 100, 25, false);
         IHabilidades lanzallamas = new Habilidades("Lanzallamas", tipoFuego, 90, 90, 15, false);
         IHabilidades velocidadExtrema = new Habilidades("Velocidad Extrema", tipoNormal, 80, 70, 5, false);
-        IHabilidades enviteigneo = new Habilidades("Envite Ígneo", tipoFuego, 120, 60, 15, true, quemadura);
+        IHabilidades enviteigneo = new Habilidades("Envite Ígneo", tipoFuego, 120, 100, 15, true, quemadura);
 
         Arcanine.AprenderHabilidad(ascuas);
         Arcanine.AprenderHabilidad(lanzallamas);
@@ -254,7 +254,7 @@ public class LogicaDePokemones
         IHabilidades pistolaAgua = new Habilidades("Pistola Agua", tipoAgua, 40, 100, 25, false);
         IHabilidades hidropulso = new Habilidades("Hidropulso", tipoAgua, 60, 100, 20, false);
         IHabilidades acuacola = new Habilidades("Acua cola", tipoAgua, 90, 90, 10, false);
-        IHabilidades hidroBomba = new Habilidades("HidroBomba", tipoAgua, 110, 80, 5, true);
+        IHabilidades hidroBomba = new Habilidades("Hidroomba", tipoAgua, 110, 80, 5, true);
 
         Blastoise.AprenderHabilidad(hidroBomba);
         Blastoise.AprenderHabilidad(hidropulso);

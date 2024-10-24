@@ -59,7 +59,9 @@ public class Fachada
         int precisionfinal = habilidad.Precision;
         if (esquivo)
         {
+            
             precisionfinal -= 30;
+            Console.WriteLine(precisionfinal);
         }
 
         Console.WriteLine();

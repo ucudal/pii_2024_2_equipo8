@@ -43,10 +43,24 @@ public class Entrenadores
     
     public void MostrarMochila()
     {
-        Console.WriteLine("Objetos disponibles:");
-        for (int i = 0; i < Mochila.Count; i++)
+        Dictionary<string, int> contadordeObjetos = new Dictionary<string, int>();
+        foreach (var objetos in Mochila)
         {
-            Console.WriteLine($"{i + 1}. {Mochila[i].Nombre}");
+            if (contadordeObjetos.ContainsKey(objetos.Nombre))
+            {
+                contadordeObjetos[objetos.Nombre]++;
+            }
+            else
+            {
+                contadordeObjetos[objetos.Nombre] = 1;
+            }
+        }
+        Console.WriteLine("Objetos disponibles:");
+        int i = 1;
+        foreach (var objetitos in contadordeObjetos)
+        {
+            Console.WriteLine($"{i}. {objetitos.Key} ({objetitos.Value}x)");
+            i++;
         }
     }
     

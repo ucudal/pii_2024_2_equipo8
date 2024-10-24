@@ -42,14 +42,17 @@ public class Batallas
                 {
                     case "envenenado":
                         atacante.Vida -= (int)(atacante.VidaBase * 0.05);
-                        Console.WriteLine(
-                            $"{atacante.Nombre} pierde vida por envenenamiento. Vida restante: {atacante.Vida} / {atacante.VidaBase}");
                         if (atacante.Vida <= 0)
                         {
-                            Console.WriteLine($"{atacante.Nombre} fue derrotado por el veneno!");
+                            atacante.Vida = 0;
+                            Console.WriteLine($"{atacante.Nombre} fue derrotado por el veneno.");
                             CambiarPokemon();
                             CambiarTurno();
                             continue;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{atacante.Nombre} pierde vida por envenenamiento. Vida restante: {atacante.Vida} / {atacante.VidaBase}");
                         }
 
                         break;
@@ -70,13 +73,17 @@ public class Batallas
                         break;
                     case "quemado":
                         atacante.Vida -= (int)(atacante.VidaBase * 0.10);
-                        Console.WriteLine($"{atacante.Nombre} está quemado y pierde {(int)(atacante.VidaBase * 0.10)} HP. Vida restante: {atacante.Vida} / {atacante.VidaBase}");
                         if (atacante.Vida <= 0)
                         {
-                            Console.WriteLine($"{atacante.Nombre} fue derrotado por la quemadura!");
+                            atacante.Vida = 0;
+                            Console.WriteLine($"{atacante.Nombre} fue derrotado por la quemadura.");
                             CambiarPokemon();
                             CambiarTurno();
                             continue;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{atacante.Nombre} está quemado y pierde {(int)(atacante.VidaBase * 0.10)} HP. Vida restante: {atacante.Vida} / {atacante.VidaBase}");
                         }
                         break;
                 }
@@ -204,16 +211,10 @@ public class Batallas
 
         do
         {
-            Console.WriteLine($"{entrenadorActual.Nombre}, elegí el Pokemon que quieras usar (0 para VOLVER):");
+            Console.WriteLine($"{entrenadorActual.Nombre}, elegí el Pokemon que quieras usar:");
             entrenadorActual.MostrarPokemones();
 
             indicePokemon = Convert.ToInt32(Console.ReadLine()) - 1;
-
-            if (indicePokemon == -1)
-            {
-                fachada.MostrarOpciones(this);
-                return;
-            }
 
             if (indicePokemon >= entrenadorActual.Pokemones.Count || indicePokemon < 0)
             {
