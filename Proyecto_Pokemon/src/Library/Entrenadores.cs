@@ -17,13 +17,13 @@ public class Entrenadores
     {
         return new List<Objetos>
         {
-            new Objetos(TipoObjeto.SuperPocion),
-            new Objetos(TipoObjeto.SuperPocion),
-            new Objetos(TipoObjeto.SuperPocion),
-            new Objetos(TipoObjeto.SuperPocion),
-            new Objetos(TipoObjeto.Revivir),
-            new Objetos(TipoObjeto.CuraTotal),
-            new Objetos(TipoObjeto.CuraTotal)
+            new SuperPocion(),
+            new SuperPocion(),
+            new SuperPocion(),
+            new SuperPocion(),
+            new Revivir(),
+            new CuraTotal(),
+            new CuraTotal()
         };
     }
     
@@ -41,9 +41,11 @@ public class Entrenadores
         return Pokemones.Any(pokemon => pokemon.Vida > 0);
     }
     
-    public void MostrarMochila()
+    public List<Objetos> MostrarMochila()
     {
         Dictionary<string, int> contadordeObjetos = new Dictionary<string, int>();
+        List<Objetos> listaObjetosUnicos = new List<Objetos>();
+        
         foreach (var objetos in Mochila)
         {
             if (contadordeObjetos.ContainsKey(objetos.Nombre))
@@ -53,15 +55,18 @@ public class Entrenadores
             else
             {
                 contadordeObjetos[objetos.Nombre] = 1;
+                listaObjetosUnicos.Add(objetos);
             }
         }
+        
         Console.WriteLine("Objetos disponibles:");
-        int i = 1;
-        foreach (var objetitos in contadordeObjetos)
+        for (int i = 0; i < listaObjetosUnicos.Count; i++)
         {
-            Console.WriteLine($"{i}. {objetitos.Key} ({objetitos.Value}x)");
-            i++;
+            var objeto = listaObjetosUnicos[i];
+            Console.WriteLine($"{i + 1}. {objeto.Nombre} ({contadordeObjetos[objeto.Nombre]}x)");
         }
+
+        return listaObjetosUnicos;
     }
     
 }

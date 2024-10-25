@@ -247,11 +247,11 @@ public class Batallas
     {
         Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
         int objetoElegido;
+        List<Objetos> listaObjetosUnicos = entrenadorActual.MostrarMochila();
+        
         do
         {
-            Console.WriteLine($"{entrenadorActual.Nombre}, elegí el objeto que deseas usar (0 para VOLVER):");
-            entrenadorActual.MostrarMochila();
-        
+            Console.WriteLine($"{entrenadorActual.Nombre}, elegí el objeto que quieras usar (0 para VOLVER):");
             objetoElegido = Convert.ToInt32(Console.ReadLine()) - 1;
 
             if (objetoElegido == -1)
@@ -266,9 +266,24 @@ public class Batallas
             }
 
         } while (objetoElegido >= entrenadorActual.Mochila.Count || objetoElegido < 0);
-        Objetos objeto = entrenadorActual.Mochila[objetoElegido];
-        objeto.Usar(atacante, entrenadorActual);
-        entrenadorActual.Mochila.RemoveAt(objetoElegido);
+        Objetos objeto = listaObjetosUnicos[objetoElegido];
+        switch (objeto)
+        {
+            case SuperPocion superPocion:
+                superPocion.Usar(atacante, entrenadorActual);
+                break;
+            case Revivir revivir:
+                revivir.Usar(atacante, entrenadorActual);
+                break;
+            case CuraTotal curaTotal:
+                curaTotal.Usar(atacante, entrenadorActual);
+                break;
+        }
+        var objetoARemover = entrenadorActual.Mochila.FirstOrDefault(o => o.Nombre == objeto.Nombre);
+        if (objetoARemover != null)
+        {
+            entrenadorActual.Mochila.Remove(objetoARemover);
+        }
     }
     
     private void CambiarTurno()
