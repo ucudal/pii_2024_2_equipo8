@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Proyecto_Pokemon.Tests
+namespace Proyecto_Pokemon
 {
     [TestFixture]
     public class TipoTest

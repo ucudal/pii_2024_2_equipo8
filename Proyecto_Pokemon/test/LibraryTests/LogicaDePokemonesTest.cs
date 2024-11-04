@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Proyecto_Pokemon;
 
-namespace Proyecto_PokemonTests
+namespace Proyecto_Pokemon
 {
     public class LogicaDePokemonesTests
     {
@@ -18,10 +18,10 @@ namespace Proyecto_PokemonTests
         {
             var pokemones = logicaDePokemones.InicializarPokemones();
 
-            Assert.That(pokemones.Count, Is.EqualTo(2));
+            Assert.That(pokemones.Count, Is.EqualTo(18));
 
             Assert.That(pokemones[0].Nombre, Is.EqualTo("SCEPTILE"));
-            Assert.That(pokemones[0].Vida, Is.EqualTo(500));
+            Assert.That(pokemones[0].Vida, Is.EqualTo(200));
             Assert.That(pokemones[0].Habilidades.Count, Is.EqualTo(4));
 
             Assert.That(pokemones[0].Habilidades[0].Nombre, Is.EqualTo("Corte furia"));
@@ -30,7 +30,7 @@ namespace Proyecto_PokemonTests
             Assert.That(pokemones[0].Habilidades[3].Nombre, Is.EqualTo("Lluevehojas"));
 
             Assert.That(pokemones[1].Nombre, Is.EqualTo("ARCANINE"));
-            Assert.That(pokemones[1].Vida, Is.EqualTo(500));
+            Assert.That(pokemones[1].Vida, Is.EqualTo(200));
             Assert.That(pokemones[1].Habilidades.Count, Is.EqualTo(4));
 
             Assert.That(pokemones[1].Habilidades[0].Nombre, Is.EqualTo("Ascuas"));
