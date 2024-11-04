@@ -31,6 +31,8 @@ public class Batallas
 
     public void Iniciar()
     {
+        entrenador1.EnBatalla = true;
+        entrenador2.EnBatalla = true;
         Random random = new Random();
         int turnos_noqueado = 4;
         while (entrenador1.TienePokemonesVivos() && entrenador2.TienePokemonesVivos())

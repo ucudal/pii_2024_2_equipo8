@@ -46,7 +46,7 @@ public class Lobby
         return nombresJugadores;
     }
 
-    // Inicia una batalla entre el entrenador actual y el primer entrenador en la lista de espera
+    // Inicia una batalla entre el entrenador actual y un entrenador random de la lista de espera
     public string IniciarBatalla(Entrenadores entrenador)
     {
         if (listaEspera.Count == 0)
@@ -54,7 +54,7 @@ public class Lobby
             return "No hay jugadores en la lista de espera.";
         }
 
-        // Seleccionar un oponente aleatorio de la lista de espera
+        // Seleccionar un oponente random de la lista de espera
         Random random = new Random();
         int indiceOponente = random.Next(listaEspera.Count);
         Entrenadores oponente = listaEspera[indiceOponente];
@@ -65,6 +65,8 @@ public class Lobby
         // Crear una nueva batalla y agregarla a las batallas activas
         Batallas nuevaBatalla = new Batallas(entrenador, oponente);
         batallasActivas.Add(nuevaBatalla);
+        nuevaBatalla.Iniciar();
+        
 
         return $"{entrenador.Nombre} ha comenzado una batalla contra {oponente.Nombre} en el lobby '{Nombre}'.";
     }

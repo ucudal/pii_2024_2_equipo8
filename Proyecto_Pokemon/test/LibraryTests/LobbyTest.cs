@@ -68,9 +68,10 @@ namespace Proyecto_Pokemon
             lobby.UnirseALaListaDeEspera(entrenador1);
             lobby.UnirseALaListaDeEspera(entrenador2);
 
-            string resultado = lobby.IniciarBatalla(entrenador1);
+            lobby.IniciarBatalla(entrenador1);
 
-            Assert.That(resultado, Does.Contain("Ash ha comenzado una batalla contra").And.Contain("en el lobby 'TestLobby'."));
+            Assert.That(entrenador1.EnBatalla, Is.EqualTo(true));
+            Assert.That(entrenador2.EnBatalla, Is.EqualTo(true));
         }
 
         [Test]
@@ -78,7 +79,7 @@ namespace Proyecto_Pokemon
         {
             string resultado = lobby.IniciarBatalla(entrenador1);
 
-            Assert.That(resultado, Is.EqualTo("No hay jugadores en la lista de espera."));
+            Assert.That(entrenador1.EnBatalla, Is.EqualTo(false));
         }
     }
 }

@@ -53,11 +53,13 @@ public class BatallasTest
     }
 
     [Test]
+    
     public void Batalla_DeberiaCambiarDeTurnoDespuesDeAtacar()
     {
         batalla.Atacar();
         Assert.That(batalla.Turno, Is.EqualTo(2));
     }
+
 
     [Test]
     public void Atacar_DeberiaReducirVidaDelPokemonDefensor()
@@ -111,10 +113,13 @@ public class BatallasTest
     }
 
     [Test]
+    
     public void Atacar_HabilidadDobleTurnoDeberiaCargar()
     {
         IHabilidades habilidadDobleTurno = new Habilidades("Llamarada", null, 50, 100, 5, true);
-        pikachu.Habilidades[0] = habilidadDobleTurno;
+        pikachu.AprenderHabilidad(habilidadDobleTurno);
+
+        
 
         using (var sr = new StringReader("1"))
         {
@@ -122,7 +127,9 @@ public class BatallasTest
 
             batalla.Atacar();
 
+            // Verificar que la habilidad está en proceso de carga
             Assert.That(pikachu.HabilidadCargando, Is.EqualTo(habilidadDobleTurno));
         }
     }
+
 }
