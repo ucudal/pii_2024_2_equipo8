@@ -18,10 +18,10 @@ namespace Proyecto_Pokemon
             Fachada.SeleccionarEquipo(entrenador2, todosLosPokemones);
            
             Entrenadores entrenador3 = new Entrenadores("Marcelo Arrate", new List<Pokemon>());
-            Fachada.SeleccionarEquipo(entrenador3, todosLosPokemones);
+            //Fachada.SeleccionarEquipo(entrenador3, todosLosPokemones);
             
             Entrenadores entrenador4 = new Entrenadores("Naruto", new List<Pokemon>());
-            Fachada.SeleccionarEquipo(entrenador4, todosLosPokemones);
+            //Fachada.SeleccionarEquipo(entrenador4, todosLosPokemones);
 
             Lobby lobbys = new Lobby(nombre:"Lobby",region:"Uruguay",capacidad:8);
             lobbys.UnirseALaListaDeEspera(entrenador1);
