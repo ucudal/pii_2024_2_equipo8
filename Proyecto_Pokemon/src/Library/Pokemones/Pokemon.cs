@@ -23,6 +23,8 @@ public class Pokemon : IPokemon
         Estado = estado;
     }
 
+    
+
     public void AprenderHabilidad(IHabilidades habilidad)
     {
         Habilidades.Add(habilidad);

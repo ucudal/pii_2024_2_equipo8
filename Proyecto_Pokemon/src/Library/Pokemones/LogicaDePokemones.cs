@@ -207,24 +207,24 @@ public class LogicaDePokemones
         IEfectos quemadura = new Efectos("quemado");
         IEfectos envenenado = new Efectos("envenenado");
 
-        Sceptile = new Pokemon("SCEPTILE", 200, tipoPlanta);
-        Arcanine = new Pokemon("ARCANINE", 200, tipoFuego);
-        Blastoise = new Pokemon("BLASTOISE", 200, tipoAgua);
-        Snorlax = new Pokemon("SNORLAX", 200, tipoNormal);
-        Pikachu = new Pokemon("PIKACHU", 200, tipoElectrico);
-        Jynx = new Pokemon("JYNX", 200, tipoPsiquico, tipoHielo);
-        Lucario = new Pokemon("LUCARIO", 200, tipoLucha, tipoAcero);
-        Tyranitar = new Pokemon("TYRANITAR", 200, tipoRoca, tipoSiniestro);
-        Flygon = new Pokemon("FLYGON", 200, tipoTierra, tipoDragon);
-        Pidgeot = new Pokemon("PIDGEOT", 200, tipoVolador, tipoNormal);
-        Scyther = new Pokemon("SCYTHER", 200, tipoBicho, tipoVolador);
-        Amoonguss = new Pokemon("AMOONGUSS", 200, tipoVeneno, tipoPlanta);
-        Umbreon = new Pokemon("UMBREON", 200, tipoSiniestro);
-        Gengar = new Pokemon("GENGAR", 200, tipoFantasma, tipoSiniestro);
-        Lapras = new Pokemon("LAPRAS", 200, tipoHielo, tipoAgua);
-        Metagross = new Pokemon("METAGROSS", 200, tipoAcero, tipoPsiquico);
-        Dragonite = new Pokemon("DRAGONITE", 200, tipoDragon, tipoVolador);
-        Sylveon = new Pokemon("SYLVEON", 200, tipoHada);
+        Sceptile = new Pokemon("SCEPTILE", 281, tipoPlanta);
+        Arcanine = new Pokemon("ARCANINE", 321, tipoFuego);
+        Blastoise = new Pokemon("BLASTOISE", 299, tipoAgua);
+        Snorlax = new Pokemon("SNORLAX", 461, tipoNormal);
+        Pikachu = new Pokemon("PIKACHU", 211, tipoElectrico);
+        Jynx = new Pokemon("JYNX", 271, tipoPsiquico, tipoHielo);
+        Lucario = new Pokemon("LUCARIO", 281, tipoLucha, tipoAcero);
+        Tyranitar = new Pokemon("TYRANITAR", 341, tipoRoca, tipoSiniestro);
+        Flygon = new Pokemon("FLYGON", 301, tipoTierra, tipoDragon);
+        Pidgeot = new Pokemon("PIDGEOT", 307, tipoVolador, tipoNormal);
+        Scyther = new Pokemon("SCYTHER", 281, tipoBicho, tipoVolador);
+        Amoonguss = new Pokemon("AMOONGUSS", 369, tipoVeneno, tipoPlanta);
+        Umbreon = new Pokemon("UMBREON", 331, tipoSiniestro);
+        Gengar = new Pokemon("GENGAR", 261, tipoFantasma, tipoSiniestro);
+        Lapras = new Pokemon("LAPRAS", 401, tipoHielo, tipoAgua);
+        Metagross = new Pokemon("METAGROSS", 351, tipoAcero, tipoPsiquico);
+        Dragonite = new Pokemon("DRAGONITE", 323, tipoDragon, tipoVolador);
+        Sylveon = new Pokemon("SYLVEON", 331, tipoHada);
 
         // SCEPTILE
         IHabilidades cortefuria = new Habilidades("Corte furia", tipoBicho, 40, 95, 20, false);
