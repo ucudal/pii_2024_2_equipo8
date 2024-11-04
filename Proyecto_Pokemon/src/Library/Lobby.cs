@@ -46,25 +46,32 @@ public class Lobby
         return nombresJugadores;
     }
 
-    // Inicia una batalla entre el entrenador actual y un entrenador random de la lista de espera
+    // Inicia una batalla entre el entrenador actual y el primer entrenador de la lista de espera
     public string IniciarBatalla(Entrenadores entrenador)
     {
+        LogicaDePokemones todoslospoke = new LogicaDePokemones();
+        List<Pokemon> todosLosPokemones = todoslospoke.InicializarPokemones();
+        
+        // Remover al entrenador de la lista de espera antes de buscar oponente
+        listaEspera.Remove(entrenador);
+        
         if (listaEspera.Count == 0)
         {
             return "No hay jugadores en la lista de espera.";
         }
 
-        // Seleccionar un oponente random de la lista de espera
-        Random random = new Random();
-        int indiceOponente = random.Next(listaEspera.Count);
-        Entrenadores oponente = listaEspera[indiceOponente];
+        // Seleccionar primer oponente de la lista de espera
+        Entrenadores oponente = listaEspera[0];
 
         // Retirar al oponente de la lista de espera
-        listaEspera.RemoveAt(indiceOponente);
-
+        listaEspera.Remove(oponente);
+        
+        Fachada.SeleccionarEquipo(entrenador,todosLosPokemones);
+        Fachada.SeleccionarEquipo(oponente,todosLosPokemones);
         // Crear una nueva batalla y agregarla a las batallas activas
         Batallas nuevaBatalla = new Batallas(entrenador, oponente);
         batallasActivas.Add(nuevaBatalla);
+        
         nuevaBatalla.Iniciar();
         
 
