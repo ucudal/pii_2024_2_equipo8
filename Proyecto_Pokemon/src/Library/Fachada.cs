@@ -3,6 +3,8 @@ namespace Proyecto_Pokemon;
 public class Fachada
 {
     private Lobby lobbyActual = new Lobby("Mitre", "LATAM", 10);
+    private LogicaDePokemones TodosLosPoke = new LogicaDePokemones();
+    
     public string SeleccionarEquipo(Entrenadores entrenador, List<Pokemon> equipoSeleccionado)
     { 
         return entrenador.SeleccionarEquipo(equipoSeleccionado);
@@ -203,4 +205,8 @@ public class Fachada
         return lobbyActual.IniciarBatalla(entrenador);
     }
 
+    public string MostrarPokemones(Entrenadores entrenador)
+    {
+        return entrenador.MostrarPokemones();
+    }
 }

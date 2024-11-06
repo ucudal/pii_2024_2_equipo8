@@ -48,8 +48,8 @@ public class Batallas
                         {
                             atacante.Vida = 0;
                             Console.WriteLine($"{atacante.Nombre} fue derrotado por el veneno.");
-                            CambiarPokemon();
-                            CambiarTurno();
+                            //CambiarPokemon();
+                            //CambiarTurno();
                             continue;
                         }
                         else
@@ -69,7 +69,7 @@ public class Batallas
                         {
                             Console.WriteLine($"{atacante.Nombre} está noqueado. No se puede mover.");
                             turnos_noqueado--;
-                            CambiarTurno();
+                            //CambiarTurno();
                         }
 
                         break;
@@ -79,8 +79,8 @@ public class Batallas
                         {
                             atacante.Vida = 0;
                             Console.WriteLine($"{atacante.Nombre} fue derrotado por la quemadura.");
-                            CambiarPokemon();
-                            CambiarTurno();
+                            //CambiarPokemon();
+                            //CambiarTurno();
                             continue;
                         }
                         else
@@ -97,15 +97,15 @@ public class Batallas
                 {
                     Console.WriteLine(
                         $"{atacante.Nombre} está preparado para usar {atacante.HabilidadCargando.Nombre}.");
-                    Atacar();
+                    //Atacar();
                 }
                 else
                 {
                     Console.WriteLine();
                     Console.WriteLine(
                         $"Turno {turno}: {atacante.Nombre} de {entrenadorActual.Nombre} elija su proximo movimiento");
-                    DemoConsola.MostrarOpciones(this);
-                    CambiarTurno();
+                    //DemoConsola.MostrarOpciones(this);
+                    //CambiarTurno();
                 }
             }
             turno++;
