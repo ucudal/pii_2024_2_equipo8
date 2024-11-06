@@ -66,6 +66,8 @@ public class Lobby
         // Retirar al oponente de la lista de espera
         listaEspera.Remove(oponente);
         
+        
+        
         Fachada.SeleccionarEquipo(entrenador,todosLosPokemones);
         Fachada.SeleccionarEquipo(oponente,todosLosPokemones);
         // Crear una nueva batalla y agregarla a las batallas activas

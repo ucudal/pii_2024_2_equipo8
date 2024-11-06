@@ -112,7 +112,7 @@ public class Fachada
             if (!eleccionValida || eleccion < 1 || eleccion > todosLosPokemones.Count)
             {
                 
-                Console.WriteLine("La opciión que elegiste no es valido, ingrese de nuevo: ");
+                Console.WriteLine("La opción que elegiste no es valida, ingrese de nuevo: ");
                 i--;
                 continue;
             }
