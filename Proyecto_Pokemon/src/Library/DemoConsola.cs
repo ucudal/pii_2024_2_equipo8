@@ -25,11 +25,11 @@ public class DemoConsola
                         opcionvalida = true;
                         break;
                     case "2":
-                        batalla.CambiarPokemon();
+                        CambiarPokemon();
                         opcionvalida = true;
                         break;
                     case "3":
-                        batalla.UsarMochila();
+                        UsarMochila();
                         opcionvalida = true;
                         break;
                     case "4":
@@ -37,7 +37,7 @@ public class DemoConsola
                         opcionvalida = true;
                         break;
                     case "5":
-                        batalla.VerVida();
+                        VerVida();
                         break;
                     default:
                         Console.WriteLine("Opción invalida. Ingrese nuevamente");

@@ -2,7 +2,7 @@ namespace Proyecto_Pokemon;
 
 public class Fachada
 {
-    
+    private Lobby lobbyActual = new Lobby("Mitre", "LATAM", 10);
     public static void SeleccionarEquipo(Entrenadores entrenador, List<Pokemon> equipoSeleccionado)
     {
         if (equipoSeleccionado.Count != 6)
@@ -191,63 +191,27 @@ public class Fachada
     }
     
     // Agrega un entrenador a la lista de espera si hay capacidad
-    public string UnirseALaListaDeEspera(Entrenadores entrenador, Lobby lobby)
+    public string UnirseALaListaDeEspera(Entrenadores entrenador)
     {
-        if (lobby.listaEspera.Count >= lobby.Capacidad)
-        {
-            return $"El lobby '{lobby.Nombre}' está lleno. Capacidad máxima de {lobby.Capacidad} entrenadores.";
-        }
-        
-        if (!lobby.listaEspera.Contains(entrenador))
-        {
-            lobby.listaEspera.Add(entrenador);
-            return $"{entrenador.Nombre} ha sido agregado a la lista de espera en el lobby '{lobby.Nombre}' de la región {lobby.Region}.";
-        }
-        
-        return $"{entrenador.Nombre} ya está en la lista de espera.";
+        return lobbyActual.UnirseALaListaDeEspera(entrenador);
     }
 
     // Muestra los entrenadores en la lista de espera
-    public List<string> VerListaDeEspera(Lobby lobby)
+    public string VerListaDeEspera()
     {
-        List<string> nombresJugadores = new List<string>();
-        foreach (var jugador in lobby.listaEspera)
+        string nombresJugadores = "Entrenadores en lista de espera: ";
+        foreach (string nombreJugador in lobbyActual.VerListaDeEspera())
         {
-            nombresJugadores.Add(jugador.Nombre);
+            nombresJugadores += nombreJugador +" ";
         }
         return nombresJugadores;
     }
     
     // Inicia una batalla entre el entrenador actual y el primer entrenador de la lista de espera
-    public string IniciarBatalla(Entrenadores entrenador, Lobby lobby)
+    // FALTA ARREGLAR INICIO INTERNO
+    public string IniciarBatalla(Entrenadores entrenador)
     {
-        LogicaDePokemones todoslospoke = new LogicaDePokemones();
-        List<Pokemon> todosLosPokemones = todoslospoke.InicializarPokemones();
-        
-        // Remover al entrenador de la lista de espera antes de buscar oponente
-        lobby.listaEspera.Remove(entrenador);
-        
-        if (lobby.listaEspera.Count == 0)
-        {
-            return "No hay jugadores en la lista de espera.";
-        }
-
-        // Seleccionar primer oponente de la lista de espera
-        Entrenadores oponente = lobby.listaEspera[0];
-
-        // Retirar al oponente de la lista de espera
-        lobby.listaEspera.Remove(oponente);
-        
-        Fachada.SeleccionarEquipo(entrenador,todosLosPokemones);
-        Fachada.SeleccionarEquipo(oponente,todosLosPokemones);
-        // Crear una nueva batalla y agregarla a las batallas activas
-        Batallas nuevaBatalla = new Batallas(entrenador, oponente);
-        lobby.batallasActivas.Add(nuevaBatalla);
-        
-        nuevaBatalla.Iniciar(); //ARREGLAR 
-        
-
-        return $"{entrenador.Nombre} ha comenzado una batalla contra {oponente.Nombre} en el lobby '{lobby.Nombre}'.";
+        return lobbyActual.IniciarBatalla(entrenador);
     }
 
 }
