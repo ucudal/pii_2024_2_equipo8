@@ -2,7 +2,7 @@ namespace Proyecto_Pokemon;
 
 public class Habilidades : IHabilidades
 {
-    public string Nombre { set; get; }
+    public string Nombre { set; get; }     
     public ITipo Tipo { set; get; }
     public int Danio { set; get; }
     public int Precision { get; set; }
