@@ -3,7 +3,7 @@ namespace Proyecto_Pokemon;
 public class Entrenadores
 {
     public string Nombre { get; }
-    public List<Pokemon> Pokemones { get; }
+    public List<Pokemon> Pokemones { get;  }
     public List<Objetos> Mochila { get; }
     
     public bool EnBatalla { get; set; }
@@ -72,6 +72,17 @@ public class Entrenadores
         }
 
         return listaObjetosUnicos;
+    }
+    public string SeleccionarEquipo( List<Pokemon> equipoSeleccionado)
+    {
+        if (equipoSeleccionado.Count != 6)
+        {
+            return ("Debes seleccionar exactamente 6 Pokémon.");
+        }
+
+        // Asigna los Pokémon seleccionados al equipo del entrenador
+        Pokemones.AddRange(equipoSeleccionado);
+        return "Equipo seleccionado con exito";
     }
     
 }

@@ -28,6 +28,15 @@ public class Pokemon : IPokemon
         Habilidades.Add(habilidad);
     }
     
-    
+    public List<IHabilidades> MostrarHabilidades()
+    {
+        List<IHabilidades> habilidades = new List<IHabilidades>();
+        for (int i = 0; i < Habilidades.Count; i++)
+        {
+            IHabilidades habilidad = Habilidades[i];
+            habilidades.Add(habilidad);
+        }
+        return habilidades;
+    }
 
 }

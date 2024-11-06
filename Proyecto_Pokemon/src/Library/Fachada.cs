@@ -3,38 +3,27 @@ namespace Proyecto_Pokemon;
 public class Fachada
 {
     private Lobby lobbyActual = new Lobby("Mitre", "LATAM", 10);
-    public static void SeleccionarEquipo(Entrenadores entrenador, List<Pokemon> equipoSeleccionado)
-    {
-        if (equipoSeleccionado.Count != 6)
-        {
-            throw new ArgumentException("Debes seleccionar exactamente 6 Pokémon.");
-        }
-
-        // Asigna los Pokémon seleccionados al equipo del entrenador
-        entrenador.Pokemones.AddRange(equipoSeleccionado);
+    public string SeleccionarEquipo(Entrenadores entrenador, List<Pokemon> equipoSeleccionado)
+    { 
+        return entrenador.SeleccionarEquipo(equipoSeleccionado);
     }
     
     public string MostrarHabilidades(Pokemon pokemonActual)
     {
         string  habilidades = "";
-        for (int i = 0; i < pokemonActual.Habilidades.Count; i++)
+        List<IHabilidades> habilidadesList = pokemonActual.MostrarHabilidades();
+        for (int i = 0; i < habilidadesList.Count; i++)
         {
-            var habilidad = pokemonActual.Habilidades[i];
+            var habilidad = habilidadesList[i];
             habilidades = habilidades + ($"{i + 1}. {habilidad.Nombre} - Daño: {habilidad.Danio}, Precisión: {habilidad.Precision}, Tipo: {habilidad.Tipo.Nombre}, PP: {habilidad.PP}, Doble turno: {habilidad.EsDobleTurno}; ");
+
         }
         return habilidades;
     }
     
     public string VerVida(Batallas batallaActual)
     {
-        string vidaPokemones = "";
-        //Console.WriteLine($"Pokemones de {entrenador1.Nombre}:");
-        vidaPokemones = batallaActual.entrenador1.MostrarPokemones();
-        //Console.WriteLine();
-        //Console.WriteLine($"Pokemones de {entrenador2.Nombre}:");
-        vidaPokemones += batallaActual.entrenador2.MostrarPokemones();
-        
-        return vidaPokemones;
+        return batallaActual.VerVida();
     }
     
     public void EjecutarAtaque(Pokemon atacante, Pokemon defensor, IHabilidades habilidad, bool esquivo)
@@ -85,13 +74,13 @@ public class Fachada
     }
     
     // Determina si es el turno del jugador
-    private string EsTurnoDe(Batallas batallaActual)
+    public string EsTurnoDe(Batallas batallaActual)
     {
         return $"Turno de {batallaActual.entrenadorActual.Nombre}";
     }
     
     // Comprobar si la batalla terminó
-    private string CheckFinBatalla(Batallas batallaActual)
+    public string CheckFinBatalla(Batallas batallaActual)
     {
         if (!batallaActual.entrenador1.TienePokemonesVivos())
         {

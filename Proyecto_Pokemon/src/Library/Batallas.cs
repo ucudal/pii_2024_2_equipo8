@@ -213,6 +213,14 @@ public class Batallas
     {
         entrenadorActual = entrenadorActual == entrenador1 ? entrenador2 : entrenador1;
     }
-
+    
+    public string VerVida()
+    {
+        string vidaPokemones = "";
+        vidaPokemones = entrenador1.MostrarPokemones();
+        vidaPokemones += entrenador2.MostrarPokemones();
+        
+        return vidaPokemones;
+    }
     
 }
