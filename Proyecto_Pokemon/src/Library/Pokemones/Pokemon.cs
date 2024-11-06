@@ -28,13 +28,6 @@ public class Pokemon : IPokemon
         Habilidades.Add(habilidad);
     }
     
-    public void MostrarHabilidades()
-    {
-        for (int i = 0; i < Habilidades.Count; i++)
-        {
-            var habilidad = Habilidades[i];
-            Console.WriteLine($"{i + 1}. {habilidad.Nombre} - Daño: {habilidad.Danio}, Precisión: {habilidad.Precision}, Tipo: {habilidad.Tipo.Nombre}, PP: {habilidad.PP}, Doble turno: {habilidad.EsDobleTurno}");
-        }
-    }
+    
 
 }

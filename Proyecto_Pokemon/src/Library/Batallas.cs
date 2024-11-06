@@ -5,11 +5,11 @@ namespace Proyecto_Pokemon;
 public class Batallas
 {
     Fachada fachada = new Fachada();
-    private Entrenadores entrenador1;
-    private Entrenadores entrenador2;
-    private Entrenadores entrenadorActual;
-    private Pokemon pokemonActivo1;
-    private Pokemon pokemonActivo2;
+    public Entrenadores entrenador1;
+    public Entrenadores entrenador2;
+    public Entrenadores entrenadorActual;
+    public Pokemon pokemonActivo1;
+    public Pokemon pokemonActivo2;
     private int turno;
     private IHabilidades habilidadCargando = null;
     private bool esquivo;
@@ -104,7 +104,7 @@ public class Batallas
                     Console.WriteLine();
                     Console.WriteLine(
                         $"Turno {turno}: {atacante.Nombre} de {entrenadorActual.Nombre} elija su proximo movimiento");
-                    fachada.MostrarOpciones(this);
+                    DemoConsola.MostrarOpciones(this);
                     CambiarTurno();
                 }
             }
@@ -143,7 +143,7 @@ public class Batallas
 
             if (habilidadElegida == -1)
             {
-                fachada.MostrarOpciones(this);
+                DemoConsola.MostrarOpciones(this);
                 return;
             }
 
@@ -207,98 +207,12 @@ public class Batallas
             $"{atacante.Nombre} de {entrenadorActual.Nombre} está preparado para esquivar el proximo movimiento");
     }
 
-    public void CambiarPokemon()
-    {
-        int indicePokemon;
-
-        do
-        {
-            Console.WriteLine($"{entrenadorActual.Nombre}, elegí el Pokemon que quieras usar:");
-            entrenadorActual.MostrarPokemones();
-
-            indicePokemon = Convert.ToInt32(Console.ReadLine()) - 1;
-
-            if (indicePokemon >= entrenadorActual.Pokemones.Count || indicePokemon < 0)
-            {
-                Console.WriteLine("El Pokémon que elegiste no existe. Inténtalo de nuevo.");
-            }
-
-        } while (indicePokemon >= entrenadorActual.Pokemones.Count || indicePokemon < 0);
-
-        if (entrenadorActual.Pokemones[indicePokemon].Vida > 0)
-        {
-            if (entrenadorActual == entrenador1)
-            {
-                pokemonActivo1 = entrenadorActual.Pokemones[indicePokemon];
-            }
-            else
-            {
-                pokemonActivo2 = entrenadorActual.Pokemones[indicePokemon];
-            }
-
-            Console.WriteLine($"{entrenadorActual.Nombre} cambió a {entrenadorActual.Pokemones[indicePokemon].Nombre}");
-        }
-        else
-        {
-            Console.WriteLine("No puedes elegir un Pokémon debilitado.");
-            CambiarPokemon();
-        }
-    }
-
-    public void UsarMochila()
-    {
-        Pokemon atacante = entrenadorActual == entrenador1 ? pokemonActivo1 : pokemonActivo2;
-        int objetoElegido;
-        List<Objetos> listaObjetosUnicos = entrenadorActual.MostrarMochila();
-        
-        do
-        {
-            Console.WriteLine($"{entrenadorActual.Nombre}, elegí el objeto que quieras usar (0 para VOLVER):");
-            objetoElegido = Convert.ToInt32(Console.ReadLine()) - 1;
-
-            if (objetoElegido == -1)
-            {
-                fachada.MostrarOpciones(this);
-                return;
-            }
-
-            if (objetoElegido >= entrenadorActual.Mochila.Count || objetoElegido < 0)
-            {
-                Console.WriteLine("El objeto que elegiste no existe. Inténtalo de nuevo.");
-            }
-
-        } while (objetoElegido >= entrenadorActual.Mochila.Count || objetoElegido < 0);
-        Objetos objeto = listaObjetosUnicos[objetoElegido];
-        switch (objeto)
-        {
-            case SuperPocion superPocion:
-                superPocion.Usar(atacante, entrenadorActual);
-                break;
-            case Revivir revivir:
-                revivir.Usar(atacante, entrenadorActual);
-                break;
-            case CuraTotal curaTotal:
-                curaTotal.Usar(atacante, entrenadorActual);
-                break;
-        }
-        var objetoARemover = entrenadorActual.Mochila.FirstOrDefault(o => o.Nombre == objeto.Nombre);
-        if (objetoARemover != null)
-        {
-            entrenadorActual.Mochila.Remove(objetoARemover);
-        }
-    }
+    
     
     private void CambiarTurno()
     {
         entrenadorActual = entrenadorActual == entrenador1 ? entrenador2 : entrenador1;
     }
 
-    public void VerVida() 
-    {
-        Console.WriteLine($"Pokemones de {entrenador1.Nombre}:");
-        entrenador1.MostrarPokemones();
-        Console.WriteLine();
-        Console.WriteLine($"Pokemones de {entrenador2.Nombre}:");
-        entrenador2.MostrarPokemones();
-    }
+    
 }

@@ -30,13 +30,15 @@ public class Entrenadores
         };
     }
     
-    public void MostrarPokemones()
+    public string MostrarPokemones()
     {
+        string pokemones = "";
         for (int i = 0; i < Pokemones.Count; i++)
         {
             var estado = Pokemones[i].Vida > 0 ? "Vivo" : "Debilitado";
-            Console.WriteLine($"{i + 1}. {Pokemones[i].Nombre} ({estado}) - Vida: {Pokemones[i].Vida}/{Pokemones[i].VidaBase}");
+            pokemones += pokemones+($"{i + 1}. {Pokemones[i].Nombre} ({estado}) - Vida: {Pokemones[i].Vida}/{Pokemones[i].VidaBase}; ");
         }
+        return pokemones;
     }
     
     public bool TienePokemonesVivos()
