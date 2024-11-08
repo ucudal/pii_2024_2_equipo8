@@ -39,12 +39,13 @@ public class PokemonTest
     public void Pokemon_MostrarHabilidades_DeberiaMostrarHabilidadCorrectamente()
     {
         charmander.AprenderHabilidad(habilidad);
-        using (var sw = new StringWriter())
-        {
-            Console.SetOut(sw);
-            charmander.MostrarHabilidades();
-            var resultado = sw.ToString().Trim();
-            Assert.That(resultado, Is.EqualTo("1. Llamarada - Daño: 50, Precisión: 80, Tipo: Fuego, PP: 10, Doble turno: False"));
-        }
+        var habilidades = charmander.MostrarHabilidades();
+
+        Assert.That(habilidades.Count, Is.EqualTo(1));
+
+        var habilidadObtenida = habilidades[0];
+        var resultado = $"1. {habilidadObtenida.Nombre} - Daño: {habilidadObtenida.Danio}, Precisión: {habilidadObtenida.Precision}, Tipo: {habilidadObtenida.Tipo.Nombre}, PP: {habilidadObtenida.PP}, Doble turno: {habilidadObtenida.EsDobleTurno}";
+
+        Assert.That(resultado, Is.EqualTo("1. Llamarada - Daño: 50, Precisión: 80, Tipo: Fuego, PP: 10, Doble turno: False"));
     }
 }
