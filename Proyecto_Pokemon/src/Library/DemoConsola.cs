@@ -164,7 +164,14 @@ namespace Proyecto_Pokemon
             return equipoSeleccionado;
         }
         public void SolicitarCambioPokemon(Entrenadores entrenador)
+        
         {
+            if (!entrenador.TienePokemonesVivos())
+            {
+                Console.WriteLine($"{entrenador.Nombre} no tiene más Pokémon vivos. ¡{(entrenador == entrenador1 ? entrenador2.Nombre : entrenador1.Nombre)} ha ganado la batalla!");
+                // Terminar la batalla o manejar el fin del juego
+                Environment.Exit(0); // O maneja el fin del juego adecuadamente
+            }
             Console.WriteLine($"{entrenador.Nombre}, tu Pokémon ha sido derrotado. Debes elegir un nuevo Pokémon.");
 
             Console.WriteLine(entrenador.MostrarPokemones());
@@ -172,7 +179,12 @@ namespace Proyecto_Pokemon
             int indicePokemon = int.Parse(Console.ReadLine()) - 1;
 
             string resultadoCambio = fachada.CambiarPokemon(indicePokemon);
+            
             Console.WriteLine(resultadoCambio);
+            if (resultadoCambio == "No puedes elegir un Pokémon debilitado." || resultadoCambio == "El Pokémon que elegiste no existe. Inténtalo de nuevo.")
+            {
+                SolicitarCambioPokemon(entrenador);
+            }
         }
 
     }
