@@ -157,5 +157,17 @@ namespace Proyecto_Pokemon
 
             return equipoSeleccionado;
         }
+        public void SolicitarCambioPokemon(Entrenadores entrenador)
+        {
+            Console.WriteLine($"{entrenador.Nombre}, tu Pokémon ha sido derrotado. Debes elegir un nuevo Pokémon.");
+
+            Console.WriteLine(entrenador.MostrarPokemones());
+
+            int indicePokemon = int.Parse(Console.ReadLine()) - 1;
+
+            string resultadoCambio = fachada.CambiarPokemon(indicePokemon);
+            Console.WriteLine(resultadoCambio);
+        }
+
     }
 }
