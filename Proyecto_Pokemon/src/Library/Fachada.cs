@@ -108,9 +108,10 @@ namespace Proyecto_Pokemon
                 }
 
                 defensor.Vida -= danio;
-                if (defensor.Vida < 0)
+                if (defensor.Vida <= 0)
                 {
                     defensor.Vida = 0;
+                    return $"{atacante.Nombre} usó {habilidad.Nombre}, hizo {danio} puntos de daño, {defensor.Nombre} ha sido debilitado!";
                 }
 
                 string resultado = $"{atacante.Nombre} usó {habilidad.Nombre}, hizo {danio} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}";

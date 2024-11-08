@@ -54,6 +54,12 @@ namespace Proyecto_Pokemon
                         int indiceHabilidad = int.Parse(Console.ReadLine()) - 1;
                         string resultadoAtaque = fachada.EjecutarAtaque(indiceHabilidad);
                         Console.WriteLine(resultadoAtaque);
+                        if (resultadoAtaque.Contains("ha sido debilitado"))
+                        {
+                            // En este punto ya se cambió de turno, por lo que defensor es actual.
+                            Entrenadores entrenadorDefensor = fachada.batallaActual.entrenadorActual;
+                            SolicitarCambioPokemon(entrenadorDefensor);
+                        }
                         break;
                     case "2":
                         // Cambiar Pokémon
