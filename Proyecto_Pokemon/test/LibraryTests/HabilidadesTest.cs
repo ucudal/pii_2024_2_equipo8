@@ -11,6 +11,7 @@ namespace Proyecto_Pokemon
         [SetUp]
         public void Setup()
         {
+            // definimos un diccionario con las relaciones de efectividad de los tipos
             var elementoFuego = new Dictionary<string, double>
             {
                 { "Acero", 2.0 }, { "Volador", 0.5 }, { "Agua", 0.5 }, { "Hielo", 2.0 }, { "Planta", 2.0 },
@@ -22,36 +23,42 @@ namespace Proyecto_Pokemon
             habilidad = new Habilidades("Llama", tipoFuego, 50, 90, 10, false);
         }
 
+        // test que verifica si el nombre de la habilidad es el correcto
         [Test]
         public void Habilidad_DeberiaTenerNombreCorrecto()
         {
             Assert.That(habilidad.Nombre, Is.EqualTo("Llama"));
         }
 
+        // test que verifica si el tipo de la habilidad es el correcto
         [Test]
         public void Habilidad_DeberiaTenerTipoCorrecto()
         {
             Assert.That(habilidad.Tipo, Is.EqualTo(tipoFuego));
         }
 
+        // test que verifica si el daño de la habilidad es el correcto
         [Test]
         public void Habilidad_DeberiaTenerDanioCorrecto()
         {
             Assert.That(habilidad.Danio, Is.EqualTo(50));
         }
 
+        // test que verifica si la precisión de la habilidad es la correcta
         [Test]
         public void Habilidad_DeberiaTenerPrecisionCorrecta()
         {
             Assert.That(habilidad.Precision, Is.EqualTo(90));
         }
-
+        
+        // test que verifica si los puntos de poder (PP) de la habilidad son los correctos
         [Test]
         public void Habilidad_DeberiaTenerPPCorrecto()
         {
             Assert.That(habilidad.PP, Is.EqualTo(10));
         }
 
+        // test que verifica si la habilidad es de tipo doble turno (en este caso no lo es)
         [Test]
         public void Habilidad_DeberiaSerDobleTurno()
         {

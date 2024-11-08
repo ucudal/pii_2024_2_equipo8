@@ -23,13 +23,14 @@ namespace Proyecto_Pokemon
             entrenador2 = new Entrenadores("Misty", new List<Pokemon> { pokemonBasico });
         }
 
+        // se agrega un entrenador cuando hay capacidad disponible en el lobby
         [Test]
         public void AgregarEntrenadorConCapacidadDisponible()
         {
             string resultado = lobby.UnirseALaListaDeEspera(entrenador1);
             Assert.That(resultado, Is.EqualTo("Ash ha sido agregado a la lista de espera en el lobby 'TestLobby' de la región Kanto."));
         }
-
+        
         [Test]
         public void AgregarEntrenadorCuandoLobbyEstaLleno()
         {
@@ -40,18 +41,22 @@ namespace Proyecto_Pokemon
             var entrenador3 = new Entrenadores("Brock", new List<Pokemon> { new Pokemon("Onix", 120, new Tipo("Roca", new Dictionary<string, double>())) });
             string resultado = lobby.UnirseALaListaDeEspera(entrenador3);
 
+            // se espera el mensaje de error indicando que el lobby está lleno
             Assert.That(resultado, Is.EqualTo("El lobby 'TestLobby' está lleno. Capacidad máxima de 2 entrenadores."));
         }
 
+        // se agrega un entrenador a la lista de espera y luego intentamos agregarlo de nuevo
         [Test]
         public void AgregarEntrenadorQueYaEstaEnListaDeEspera()
         {
             lobby.UnirseALaListaDeEspera(entrenador1);
             string resultado = lobby.UnirseALaListaDeEspera(entrenador1);
 
+            // tendria que indicar que el entrenador ya está en la lista
             Assert.That(resultado, Is.EqualTo("Ash ya está en la lista de espera."));
         }
 
+        // se verifica que la lista de espera contenga los nombres de los entrenadores
         [Test]
         public void VerListaDeEspera()
         {
@@ -62,6 +67,7 @@ namespace Proyecto_Pokemon
             Assert.That(lobby.VerListaDeEspera(), Is.EqualTo(listaEsperada));
         }
 
+        
         [Test]
         public void IniciarBatallaConEntrenadoresDisponibles()
         {
@@ -70,6 +76,7 @@ namespace Proyecto_Pokemon
 
             lobby.IniciarBatalla(entrenador1);
 
+            // se verifica que ambos entrenadores estén en batalla
             Assert.That(entrenador1.EnBatalla, Is.EqualTo(true));
             Assert.That(entrenador2.EnBatalla, Is.EqualTo(true));
         }
@@ -79,6 +86,7 @@ namespace Proyecto_Pokemon
         {
             string resultado = lobby.IniciarBatalla(entrenador1);
 
+            // se verifica que el entrenador no esté en batalla
             Assert.That(entrenador1.EnBatalla, Is.EqualTo(false));
         }
     }

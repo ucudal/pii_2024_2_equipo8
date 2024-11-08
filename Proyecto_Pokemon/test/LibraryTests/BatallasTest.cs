@@ -25,6 +25,7 @@ public class BatallasTest
         batalla = new Batallas(entrenador1, entrenador2);
     }
 
+    // verifica que la batalla inicie en el turno 1
     [Test]
     public void Batalla_DeberiaIniciarConTurno1()
     {
@@ -33,6 +34,7 @@ public class BatallasTest
 
     [Test]
     
+    // inicia la batalla y verifica que ambos entrenadores estén en la batalla
     public void Iniciar_DeberiaEstablecerEntrenadoresEnBatalla()
     {
         batalla.Iniciar();
@@ -40,7 +42,7 @@ public class BatallasTest
         Assert.That(entrenador2.EnBatalla, Is.True);
     }
 
-
+    // verifica que al cambiar el turno, el entrenador actual cambie y el turno se incremente
     [Test]
     public void CambiarTurno_DeberiaCambiarEntrenadorActualYIncrementarTurno()
     {
@@ -51,6 +53,7 @@ public class BatallasTest
         Assert.That(batalla.Turno, Is.EqualTo(2));
     }
 
+    // verifica que el metodo VerVida retorne la vida de los pokemon
     [Test]
     public void VerVida_DeberiaMostrarVidaDeLosPokemones()
     {

@@ -37,12 +37,14 @@ public class EntrenadoresTest
         entrenador = new Entrenadores("Ashu salud", new List<Pokemon>() { pikachu, charmander });
     }
 
+    // verifica que el nombre del entrenador sea el correcto
     [Test]
     public void Entrenador_DeberiaTenerNombreCorrecto()
     {
         Assert.That(entrenador.Nombre, Is.EqualTo("Ashu salud"));
     }
 
+    // verifica que el entrenador tenga los Pokémon correctos
     [Test]
     public void Entrenador_DeberiaTenerPokemonesCorrectos()
     {
@@ -51,12 +53,14 @@ public class EntrenadoresTest
         Assert.That(entrenador.Pokemones[1].Nombre, Is.EqualTo("charmander"));
     }
 
+    // verifica que el entrenador tiene Pokémon vivos
     [Test]
     public void Entrenador_TienePokemonesVivos_DeberiaSerTrueSiHayPokemonesConVida()
     {
         Assert.That(entrenador.TienePokemonesVivos(), Is.True);
     }
 
+    // configura los Pokémon con vida 0 y verifica que no hay Pokémon vivos
     [Test]
     public void Entrenador_TienePokemonesVivos_DeberiaSerFalseSiNoHayPokemonesConVida()
     {

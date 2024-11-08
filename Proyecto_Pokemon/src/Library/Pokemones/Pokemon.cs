@@ -22,19 +22,21 @@ public class Pokemon : IPokemon
         HabilidadCargando = null;
         Estado = estado;
     }
-
+    
+    // metodo que permite al pokemon aprender las habilidades
     public void AprenderHabilidad(IHabilidades habilidad)
     {
         Habilidades.Add(habilidad);
     }
     
+    // metodo que devuelve una lista con las habilidades del pokemon
     public List<IHabilidades> MostrarHabilidades()
     {
         List<IHabilidades> habilidades = new List<IHabilidades>();
         for (int i = 0; i < Habilidades.Count; i++)
         {
             IHabilidades habilidad = Habilidades[i];
-            habilidades.Add(habilidad);
+            habilidades.Add(habilidad); // añade cada habilidad a la lista que se va a devolver
         }
         return habilidades;
     }

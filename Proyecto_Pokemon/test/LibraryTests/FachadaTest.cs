@@ -41,6 +41,7 @@ public class FachadaTests
         fachada.GetPokemonActual();
     }
 
+    // test que verifica si se muestra el mensaje cuando faltan pokemon para el equipo
     [Test]
     public void SeleccionarEquipo_DeberiaRetornarQueFaltanPokemones()
     {
@@ -49,6 +50,7 @@ public class FachadaTests
         Assert.That(resultado, Is.EqualTo("Debes seleccionar exactamente 6 Pokémon."));
     }
 
+    // test que verifica si se muestran las habilidades del pokemon actual
     [Test]
     public void MostrarHabilidades_DeberiaMostrarHabilidadesDelPokemonActual()
     {
@@ -58,6 +60,7 @@ public class FachadaTests
         Assert.That(habilidades, Is.Not.Empty);
     }
 
+    // test que verifica si se retorna la vida del pokemon en batalla
     [Test]
     public void VerVida_DeberiaRetornarVidaDelPokemonEnBatalla()
     {
@@ -66,6 +69,7 @@ public class FachadaTests
         Assert.That(vida, Is.Not.Empty);
     }
 
+    // test que verifica si se ejecuta el ataque y se retorna el resultado
     [Test]
     public void EjecutarAtaque_DeberiaRealizarAtaqueYRetornarResultado()
     {
@@ -75,6 +79,7 @@ public class FachadaTests
         Assert.That(resultado, Is.Not.Null);
     }
 
+    // test que verifica si se retorna el nombre del entrenador actual durante su turno
     [Test]
     public void EsTurnoDe_DeberiaRetornarElNombreDelEntrenadorActual()
     {
@@ -83,6 +88,7 @@ public class FachadaTests
         Assert.That(turno, Is.EqualTo("Turno de Brock"));
     }
 
+    // test que verifica si se muestra el estado de la batalla (en curso o finalizada)
     [Test]
     public void CheckFinBatalla_DeberiaRetornarMensajeDeBatallaEnCursoOFinalizada()
     {
@@ -91,6 +97,7 @@ public class FachadaTests
         Assert.That(estadoBatalla, Is.Not.Empty);
     }
 
+    // test que verifica si se cambia el pokemon correctamente y se retorna un mensaje
     [Test]
     public void CambiarPokemon_DeberiaCambiarPokemonYRetornarMensaje()
     {
@@ -99,6 +106,7 @@ public class FachadaTests
         Assert.That(mensaje, Does.Contain("cambió a"));
     }
 
+    // test que verifica si se usa un objeto de la mochila y se retorna un resultado
     [Test]
     public void UsarMochila_DeberiaUsarObjetoYRetornarResultado()
     {
@@ -107,6 +115,7 @@ public class FachadaTests
         Assert.That(resultado, Is.Not.Empty);
     }
 
+    // test que verifica si un entrenador se agrega a la lista de espera correctamente
     [Test]
     public void UnirseALaListaDeEspera_DeberiaAgregarEntrenadorALaListaYRetornarMensaje()
     {
@@ -114,6 +123,7 @@ public class FachadaTests
         Assert.That(mensaje, Does.Contain("a la lista de espera en el lobby"));
     }
 
+    // test que verifica si se retornan los entrenadores en la lista de espera
     [Test]
     public void VerListaDeEspera_DeberiaRetornarEntrenadoresEnLaLista()
     {
@@ -123,6 +133,7 @@ public class FachadaTests
         Assert.That(lista, Does.Contain("Ash Ketchum").And.Contain("Brock"));
     }
 
+    // test que verifica si se inicia la batalla correctamente y se retorna un mensaje
     [Test]
     public void IniciarBatalla_DeberiaIniciarBatallaYRetornarMensaje()
     {
@@ -131,6 +142,7 @@ public class FachadaTests
         Assert.That(mensaje, Does.Contain("ha comenzado una batalla contra"));
     }
 
+    // test que verifica si se muestran los Pokémon del entrenador
     [Test]
     public void MostrarPokemones_DeberiaRetornarListaDePokemonesDelEntrenador()
     {

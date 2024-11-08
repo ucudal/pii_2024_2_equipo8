@@ -21,7 +21,7 @@ namespace Proyecto_Pokemon
             var ventajasAgua = new Dictionary<string, double>
             {
                 { "Fuego", 2.0 },
-                { "Planta", 0.5 }
+                { "Planta", 1.0 }
             };
 
             var ventajasPlanta = new Dictionary<string, double>
@@ -35,6 +35,7 @@ namespace Proyecto_Pokemon
             planta = new Tipo("Planta", ventajasPlanta);
         }
 
+        // se verifica que la efectividad sea 2.0 (o sea, efectivo)
         [Test]
         public void EsEfectivoOPocoEfectivo_DeberiaRetornarVentajaCuandoExistenVentajas()
         {
@@ -42,6 +43,7 @@ namespace Proyecto_Pokemon
             Assert.That(efectividad, Is.EqualTo(2.0));
         }
 
+        // se verifica que la efectividad sea 0.5 (o sea, que no es efectivo)
         [Test]
         public void EsEfectivoOPocoEfectivo_DeberiaRetornarDesventajaCuandoExistenDesventajas()
         {
@@ -49,11 +51,12 @@ namespace Proyecto_Pokemon
             Assert.That(efectividad, Is.EqualTo(0.5));
         }
 
+        // se verifica que la efectividad sea 1.0 (no es efectivo ni tampoco efectivo)
         [Test]
         public void EsEfectivoOPocoEfectivo_DeberiaRetornarUnoCuandoNoHayVentajasNiDesventajas()
         {
             double efectividad = agua.EsEfectivoOPocoEfectivo(planta);
-            Assert.That(efectividad, Is.EqualTo(0.5));
+            Assert.That(efectividad, Is.EqualTo(1.0));
         }
     }
 }

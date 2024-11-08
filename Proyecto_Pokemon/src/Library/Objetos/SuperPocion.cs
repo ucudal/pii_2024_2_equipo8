@@ -2,8 +2,12 @@ namespace Proyecto_Pokemon;
 
 public class SuperPocion : Objetos
 {
+    // constructor de SuperPocion, llama al constructor base de la clase Objetos y le asigna el nombre "SuperPocion"
     public SuperPocion() : base("Súper Poción") { }
 
+    // metodo para usar la SuperPoción en un pokemon. Si el pokemon esta debilitado (vida <= 0), devuelve un mensaje indicando
+    // que no puede usar la poción. Si no está debilitado, se le recuperan 70 puntos de vida. Si la vida total del pokemon
+    // superaría su vida base, se le restaura al máximo. Si todo sale bien, devuelve un mensaje con la cantidad de vida recuperada.
     public string Usar(Pokemon pokemon, Entrenadores entrenador)
     {
         if (pokemon.Vida <= 0)

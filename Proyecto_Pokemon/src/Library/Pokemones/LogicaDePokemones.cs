@@ -21,6 +21,7 @@ public class LogicaDePokemones
     private Pokemon Dragonite;
     private Pokemon Sylveon;
     
+    // acá se inicializan todos los tipos y a qué son efectivos o debiles
     public List<Pokemon> InicializarPokemones()
     {
         var elementoFuego = new Dictionary<string, double>

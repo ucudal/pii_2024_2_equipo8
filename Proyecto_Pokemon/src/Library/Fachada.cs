@@ -8,11 +8,13 @@ namespace Proyecto_Pokemon
         public Pokemon pokemonActual;
         private bool esquivo;
 
+        // permite al entrenador seleccionar un equipo de 6 pokemones
         public string SeleccionarEquipo(Entrenadores entrenador, List<Pokemon> equipoSeleccionado)
         {
             return entrenador.SeleccionarEquipo(equipoSeleccionado);
         }
 
+        // muestra las habilidades del pokemon actual en formato detallado
         public string MostrarHabilidades()
         {
             GetPokemonActual();
@@ -26,11 +28,13 @@ namespace Proyecto_Pokemon
             return habilidades;
         }
 
+        // muestra la vida actual de los pokemones en batalla
         public string VerVida()
         {
             return batallaActual.VerVida();
         }
 
+        // ejecuta el ataque seleccionado por el usuario
         public string EjecutarAtaque(int indiceHabilidad)
         {
             Pokemon atacante = batallaActual.entrenadorActual == batallaActual.entrenador1 ? batallaActual.pokemonActivo1 : batallaActual.pokemonActivo2;
@@ -38,7 +42,7 @@ namespace Proyecto_Pokemon
 
             if (atacante.HabilidadCargando != null)
             {
-                // Ataque de doble turno
+                // resuelve el ataque en el segundo turno de habilidades de doble turno
                 string resultado = RealizarAtaque(atacante, defensor, atacante.HabilidadCargando);
                 atacante.HabilidadCargando = null;
                 CambiarTurno();
@@ -46,7 +50,7 @@ namespace Proyecto_Pokemon
             }
             else
             {
-                // Verificar índice de habilidad
+                // verifica el índice de habilidad y realiza el ataque
                 if (indiceHabilidad < 0 || indiceHabilidad >= atacante.Habilidades.Count)
                 {
                     return "La habilidad que elegiste no existe. Inténtalo de nuevo.";
@@ -76,6 +80,7 @@ namespace Proyecto_Pokemon
             }
         }
 
+        // hace el cálculo de ataque y daño entre dos pokemones
         private string RealizarAtaque(Pokemon atacante, Pokemon defensor, IHabilidades habilidad)
         {
             double efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoPrincipal);
@@ -94,7 +99,7 @@ namespace Proyecto_Pokemon
             if (esquivo)
             {
                 precisionFinal -= 30;
-                esquivo = false; // Resetear el estado de esquivar
+                esquivo = false; // resetear el estado de esquivar
             }
 
             if (probabilidad <= precisionFinal)
@@ -130,18 +135,19 @@ namespace Proyecto_Pokemon
             }
         }
 
+        // activa el estado de esquivar en el próximo turno
         public void Esquivar()
         {
             esquivo = true;
         }
 
-        // Determina si es el turno del jugador
+        // devuelve el nombre del entrenador que tiene el turno actual
         public string EsTurnoDe()
         {
             return $"Turno de {batallaActual.entrenadorActual.Nombre}";
         }
 
-        // Comprobar si la batalla terminó
+        // chequea si la batalla terminó y retorna el ganador
         public string CheckFinBatalla()
         {
             if (!batallaActual.entrenador1.TienePokemonesVivos())
@@ -158,6 +164,7 @@ namespace Proyecto_Pokemon
             }
         }
 
+        // cambia el pokemon activo por otro del equipo del entrenador actual
         public string CambiarPokemon(int indicePokemon)
         {
             if (indicePokemon >= batallaActual.entrenadorActual.Pokemones.Count || indicePokemon < 0)
@@ -186,8 +193,8 @@ namespace Proyecto_Pokemon
                 return "No puedes elegir un Pokémon debilitado.";
             }
         }
-
-
+        
+        // usa un objeto de la mochila del entrenador y lo aplica al pokemon objetivo
         public string UsarMochila(int indiceObjeto, int indicePokemon = -1)
         {
             Entrenadores entrenador = batallaActual.entrenadorActual;
@@ -232,13 +239,13 @@ namespace Proyecto_Pokemon
             return resultado;
         }
 
-        // Agrega un entrenador a la lista de espera si hay capacidad
+        // agrega un entrenador a la lista de espera del lobby
         public string UnirseALaListaDeEspera(Entrenadores entrenador)
         {
             return lobbyActual.UnirseALaListaDeEspera(entrenador);
         }
 
-        // Muestra los entrenadores en la lista de espera
+        // muestra todos los entrenadores que están en la lista de espera
         public string VerListaDeEspera()
         {
             string nombresJugadores = "Entrenadores en lista de espera: ";
@@ -249,7 +256,7 @@ namespace Proyecto_Pokemon
             return nombresJugadores;
         }
 
-        // Inicia una batalla entre el entrenador actual y el primer entrenador de la lista de espera
+        // inicia una batalla entre el entrenador actual y el primero en la lista de espera
         public string IniciarBatalla(Entrenadores entrenador)
         {
             string nuevaBatalla = lobbyActual.IniciarBatalla(entrenador);
@@ -257,7 +264,7 @@ namespace Proyecto_Pokemon
             return nuevaBatalla;
         }
 
-        // Se podría desarrollar mejor para admitir múltiples batallas
+        // cambia el turno al siguiente entrenador
         public void GetBatallaActual()
         {
             if (lobbyActual.batallasActivas.Count > 0)
@@ -266,6 +273,7 @@ namespace Proyecto_Pokemon
             }
         }
 
+        // retorna el pokemon actual del turno
         public void GetPokemonActual()
         {
             if (batallaActual.entrenadorActual == batallaActual.entrenador1)

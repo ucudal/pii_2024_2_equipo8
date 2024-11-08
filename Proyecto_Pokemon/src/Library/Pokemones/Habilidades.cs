@@ -11,6 +11,7 @@ public class Habilidades : IHabilidades
     public IEfectos Efectos { get; set; }
     
 
+    // constructor de las habilidades
     public Habilidades(string nombre, ITipo tipo, int danio, int precision, int pp, bool esdobleturno, IEfectos efectos = null)
     {
         Nombre = nombre;
