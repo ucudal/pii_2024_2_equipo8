@@ -4,15 +4,14 @@ public class CuraTotal : Objetos
 {
     public CuraTotal() : base("Cura Total") { }
 
-    public void Usar(Pokemon pokemon, Entrenadores entrenador)
+    public string Usar(Pokemon pokemon, Entrenadores entrenador)
     {
         if (pokemon.Estado == null)
         {
-            Console.WriteLine($"{pokemon.Nombre} no está afectado por ningún estado alterado.");
-            return;
+            return $"{pokemon.Nombre} no está afectado por ningún estado alterado.";
         }
 
         pokemon.Estado = null;
-        Console.WriteLine($"{entrenador.Nombre} usó {Nombre} en {pokemon.Nombre}. Todos los efectos negativos fueron curados.");
+        return $"{entrenador.Nombre} usó {Nombre} en {pokemon.Nombre}. Todos los efectos negativos fueron curados.";
     }
 }

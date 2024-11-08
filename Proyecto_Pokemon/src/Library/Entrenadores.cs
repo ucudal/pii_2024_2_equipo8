@@ -36,7 +36,7 @@ public class Entrenadores
         for (int i = 0; i < Pokemones.Count; i++)
         {
             var estado = Pokemones[i].Vida > 0 ? "Vivo" : "Debilitado";
-            pokemones += pokemones+($"{i + 1}. {Pokemones[i].Nombre} ({estado}) - Vida: {Pokemones[i].Vida}/{Pokemones[i].VidaBase}; ");
+            pokemones += ($"{i + 1}. {Pokemones[i].Nombre} ({estado}) - Vida: {Pokemones[i].Vida}/{Pokemones[i].VidaBase}; ");
         }
         return pokemones;
     }
@@ -46,33 +46,31 @@ public class Entrenadores
         return Pokemones.Any(pokemon => pokemon.Vida > 0);
     }
     
-    public List<Objetos> MostrarMochila()
+    public List<string> ObtenerMochila()
     {
-        Dictionary<string, int> contadordeObjetos = new Dictionary<string, int>();
-        List<Objetos> listaObjetosUnicos = new List<Objetos>();
-        
-        foreach (var objetos in Mochila)
+        Dictionary<string, int> contadorDeObjetos = new Dictionary<string, int>();
+        List<string> listaObjetosUnicos = new List<string>();
+
+        foreach (var objeto in Mochila)
         {
-            if (contadordeObjetos.ContainsKey(objetos.Nombre))
+            if (contadorDeObjetos.ContainsKey(objeto.Nombre))
             {
-                contadordeObjetos[objetos.Nombre]++;
+                contadorDeObjetos[objeto.Nombre]++;
             }
             else
             {
-                contadordeObjetos[objetos.Nombre] = 1;
-                listaObjetosUnicos.Add(objetos);
+                contadorDeObjetos[objeto.Nombre] = 1;
             }
         }
-        
-        Console.WriteLine("Objetos disponibles:");
-        for (int i = 0; i < listaObjetosUnicos.Count; i++)
+
+        foreach (var kvp in contadorDeObjetos)
         {
-            var objeto = listaObjetosUnicos[i];
-            Console.WriteLine($"{i + 1}. {objeto.Nombre} ({contadordeObjetos[objeto.Nombre]}x)");
+            listaObjetosUnicos.Add($"{kvp.Key} ({kvp.Value}x)");
         }
 
         return listaObjetosUnicos;
     }
+
     public string SeleccionarEquipo( List<Pokemon> equipoSeleccionado)
     {
         if (equipoSeleccionado.Count != 6)

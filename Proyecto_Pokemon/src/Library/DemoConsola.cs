@@ -1,52 +1,131 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Proyecto_Pokemon;
-public class DemoConsola
+namespace Proyecto_Pokemon
 {
-        public static void MostrarOpciones(Batallas batalla)
-        {
-            bool opcionvalida = false;
-            while (!opcionvalida)
-            {
-                Console.WriteLine();
-                Console.WriteLine("1. ATACAR");
-                Console.WriteLine("2. CAMBIAR POKEMON");
-                Console.WriteLine("3. MOCHILA");
-                Console.WriteLine("4. ESQUIVAR");
-                Console.WriteLine("5. VIDA POKEMONES");
+    public class DemoConsola
+    {
+        private Fachada fachada = new Fachada();
+        private Entrenadores entrenador1;
+        private Entrenadores entrenador2;
 
+        public void IniciarJuego()
+        {
+            // Inicializar entrenadores
+            Console.WriteLine("Ingrese el nombre del Entrenador 1:");
+            string nombre1 = Console.ReadLine();
+            entrenador1 = new Entrenadores(nombre1, new List<Pokemon>());
+
+            Console.WriteLine("Ingrese el nombre del Entrenador 2:");
+            string nombre2 = Console.ReadLine();
+            entrenador2 = new Entrenadores(nombre2, new List<Pokemon>());
+
+            // Seleccionar equipos
+            LogicaDePokemones logicaDePokemones = new LogicaDePokemones();
+            List<Pokemon> todosLosPokemones = logicaDePokemones.InicializarPokemones();
+
+            List<Pokemon> equipo1 = SeleccionarEquipo(entrenador1, todosLosPokemones);
+            List<Pokemon> equipo2 = SeleccionarEquipo(entrenador2, todosLosPokemones);
+
+
+            entrenador1.Pokemones.AddRange(equipo1);
+            entrenador2.Pokemones.AddRange(equipo2);
+
+            // Unirse a la lista de espera
+            fachada.UnirseALaListaDeEspera(entrenador1);
+            fachada.UnirseALaListaDeEspera(entrenador2);
+
+            // Iniciar batalla
+            fachada.IniciarBatalla(entrenador1);
+
+            // Ciclo principal del juego
+            while (true)
+            {
+                Console.WriteLine(fachada.EsTurnoDe());
+                MostrarOpciones();
                 string opcion = Console.ReadLine();
-                Console.WriteLine();
+
                 switch (opcion)
                 {
                     case "1":
-                        batalla.Atacar();
-                        opcionvalida = true;
+                        // Atacar
+                        Console.WriteLine(fachada.MostrarHabilidades());
+                        Console.WriteLine("Elige una habilidad:");
+                        int indiceHabilidad = int.Parse(Console.ReadLine()) - 1;
+                        string resultadoAtaque = fachada.EjecutarAtaque(indiceHabilidad);
+                        Console.WriteLine(resultadoAtaque);
                         break;
                     case "2":
-                        CambiarPokemon();
-                        opcionvalida = true;
+                        // Cambiar Pokémon
+                        Console.WriteLine(fachada.MostrarPokemones(fachada.batallaActual.entrenadorActual));
+                        Console.WriteLine("Elige el Pokémon al que quieres cambiar:");
+                        Console.WriteLine(fachada.EsTurnoDe());
+                        int indicePokemon = int.Parse(Console.ReadLine()) - 1;
+                        string resultadoCambio = fachada.CambiarPokemon(indicePokemon);
+                        Console.WriteLine(resultadoCambio);
                         break;
                     case "3":
-                        UsarMochila();
-                        opcionvalida = true;
+                        // Usar Mochila
+                        List<string> mochila = fachada.batallaActual.entrenadorActual.ObtenerMochila();
+                        for (int i = 0; i < mochila.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {mochila[i]}");
+                        }
+                        Console.WriteLine("Elige el objeto que quieres usar:");
+                        int indiceObjeto = int.Parse(Console.ReadLine()) - 1;
+
+                        // Si es Revivir, preguntar por el Pokémon
+                        string objetoNombre = fachada.batallaActual.entrenadorActual.Mochila[indiceObjeto].Nombre;
+                        if (objetoNombre == "Revivir")
+                        {
+                            Console.WriteLine("Elige el Pokémon que quieres revivir:");
+                            Console.WriteLine(fachada.MostrarPokemones(fachada.batallaActual.entrenadorActual));
+                            int indicePokemonRevivir = int.Parse(Console.ReadLine()) - 1;
+                            string resultadoMochila = fachada.UsarMochila(indiceObjeto, indicePokemonRevivir);
+                            Console.WriteLine(resultadoMochila);
+                        }
+                        else
+                        {
+                            string resultadoMochila = fachada.UsarMochila(indiceObjeto);
+                            Console.WriteLine(resultadoMochila);
+                        }
                         break;
                     case "4":
-                        batalla.Esquivar();
-                        opcionvalida = true;
+                        // Esquivar
+                        fachada.Esquivar();
+                        Console.WriteLine("Te preparas para esquivar el próximo ataque.");
+                        fachada.batallaActual.CambiarTurno();
                         break;
                     case "5":
-                        VerVida();
+                        // Ver vida de los Pokémon
+                        Console.WriteLine(fachada.VerVida());
                         break;
                     default:
-                        Console.WriteLine("Opción invalida. Ingrese nuevamente");
+                        Console.WriteLine("Opción inválida. Inténtalo de nuevo.");
                         break;
+                }
+
+                // Verificar si la batalla ha terminado
+                string finBatalla = fachada.CheckFinBatalla();
+                if (finBatalla != "La batalla aún no ha finalizado")
+                {
+                    Console.WriteLine(finBatalla);
+                    break;
                 }
             }
         }
-        
-        public static List<Pokemon> SeleccionarEquipo(Entrenadores entrenador,List<Pokemon> todosLosPokemones)
+
+        public void MostrarOpciones()
+        {
+            Console.WriteLine("1. Atacar");
+            Console.WriteLine("2. Cambiar Pokémon");
+            Console.WriteLine("3. Usar Mochila");
+            Console.WriteLine("4. Esquivar");
+            Console.WriteLine("5. Ver vida de los Pokémon");
+            Console.WriteLine("Elige una opción:");
+        }
+
+        public List<Pokemon> SeleccionarEquipo(Entrenadores entrenador, List<Pokemon> todosLosPokemones)
         {
             Console.WriteLine($"{entrenador.Nombre}, selecciona los 6 Pokémon para tu equipo:");
             List<Pokemon> equipoSeleccionado = new List<Pokemon>();
@@ -78,4 +157,5 @@ public class DemoConsola
 
             return equipoSeleccionado;
         }
+    }
 }
