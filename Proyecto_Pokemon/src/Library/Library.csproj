@@ -11,4 +11,31 @@
     <AnalysisMode>All</AnalysisMode>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Library ChatBot\Comandos\**" />
+    <Compile Remove="Library ChatBot\Dominio\**" />
+    <Compile Remove="Library ChatBot\Servicios\**" />
+    <Compile Remove="Library ChatBot\Commands\**" />
+    <Compile Remove="Library ChatBot\Domain\**" />
+    <Compile Remove="Library ChatBot\Services\**" />
+    <Compile Remove="Library ChatBot\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Library ChatBot\Comandos\**" />
+    <EmbeddedResource Remove="Library ChatBot\Dominio\**" />
+    <EmbeddedResource Remove="Library ChatBot\Servicios\**" />
+    <EmbeddedResource Remove="Library ChatBot\Commands\**" />
+    <EmbeddedResource Remove="Library ChatBot\Domain\**" />
+    <EmbeddedResource Remove="Library ChatBot\Services\**" />
+    <EmbeddedResource Remove="Library ChatBot\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Library ChatBot\Comandos\**" />
+    <None Remove="Library ChatBot\Dominio\**" />
+    <None Remove="Library ChatBot\Servicios\**" />
+    <None Remove="Library ChatBot\Commands\**" />
+    <None Remove="Library ChatBot\Domain\**" />
+    <None Remove="Library ChatBot\Services\**" />
+    <None Remove="Library ChatBot\**" />
+  </ItemGroup>
 </Project>
