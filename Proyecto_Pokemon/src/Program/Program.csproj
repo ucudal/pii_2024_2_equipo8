@@ -19,4 +19,8 @@
     <ProjectReference Include="..\LibraryChatBo\LibraryChatBo.csproj" />
     <ProjectReference Include="..\Library\Library.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Discord.Net.Core" Version="3.16.0" />
+    <PackageReference Include="Discord.Net.WebSocket" Version="3.16.0" />
+  </ItemGroup>
 </Project>

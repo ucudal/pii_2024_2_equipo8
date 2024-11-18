@@ -6,6 +6,8 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 
+using Discord.WebSocket;
+
 namespace Ucu.Poo.DiscordBot.Services;
 
 /// <summary>
