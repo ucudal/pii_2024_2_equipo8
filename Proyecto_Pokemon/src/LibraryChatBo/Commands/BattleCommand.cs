@@ -1,12 +1,12 @@
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using Ucu.Poo.DiscordBot.Domain;
 
 
 
 
-namespace Ucu.Poo.DiscordBot.Commands;
+
+namespace Proyecto_Pokemon;
 
 /// <summary>
 /// Esta clase implementa el comando 'battle' del bot. Este comando une al
@@ -38,11 +38,13 @@ public class BattleCommand : ModuleBase<SocketCommandContext>
         
         SocketGuildUser? opponentUser = CommandHelper.GetUser(
             Context, opponentDisplayName);
-
+        
         string result;
+        
         if (opponentUser != null)
         {
-            result = Facade.Instance.StartBattle(displayName, opponentUser.DisplayName);
+            
+            result = Fachada.Instance.IniciarBatalla(new Entrenadores(displayName,)/*, opponentUser.DisplayName*/);
             await Context.Message.Author.SendMessageAsync(result);
             await opponentUser.SendMessageAsync(result);
         }

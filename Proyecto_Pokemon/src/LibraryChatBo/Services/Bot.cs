@@ -8,7 +8,7 @@ using Discord.WebSocket;
 
 using Discord.WebSocket;
 
-namespace Ucu.Poo.DiscordBot.Services;
+namespace Proyecto_Pokemon;
 
 /// <summary>
 /// Esta clase implementa el bot de Discord.

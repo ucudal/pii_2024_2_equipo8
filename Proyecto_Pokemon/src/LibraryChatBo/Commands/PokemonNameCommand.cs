@@ -4,7 +4,7 @@ using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
 using Discord.Commands;
 
-namespace Ucu.Poo.DiscordBot.Commands;
+namespace Proyecto_Pokemon;
 
 /// <summary>
 /// Esta clase implementa el comando 'name' del bot. Este comando retorna el

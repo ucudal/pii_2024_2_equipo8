@@ -5,7 +5,7 @@ namespace Proyecto_Pokemon
 {
     public class DemoConsola
     {
-        private Fachada fachada = new Fachada();
+        private Fachada fachada = Fachada.Instance;
         private Entrenadores entrenador1;
         private Entrenadores entrenador2;
 

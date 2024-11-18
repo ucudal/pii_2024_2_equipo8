@@ -1,7 +1,7 @@
 using Discord.Commands;
-using Ucu.Poo.DiscordBot.Domain;
 
-namespace Ucu.Poo.DiscordBot.Commands;
+
+namespace Proyecto_Pokemon;
 
 /// <summary>
 /// Esta clase implementa el comando 'waitinglist' del bot. Este comando muestra

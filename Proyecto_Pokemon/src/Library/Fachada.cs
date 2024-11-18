@@ -7,6 +7,38 @@ namespace Proyecto_Pokemon
         public Batallas batallaActual;
         public Pokemon pokemonActual;
         private bool esquivo;
+        private static Fachada? _instance;
+
+        // Este constructor privado impide que otras clases puedan crear instancias
+        // de esta.
+        private Fachada()
+        {
+            
+        }
+
+        /// <summary>
+        /// Obtiene la única instancia de la clase <see cref="Facade"/>.
+        /// </summary>
+        public static Fachada Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new Fachada();
+                }
+
+                return _instance;
+            }
+        }
+
+        /// <summary>
+        /// Inicializa este singleton. Es necesario solo en los tests.
+        /// </summary>
+        public static void Reset()
+        {
+            _instance = null;
+        }
 
         // permite al entrenador seleccionar un equipo de 6 pokemones
         public string SeleccionarEquipo(Entrenadores entrenador, List<Pokemon> equipoSeleccionado)

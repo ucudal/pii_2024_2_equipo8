@@ -62,7 +62,6 @@ public class Lobby
 
         // Seleccionar primer oponente de la lista de espera
         Entrenadores oponente = listaEspera[0];
-
         // Retirar al oponente de la lista de espera
         listaEspera.Remove(oponente);
         

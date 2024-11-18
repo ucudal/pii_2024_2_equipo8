@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Ucu.Poo.DiscordBot.Services;
+namespace Proyecto_Pokemon;
 
 /// <summary>
 /// La interfaz del Bot de Discord para usar con inyección de dependencias.

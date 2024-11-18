@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Ucu.Poo.DiscordBot.Services;
+namespace Proyecto_Pokemon;
 
 /// <summary>
 /// Esta clase ejecuta el bot de Discord hasta que en la terminal donde se
