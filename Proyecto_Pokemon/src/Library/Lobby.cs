@@ -34,6 +34,17 @@ public class Lobby
         
         return $"{entrenador.Nombre} ya está en la lista de espera.";
     }
+    public string RetirarJugadorDeListaDeEspera(Entrenadores entrenador)
+    {
+        if (listaEspera.Contains(entrenador))
+        {
+            listaEspera.Remove(entrenador);
+            return $"{entrenador.Nombre} ha sido retirado de la lista de espera del lobby '{Nombre}' de la región {Region}.";
+        }
+        
+        return $"{entrenador.Nombre} ya no está en la lista de espera.";
+    }
+
 
     // Muestra los entrenadores en la lista de espera
     public List<string> VerListaDeEspera()

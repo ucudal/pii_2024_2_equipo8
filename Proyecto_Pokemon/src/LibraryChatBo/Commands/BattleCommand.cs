@@ -44,7 +44,7 @@ public class BattleCommand : ModuleBase<SocketCommandContext>
         if (opponentUser != null)
         {
             
-            result = Fachada.Instance.IniciarBatalla(new Entrenadores(displayName,)/*, opponentUser.DisplayName*/);
+            result = Fachada.Instance.IniciarBatalla(new Entrenadores()/*, opponentUser.DisplayName*/);
             await Context.Message.Author.SendMessageAsync(result);
             await opponentUser.SendMessageAsync(result);
         }

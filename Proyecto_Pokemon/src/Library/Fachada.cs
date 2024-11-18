@@ -276,6 +276,11 @@ namespace Proyecto_Pokemon
         {
             return lobbyActual.UnirseALaListaDeEspera(entrenador);
         }
+        
+        public string RetirarJugadorDeListaDeEspera(Entrenadores entrenador)
+        {
+            return lobbyActual.RetirarJugadorDeListaDeEspera(entrenador);
+        }
 
         // muestra todos los entrenadores que están en la lista de espera
         public string VerListaDeEspera()
