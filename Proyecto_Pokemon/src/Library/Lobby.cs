@@ -45,6 +45,13 @@ public class Lobby
         return $"{entrenador.Nombre} ya no está en la lista de espera.";
     }
 
+    public string UserInfo(Entrenadores entrenador)
+    {
+        return
+            $"{entrenador.Nombre} tiene {entrenador.Edad} a;os," +
+            $" su color de pelo es {entrenador.ColorPelo} y su color de ojos es {entrenador.ColorOjos}";
+
+    }
 
     // Muestra los entrenadores en la lista de espera
     public List<string> VerListaDeEspera()
