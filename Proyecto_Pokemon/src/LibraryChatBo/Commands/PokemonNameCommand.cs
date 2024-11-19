@@ -8,7 +8,7 @@ namespace Proyecto_Pokemon;
 
 /// <summary>
 /// Esta clase implementa el comando 'name' del bot. Este comando retorna el
-/// nombre de un Pokémon dado su identificador.
+                          /// nombre de un Pokémon dado su identificador.
 /// </summary>
 // ReSharper disable once UnusedType.Global
 public class PokemonNameCommand : ModuleBase<SocketCommandContext>
