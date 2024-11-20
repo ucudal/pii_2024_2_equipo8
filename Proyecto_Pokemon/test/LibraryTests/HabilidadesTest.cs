@@ -55,7 +55,7 @@ namespace Proyecto_Pokemon
         [Test]
         public void Habilidad_DeberiaTenerPPCorrecto()
         {
-            Assert.That(habilidad.PP, Is.EqualTo(10));
+            Assert.That(habilidad.Puntos_de_Poder, Is.EqualTo(10));
         }
 
         // test que verifica si la habilidad es de tipo doble turno (en este caso no lo es)

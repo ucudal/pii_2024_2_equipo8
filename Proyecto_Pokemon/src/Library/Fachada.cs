@@ -25,7 +25,7 @@ namespace Proyecto_Pokemon
             for (int i = 0; i < habilidadesList.Count; i++)
             {
                 var habilidad = habilidadesList[i];
-                habilidades += $"{i + 1}. {habilidad.Nombre} - Daño: {habilidad.Danio}, Precisión: {habilidad.Precision}, Tipo: {habilidad.Tipo.Nombre}, PP: {habilidad.PP}, Doble turno: {habilidad.EsDobleTurno}; ";
+                habilidades += $"{i + 1}. {habilidad.Nombre} - Daño: {habilidad.Danio}, Precisión: {habilidad.Precision}, Tipo: {habilidad.Tipo.Nombre}, Puntos de poder: {habilidad.Puntos_de_Poder}, Doble turno: {habilidad.EsDobleTurno}; ";
             }
             return habilidades;
         }
@@ -60,12 +60,12 @@ namespace Proyecto_Pokemon
 
                 IHabilidades habilidad = atacante.Habilidades[indiceHabilidad];
 
-                if (habilidad.PP <= 0)
+                if (habilidad.Puntos_de_Poder <= 0)
                 {
                     return $"La habilidad {habilidad.Nombre} no tiene PP suficientes, elige otra habilidad.";
                 }
 
-                habilidad.PP--;
+                habilidad.Puntos_de_Poder--;
 
                 if (habilidad.EsDobleTurno)
                 {

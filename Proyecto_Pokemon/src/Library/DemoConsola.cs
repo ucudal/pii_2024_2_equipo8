@@ -39,6 +39,78 @@ namespace Proyecto_Pokemon
             fachada.IniciarBatalla(entrenador1);
 
             // Ciclo principal del juego
+            while (entrenador1.TienePokemonesVivos() && entrenador2.TienePokemonesVivos())
+            {
+                Pokemon atacante = fachada.ObtenerPokemonActivo();
+                Entrenadores entrenadorActual = fachada.batallaActual.entrenadorActual;
+                if (atacante.Estado != null)
+                {
+                    switch (atacante.Estado)
+                    {
+                        case "envenenado":
+                            atacante.Vida -= (int)(atacante.VidaBase * 0.05);
+                            Console.WriteLine(
+                                $"{atacante.Nombre} pierde vida por envenenamiento. Vida restante: {atacante.Vida}/{atacante.VidaBase}");
+                            if (atacante.Vida <= 0)
+                            {
+                                atacante.Vida = 0;
+                                Console.WriteLine($"{atacante.Nombre} fue derrotado por el veneno.");
+                                SolicitarCambioPokemon(entrenadorActual);
+                                fachada.batallaActual.CambiarTurno();
+                                continue;
+                            }
+
+                            break;
+                        case "quemado":
+                            atacante.Vida -= (int)(atacante.VidaBase * 0.10);
+                            Console.WriteLine(
+                                $"{atacante.Nombre} pierde vida por quemadura. Vida restante: {atacante.Vida}/{atacante.VidaBase}");
+                            if (atacante.Vida <= 0)
+                            {
+                                atacante.Vida = 0;
+                                Console.WriteLine($"{atacante.Nombre} fue derrotado por la quemadura.");
+                                SolicitarCambioPokemon(entrenadorActual);
+                                fachada.batallaActual.CambiarTurno();
+                                continue;
+                            }
+
+                            break;
+                        case "noqueado":
+                            Random random = new Random();
+                            int turnosNoqueado = 4;
+                            if (random.Next(1, 5) > turnosNoqueado)
+                            {
+                                Console.WriteLine($"{atacante.Nombre} se recuperó del noqueo.");
+                                atacante.Estado = null;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"{atacante.Nombre} está noqueado y no puede atacar.");
+                                fachada.batallaActual.CambiarTurno();
+                                turnosNoqueado--;
+                                continue;
+                            }
+
+                            break;
+                        case "paralisis":
+                            Random randomParalizado = new Random();
+                            bool noPuedeAtacar = randomParalizado.Next(1, 101) <= 25;
+                            if (noPuedeAtacar)
+                            {
+                                Console.WriteLine($"{atacante.Nombre} está paralizado. No se puede mover. (Como en los juegos Jaja)");
+                                fachada.batallaActual.CambiarTurno();
+                                continue;
+                            }
+                            break;
+                    }
+                }
+
+                if (atacante.HabilidadCargando != null)
+                {
+                    Console.WriteLine($"{atacante.Nombre} usa {atacante.HabilidadCargando.Nombre}.");
+                    string resultado = fachada.EjecutarAtaqueCargando();
+                    Console.WriteLine(resultado);
+                }
                 else
                 {
                     Console.WriteLine(fachada.EsTurnoDe());
@@ -48,7 +120,18 @@ namespace Proyecto_Pokemon
                     switch (opcion)
                     {
                         case "1":
-                            
+                            // Atacar
+                            if (atacante.Estado == "paralizado")
+                            {
+                                Random randomParalizado = new Random();
+                                bool noPuedeAtacar = randomParalizado.Next(1, 101) <= 25;
+                                if (noPuedeAtacar)
+                                {
+                                    Console.WriteLine($"{atacante.Nombre} está paralizado y no puede atacar.");
+                                    fachada.batallaActual.CambiarTurno();
+                                    break;
+                                }
+                            }
                             Console.WriteLine(fachada.MostrarHabilidades());
                             Console.WriteLine("Elige una habilidad:");
                             int indiceHabilidad = int.Parse(Console.ReadLine()) - 1;
