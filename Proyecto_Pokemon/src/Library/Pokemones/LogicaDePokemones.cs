@@ -297,7 +297,7 @@ public class LogicaDePokemones
         Jynx.AprenderHabilidad(cabezazozen);
 
         // LUCARIO
-        IHabilidades golperoca = new Habilidades("Golpe Roca", tipoLucha, 40, 100, 15, false);
+        IHabilidades golperoca = new Habilidades("Golpe Roca", tipoLucha, 40, 50, 15, false);
         IHabilidades puniodehierro = new Habilidades("Puño de Hierro", tipoAcero, 80, 100, 10, false);
         IHabilidades garrametal = new Habilidades("Garra Metal", tipoAcero, 95, 90, 15, false);
         IHabilidades abocajarro = new Habilidades("A bocajarro", tipoLucha, 120, 80, 5, true);

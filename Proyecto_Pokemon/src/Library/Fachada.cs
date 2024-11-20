@@ -7,6 +7,8 @@ namespace Proyecto_Pokemon
         public Batallas batallaActual;
         public Pokemon pokemonActual;
         private bool esquivo;
+        
+        
 
         // permite al entrenador seleccionar un equipo de 6 pokemones
         public string SeleccionarEquipo(Entrenadores entrenador, List<Pokemon> equipoSeleccionado)
@@ -84,32 +86,27 @@ namespace Proyecto_Pokemon
         private string RealizarAtaque(Pokemon atacante, Pokemon defensor, IHabilidades habilidad)
         {
             double efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoPrincipal);
-            double multiplicador = efectividad;
-
+            int danio = (int)(habilidad.Danio * efectividad);
             if (defensor.TipoSecundario != null)
             {
                 efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoSecundario);
-                multiplicador *= efectividad;
+                danio = (int)(danio * efectividad);
             }
 
             Random random = new Random();
             int probabilidad = random.Next(0, 100);
-            int precisionFinal = habilidad.Precision;
-
+            int precisionfinal = habilidad.Precision;
             if (esquivo)
             {
-                precisionFinal -= 30;
-                esquivo = false; // resetear el estado de esquivar
+                precisionfinal -= 30;
             }
 
-            if (probabilidad <= precisionFinal)
+            if (probabilidad <= precisionfinal)
             {
-                int danio = (int)(habilidad.Danio * multiplicador);
-
                 if (random.Next(0, 100) < 10 && habilidad.EsDobleTurno)
                 {
                     danio = (int)(danio * 1.2);
-                    // Puedes retornar un mensaje indicando el golpe crítico si lo deseas
+                    return "Lo dejaste tieso";
                 }
 
                 defensor.Vida -= danio;
@@ -146,6 +143,40 @@ namespace Proyecto_Pokemon
         {
             return $"Turno de {batallaActual.entrenadorActual.Nombre}";
         }
+        
+        // Método adaptado para manejar ataques cargados
+        public string EjecutarAtaqueCargando()
+        {
+            if (pokemonActual.HabilidadCargando != null)
+            {
+                // Obtener el defensor basado en el turno actual
+                Pokemon defensor = batallaActual.entrenadorActual == batallaActual.entrenador1
+                    ? batallaActual.pokemonActivo2
+                    : batallaActual.pokemonActivo1;
+
+                // Realizar el ataque con la habilidad cargada
+                string resultado = RealizarAtaque(pokemonActual, defensor, pokemonActual.HabilidadCargando);
+        
+                // Limpiar el estado de carga
+                pokemonActual.HabilidadCargando = null;
+
+                CambiarTurno();
+                return resultado;
+            }
+            else
+            {
+                return $"{pokemonActual.Nombre} no tiene ninguna habilidad cargando actualmente.";
+            }
+        }
+
+// Método adaptado para obtener el Pokémon activo del turno
+        public Pokemon ObtenerPokemonActivo()
+        {
+            // Usa GetPokemonActual para asegurarte de que el Pokémon actual está correctamente configurado
+            GetPokemonActual();
+            return pokemonActual;
+        }
+
 
         // chequea si la batalla terminó y retorna el ganador
         public string CheckFinBatalla()

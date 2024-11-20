@@ -39,86 +39,174 @@ namespace Proyecto_Pokemon
             fachada.IniciarBatalla(entrenador1);
 
             // Ciclo principal del juego
-            while (true)
+            while (entrenador1.TienePokemonesVivos() && entrenador2.TienePokemonesVivos())
             {
-                Console.WriteLine(fachada.EsTurnoDe());
-                MostrarOpciones();
-                string opcion = Console.ReadLine();
-
-                switch (opcion)
+                Pokemon atacante = fachada.ObtenerPokemonActivo();
+                Entrenadores entrenadorActual = fachada.batallaActual.entrenadorActual;
+                if (atacante.Estado != null)
                 {
-                    case "1":
-                        // Atacar
-                        Console.WriteLine(fachada.MostrarHabilidades());
-                        Console.WriteLine("Elige una habilidad:");
-                        int indiceHabilidad = int.Parse(Console.ReadLine()) - 1;
-                        string resultadoAtaque = fachada.EjecutarAtaque(indiceHabilidad);
-                        Console.WriteLine(resultadoAtaque);
-                        if (resultadoAtaque.Contains("ha sido debilitado"))
-                        {
-                            // En este punto ya se cambió de turno, por lo que defensor es actual.
-                            Entrenadores entrenadorDefensor = fachada.batallaActual.entrenadorActual;
-                            SolicitarCambioPokemon(entrenadorDefensor);
-                        }
-                        break;
-                    case "2":
-                        // Cambiar Pokémon
-                        Console.WriteLine(fachada.MostrarPokemones(fachada.batallaActual.entrenadorActual));
-                        Console.WriteLine("Elige el Pokémon al que quieres cambiar:");
-                        Console.WriteLine(fachada.EsTurnoDe());
-                        int indicePokemon = int.Parse(Console.ReadLine()) - 1;
-                        string resultadoCambio = fachada.CambiarPokemon(indicePokemon);
-                        Console.WriteLine(resultadoCambio);
-                        break;
-                    case "3":
-                        // Usar Mochila
-                        List<string> mochila = fachada.batallaActual.entrenadorActual.ObtenerMochila();
-                        for (int i = 0; i < mochila.Count; i++)
-                        {
-                            Console.WriteLine($"{i + 1}. {mochila[i]}");
-                        }
-                        Console.WriteLine("Elige el objeto que quieres usar:");
-                        int indiceObjeto = int.Parse(Console.ReadLine()) - 1;
+                    switch (atacante.Estado)
+                    {
+                        case "envenenado":
+                            atacante.Vida -= (int)(atacante.VidaBase * 0.05);
+                            Console.WriteLine(
+                                $"{atacante.Nombre} pierde vida por envenenamiento. Vida restante: {atacante.Vida}/{atacante.VidaBase}");
+                            if (atacante.Vida <= 0)
+                            {
+                                atacante.Vida = 0;
+                                Console.WriteLine($"{atacante.Nombre} fue derrotado por el veneno.");
+                                SolicitarCambioPokemon(entrenadorActual);
+                                fachada.batallaActual.CambiarTurno();
+                                continue;
+                            }
 
-                        // Si es Revivir, preguntar por el Pokémon
-                        string objetoNombre = fachada.batallaActual.entrenadorActual.Mochila[indiceObjeto].Nombre;
-                        if (objetoNombre == "Revivir")
-                        {
-                            Console.WriteLine("Elige el Pokémon que quieres revivir:");
-                            Console.WriteLine(fachada.MostrarPokemones(fachada.batallaActual.entrenadorActual));
-                            int indicePokemonRevivir = int.Parse(Console.ReadLine()) - 1;
-                            string resultadoMochila = fachada.UsarMochila(indiceObjeto, indicePokemonRevivir);
-                            Console.WriteLine(resultadoMochila);
-                        }
-                        else
-                        {
-                            string resultadoMochila = fachada.UsarMochila(indiceObjeto);
-                            Console.WriteLine(resultadoMochila);
-                        }
-                        break;
-                    case "4":
-                        // Esquivar
-                        fachada.Esquivar();
-                        Console.WriteLine("Te preparas para esquivar el próximo ataque.");
-                        fachada.batallaActual.CambiarTurno();
-                        break;
-                    case "5":
-                        // Ver vida de los Pokémon
-                        Console.WriteLine(fachada.VerVida());
-                        break;
-                    default:
-                        Console.WriteLine("Opción inválida. Inténtalo de nuevo.");
-                        break;
+                            break;
+                        case "quemado":
+                            atacante.Vida -= (int)(atacante.VidaBase * 0.10);
+                            Console.WriteLine(
+                                $"{atacante.Nombre} pierde vida por quemadura. Vida restante: {atacante.Vida}/{atacante.VidaBase}");
+                            if (atacante.Vida <= 0)
+                            {
+                                atacante.Vida = 0;
+                                Console.WriteLine($"{atacante.Nombre} fue derrotado por la quemadura.");
+                                SolicitarCambioPokemon(entrenadorActual);
+                                fachada.batallaActual.CambiarTurno();
+                                continue;
+                            }
+
+                            break;
+                        case "noqueado":
+                            Random random = new Random();
+                            int turnosNoqueado = 4;
+                            if (random.Next(1, 5) > turnosNoqueado)
+                            {
+                                Console.WriteLine($"{atacante.Nombre} se recuperó del noqueo.");
+                                atacante.Estado = null;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"{atacante.Nombre} está noqueado y no puede atacar.");
+                                fachada.batallaActual.CambiarTurno();
+                                turnosNoqueado--;
+                                continue;
+                            }
+
+                            break;
+                        case "paralisis":
+                            Random randomParalizado = new Random();
+                            bool noPuedeAtacar = randomParalizado.Next(1, 101) <= 25;
+                            if (noPuedeAtacar)
+                            {
+                                Console.WriteLine($"{atacante.Nombre} está paralizado. No se puede mover. (Como en los juegos Jaja)");
+                                fachada.batallaActual.CambiarTurno();
+                                continue;
+                            }
+                            break;
+                    }
                 }
 
-                // Verificar si la batalla ha terminado
-                string finBatalla = fachada.CheckFinBatalla();
-                if (finBatalla != "La batalla aún no ha finalizado")
+                if (atacante.HabilidadCargando != null)
                 {
-                    Console.WriteLine(finBatalla);
-                    break;
+                    Console.WriteLine($"{atacante.Nombre} usa {atacante.HabilidadCargando.Nombre}.");
+                    string resultado = fachada.EjecutarAtaqueCargando();
+                    Console.WriteLine(resultado);
+                }
+                else
+                {
+                    Console.WriteLine(fachada.EsTurnoDe());
+                    MostrarOpciones();
+                    string opcion = Console.ReadLine();
+
+                    switch (opcion)
+                    {
+                        case "1":
+                            // Atacar
+                            if (atacante.Estado == "paralizado")
+                            {
+                                Random randomParalizado = new Random();
+                                bool noPuedeAtacar = randomParalizado.Next(1, 101) <= 25;
+                                if (noPuedeAtacar)
+                                {
+                                    Console.WriteLine($"{atacante.Nombre} está paralizado y no puede atacar.");
+                                    fachada.batallaActual.CambiarTurno();
+                                    break;
+                                }
+                            }
+                            Console.WriteLine(fachada.MostrarHabilidades());
+                            Console.WriteLine("Elige una habilidad:");
+                            int indiceHabilidad = int.Parse(Console.ReadLine()) - 1;
+                            string resultadoAtaque = fachada.EjecutarAtaque(indiceHabilidad);
+                            Console.WriteLine(resultadoAtaque);
+                            if (resultadoAtaque.Contains("ha sido debilitado"))
+                            {
+                                Entrenadores entrenadorDefensor = fachada.batallaActual.entrenadorActual;
+                                SolicitarCambioPokemon(entrenadorDefensor);
+                            }
+
+                            break;
+                        case "2":
+                            // Cambiar Pokémon
+                            Console.WriteLine(fachada.MostrarPokemones(fachada.batallaActual.entrenadorActual));
+                            Console.WriteLine("Elige el Pokémon al que quieres cambiar:");
+                            Console.WriteLine(fachada.EsTurnoDe());
+                            int indicePokemon = int.Parse(Console.ReadLine()) - 1;
+                            string resultadoCambio = fachada.CambiarPokemon(indicePokemon);
+                            Console.WriteLine(resultadoCambio);
+                            break;
+                        case "3":
+                            // Usar Mochila
+                            List<string> mochila = fachada.batallaActual.entrenadorActual.ObtenerMochila();
+                            for (int i = 0; i < mochila.Count; i++)
+                            {
+                                Console.WriteLine($"{i + 1}. {mochila[i]}");
+                            }
+
+                            Console.WriteLine("Elige el objeto que quieres usar:");
+                            int indiceObjeto = int.Parse(Console.ReadLine()) - 1;
+
+                            // Si es Revivir, preguntar por el Pokémon
+                            string objetoNombre = fachada.batallaActual.entrenadorActual.Mochila[indiceObjeto].Nombre;
+                            if (objetoNombre == "Revivir")
+                            {
+                                Console.WriteLine("Elige el Pokémon que quieres revivir:");
+                                Console.WriteLine(fachada.MostrarPokemones(fachada.batallaActual.entrenadorActual));
+                                int indicePokemonRevivir = int.Parse(Console.ReadLine()) - 1;
+                                string resultadoMochila = fachada.UsarMochila(indiceObjeto, indicePokemonRevivir);
+                                Console.WriteLine(resultadoMochila);
+                            }
+                            else
+                            {
+                                string resultadoMochila = fachada.UsarMochila(indiceObjeto);
+                                Console.WriteLine(resultadoMochila);
+                            }
+
+                            break;
+                        case "4":
+                            // Esquivar
+                            fachada.Esquivar();
+                            Console.WriteLine("Te preparas para esquivar el próximo ataque.");
+                            fachada.batallaActual.CambiarTurno();
+                            break;
+                        case "5":
+                            // Ver vida de los Pokémon
+                            Console.WriteLine(fachada.VerVida());
+                            break;
+                        default:
+                            Console.WriteLine("Opción inválida. Inténtalo de nuevo.");
+                            break;
+                    }
+
+                    // Verificar si la batalla ha terminado
+                    string finBatalla = fachada.CheckFinBatalla();
+                    if (finBatalla != "La batalla aún no ha finalizado")
+                    {
+                        Console.WriteLine(finBatalla);
+                        break;
+                    }
                 }
             }
+            string mensajeFinal = fachada.CheckFinBatalla();
+            Console.WriteLine(mensajeFinal);
         }
 
         public void MostrarOpciones()
@@ -150,7 +238,7 @@ namespace Proyecto_Pokemon
                 if (!eleccionValida || eleccion < 1 || eleccion > todosLosPokemones.Count)
                 {
                     Console.WriteLine("La opción que elegiste no es válida, ingrese de nuevo:");
-                    i--;  // Repetir la selección de Pokémon
+                    i--;
                     continue;
                 }
 
