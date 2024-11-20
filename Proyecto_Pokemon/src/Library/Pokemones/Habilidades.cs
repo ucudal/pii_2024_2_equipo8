@@ -6,7 +6,7 @@ public class Habilidades : IHabilidades
     public ITipo Tipo { set; get; }
     public int Danio { set; get; }
     public int Precision { get; set; }
-    public int PP { get; set; }
+    public int Puntos_de_Poder { get; set; }
     public bool EsDobleTurno { get; set; }
     public IEfectos Efectos { get; set; }
     
@@ -18,7 +18,7 @@ public class Habilidades : IHabilidades
         Tipo = tipo;
         Danio = danio;
         Precision = precision;
-        PP = pp;
+        Puntos_de_Poder = pp;
         EsDobleTurno = esdobleturno;
         Efectos = efectos;
     }
