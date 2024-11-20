@@ -144,22 +144,13 @@ namespace Proyecto_Pokemon
             return $"Turno de {batallaActual.entrenadorActual.Nombre}";
         }
         
-        // Método adaptado para manejar ataques cargados
         public string EjecutarAtaqueCargando()
         {
             if (pokemonActual.HabilidadCargando != null)
             {
-                // Obtener el defensor basado en el turno actual
-                Pokemon defensor = batallaActual.entrenadorActual == batallaActual.entrenador1
-                    ? batallaActual.pokemonActivo2
-                    : batallaActual.pokemonActivo1;
-
-                // Realizar el ataque con la habilidad cargada
+                Pokemon defensor = batallaActual.entrenadorActual == batallaActual.entrenador1 ? batallaActual.pokemonActivo2 : batallaActual.pokemonActivo1;
                 string resultado = RealizarAtaque(pokemonActual, defensor, pokemonActual.HabilidadCargando);
-        
-                // Limpiar el estado de carga
                 pokemonActual.HabilidadCargando = null;
-
                 CambiarTurno();
                 return resultado;
             }
@@ -169,10 +160,8 @@ namespace Proyecto_Pokemon
             }
         }
 
-// Método adaptado para obtener el Pokémon activo del turno
         public Pokemon ObtenerPokemonActivo()
         {
-            // Usa GetPokemonActual para asegurarte de que el Pokémon actual está correctamente configurado
             GetPokemonActual();
             return pokemonActual;
         }
