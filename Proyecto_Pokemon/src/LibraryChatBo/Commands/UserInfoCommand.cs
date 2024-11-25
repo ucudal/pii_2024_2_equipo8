@@ -39,8 +39,8 @@ public class UserInfoCommand : ModuleBase<SocketCommandContext>
         
         string userName = displayName ?? CommandHelper.GetDisplayName(Context);
         
-        //string result = Fachada.Instance.TrainerIsWaiting(Fachada.Instance.GetEntrenadorPorNombre(displayName));
+        string result = Fachada.Instance.UserInfo();
         
-        //await ReplyAsync(result);
+        await ReplyAsync(result);
     }
 }

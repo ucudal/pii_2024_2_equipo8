@@ -34,6 +34,24 @@ public class Lobby
         
         return $"{entrenador.Nombre} ya está en la lista de espera.";
     }
+    public string RetirarJugadorDeListaDeEspera(Entrenadores entrenador)
+    {
+        if (listaEspera.Contains(entrenador))
+        {
+            listaEspera.Remove(entrenador);
+            return $"{entrenador.Nombre} ha sido retirado de la lista de espera del lobby '{Nombre}' de la región {Region}.";
+        }
+        
+        return $"{entrenador.Nombre} ya no está en la lista de espera.";
+    }
+
+    public string UserInfo(Entrenadores entrenador)
+    {
+        return
+            $"{entrenador.Nombre} tiene {entrenador.Edad} a;os," +
+            $" su color de pelo es {entrenador.ColorPelo} y su color de ojos es {entrenador.ColorOjos}";
+
+    }
 
     // Muestra los entrenadores en la lista de espera
     public List<string> VerListaDeEspera()
