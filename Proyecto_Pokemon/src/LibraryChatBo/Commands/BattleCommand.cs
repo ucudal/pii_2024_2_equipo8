@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
@@ -17,6 +18,7 @@ namespace Proyecto_Pokemon;
 // ReSharper disable once UnusedType.Global
 public class BattleCommand : ModuleBase<SocketCommandContext>
 {
+    
     /// <summary>
     /// Implementa el comando 'battle'. Este comando une al jugador que envía el
     /// mensaje a la lista de jugadores esperando para jugar.
@@ -44,7 +46,8 @@ public class BattleCommand : ModuleBase<SocketCommandContext>
         if (opponentUser != null)
         {
             
-            result = Fachada.Instance.IniciarBatalla(new Entrenadores(displayName,)/*, opponentUser.DisplayName*/);
+            
+            result = Fachada.Instance.IniciarBatalla(Fachada.Instance.GetEntrenadorPorNombre(displayName), Fachada.Instance.GetEntrenadorPorNombre(opponentDisplayName));
             await Context.Message.Author.SendMessageAsync(result);
             await opponentUser.SendMessageAsync(result);
         }

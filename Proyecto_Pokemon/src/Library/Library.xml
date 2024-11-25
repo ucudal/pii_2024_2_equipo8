@@ -4,5 +4,15 @@
         <name>Library</name>
     </assembly>
     <members>
+        <member name="P:Proyecto_Pokemon.Fachada.Instance">
+            <summary>
+            Obtiene la única instancia de la clase <see cref="!:Facade"/>.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.Reset">
+            <summary>
+            Inicializa este singleton. Es necesario solo en los tests.
+            </summary>
+        </member>
     </members>
 </doc>

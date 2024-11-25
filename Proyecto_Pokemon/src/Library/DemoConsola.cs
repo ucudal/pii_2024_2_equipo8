@@ -6,37 +6,36 @@ namespace Proyecto_Pokemon
     public class DemoConsola
     {
         private Fachada fachada = Fachada.Instance;
-        private Entrenadores entrenador1;
-        private Entrenadores entrenador2;
+        
 
         public void IniciarJuego()
         {
             // Inicializar entrenadores
             Console.WriteLine("Ingrese el nombre del Entrenador 1:");
             string nombre1 = Console.ReadLine();
-            entrenador1 = new Entrenadores(nombre1, new List<Pokemon>());
+            fachada.entrenador1 = new Entrenadores(nombre1, new List<Pokemon>());
 
             Console.WriteLine("Ingrese el nombre del Entrenador 2:");
             string nombre2 = Console.ReadLine();
-            entrenador2 = new Entrenadores(nombre2, new List<Pokemon>());
+            fachada.entrenador2 = new Entrenadores(nombre2, new List<Pokemon>());
 
             // Seleccionar equipos
             LogicaDePokemones logicaDePokemones = new LogicaDePokemones();
             List<Pokemon> todosLosPokemones = logicaDePokemones.InicializarPokemones();
 
-            List<Pokemon> equipo1 = SeleccionarEquipo(entrenador1, todosLosPokemones);
-            List<Pokemon> equipo2 = SeleccionarEquipo(entrenador2, todosLosPokemones);
+            List<Pokemon> equipo1 = SeleccionarEquipo(fachada.entrenador1, todosLosPokemones);
+            List<Pokemon> equipo2 = SeleccionarEquipo(fachada.entrenador2, todosLosPokemones);
 
 
-            entrenador1.Pokemones.AddRange(equipo1);
-            entrenador2.Pokemones.AddRange(equipo2);
+            fachada.entrenador1.Pokemones.AddRange(equipo1);
+            fachada.entrenador2.Pokemones.AddRange(equipo2);
 
             // Unirse a la lista de espera
-            fachada.UnirseALaListaDeEspera(entrenador1);
-            fachada.UnirseALaListaDeEspera(entrenador2);
+            fachada.UnirseALaListaDeEspera(fachada.entrenador1);
+            fachada.UnirseALaListaDeEspera(fachada.entrenador2);
 
             // Iniciar batalla
-            fachada.IniciarBatalla(entrenador1);
+            fachada.IniciarBatalla(fachada.entrenador1,fachada.entrenador2);
 
             // Ciclo principal del juego
             while (true)
@@ -168,7 +167,7 @@ namespace Proyecto_Pokemon
         {
             if (!entrenador.TienePokemonesVivos())
             {
-                Console.WriteLine($"{entrenador.Nombre} no tiene más Pokémon vivos. ¡{(entrenador == entrenador1 ? entrenador2.Nombre : entrenador1.Nombre)} ha ganado la batalla!");
+                Console.WriteLine($"{entrenador.Nombre} no tiene más Pokémon vivos. ¡{(entrenador == fachada.entrenador1 ? fachada.entrenador2.Nombre : fachada.entrenador1.Nombre)} ha ganado la batalla!");
                 // Terminar la batalla o manejar el fin del juego
                 Environment.Exit(0); // O maneja el fin del juego adecuadamente
             }

@@ -47,10 +47,10 @@ public class Lobby
     }
     
     // Inicia una batalla entre el entrenador actual y el primer entrenador de la lista de espera
-    public string IniciarBatalla(Entrenadores entrenador)
+    public string IniciarBatalla(Entrenadores entrenador, Entrenadores oponente)
     {
-        LogicaDePokemones todoslospoke = new LogicaDePokemones();
-        List<Pokemon> todosLosPokemones = todoslospoke.InicializarPokemones();
+        
+        
         
         // Remover al entrenador de la lista de espera antes de buscar oponente
         listaEspera.Remove(entrenador);
@@ -59,17 +59,20 @@ public class Lobby
         {
             return "No hay jugadores en la lista de espera.";
         }
+        
 
         // Seleccionar primer oponente de la lista de espera
-        Entrenadores oponente = listaEspera[0];
+        //Entrenadores oponente = listaEspera[0];
         // Retirar al oponente de la lista de espera
         listaEspera.Remove(oponente);
         
-        entrenador.SeleccionarEquipo(todosLosPokemones);
-        oponente.SeleccionarEquipo(todosLosPokemones);
+        //entrenador.SeleccionarEquipo(todosLosPokemones);
+        //oponente.SeleccionarEquipo(todosLosPokemones);
         // Crear una nueva batalla y agregarla a las batallas activas
         Batallas nuevaBatalla = new Batallas(entrenador, oponente);
         batallasActivas.Add(nuevaBatalla);
+        
+        
         
         nuevaBatalla.Iniciar(); //ARREGLAR 
         

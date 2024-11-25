@@ -8,11 +8,14 @@ namespace Proyecto_Pokemon
         public Pokemon pokemonActual;
         private bool esquivo;
         private static Fachada? _instance;
+        public Entrenadores entrenador1;
+        public Entrenadores entrenador2; 
 
         // Este constructor privado impide que otras clases puedan crear instancias
         // de esta.
         private Fachada()
         {
+
             
         }
 
@@ -289,10 +292,11 @@ namespace Proyecto_Pokemon
         }
 
         // inicia una batalla entre el entrenador actual y el primero en la lista de espera
-        public string IniciarBatalla(Entrenadores entrenador)
+        public string IniciarBatalla(Entrenadores entrenador, Entrenadores oponente)
         {
-            string nuevaBatalla = lobbyActual.IniciarBatalla(entrenador);
-            GetBatallaActual();
+            string nuevaBatalla = lobbyActual.IniciarBatalla(entrenador, oponente);
+            
+            //GetBatallaActual();
             return nuevaBatalla;
         }
 
@@ -327,5 +331,33 @@ namespace Proyecto_Pokemon
         {
             batallaActual.CambiarTurno();
         }
+        public Entrenadores GetEntrenadorPorNombre(string nombre)
+        {
+            foreach (Entrenadores entrenador in lobbyActual.listaEspera)
+            {
+                if (nombre == entrenador.Nombre)
+                {
+                    return entrenador;
+                }
+            }
+
+            return null;
+        }
+
+        public Entrenadores SetEntrenadorPorNombre(string nombre)
+        {
+            List<Pokemon> pokemons = new List<Pokemon>();
+            Entrenadores nuevoEntrenador = new Entrenadores(nombre, pokemons);
+            return nuevoEntrenador;
+        }
+
+        public List<Pokemon> InicializarPokemons()
+        {
+            LogicaDePokemones todoslospoke = new LogicaDePokemones();
+            List<Pokemon> todosLosPokemones = todoslospoke.InicializarPokemones();
+            return todosLosPokemones;
+        }
     }
+    
+    
 }
