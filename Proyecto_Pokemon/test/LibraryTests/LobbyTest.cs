@@ -36,8 +36,6 @@ public class LobbyTests
             Assert.That(resultadoBool, Is.EqualTo(true));
             Assert.That(resultado, Is.EqualTo("Ash\n"));
         }
-        
-        
 
         // se agrega un entrenador a la lista de espera y luego intentamos agregarlo de nuevo
         [Test]
@@ -50,9 +48,6 @@ public class LobbyTests
             // tendria que indicar que el entrenador ya está en la lista
             Assert.That(resultado, Is.EqualTo(false));
         }
-        
-        
-
         // se verifica que la lista de espera contenga los nombres de los entrenadores
         [Test]
         public void VerListaDeEspera()
