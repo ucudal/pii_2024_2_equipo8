@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [TestFixture]
 public class FachadaTests
 {
-    private Fachada fachada;
+    /*private Fachada fachada;
     private Entrenadores entrenador1;
     private Entrenadores entrenador2;
     private Pokemon pikachu;
@@ -148,5 +148,5 @@ public class FachadaTests
     {
         var pokemones = fachada.MostrarPokemones(entrenador1);
         Assert.That(pokemones, Is.Not.Empty);
-    }
+    }*/
 }

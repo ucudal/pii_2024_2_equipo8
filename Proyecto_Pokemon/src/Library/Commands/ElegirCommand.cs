@@ -23,6 +23,5 @@ public class ElegirCommand : ModuleBase<SocketCommandContext>
         string result;
         result = Fachada.SeleccionarEquipo(displayName, pokemonName);
         await ReplyAsync(result);
-
     }
 }

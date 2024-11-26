@@ -13,22 +13,10 @@ public class BatallasEnCurso
         {
             return true;
         }
-        else
-        {
             return false;
-        }
     }
     
-    // SACAR? No se usa
-    public string AgregarJugadorALobby(string Jugador)
-    {
-        if (lobby.AgregarEntrenadores(Jugador))
-        {
-            lobby.AgregarEntrenadores(Jugador);
-            return $"El jugador {Jugador} ha sido agregado al lobby";
-        }
-        return $"El jugador {Jugador} ya se encuentra en el lobby";
-    }
+
 
     // Devolver batalla que contiene entrenador 
     public Batallas BatallaPorEntrenador(Entrenadores entrenador)
@@ -53,11 +41,6 @@ public class BatallasEnCurso
         return null;
     }
 
-    // SACAR? No se usa
-    public List<Batallas> ListaDeBatallas()
-    {
-        return Partidas;
-    }
     // Se agrega nueva batalla a batallasencurso, se retorna la misma
     public Batallas CrearPartida(Entrenadores entrenador1, Entrenadores entrenador2)
     {

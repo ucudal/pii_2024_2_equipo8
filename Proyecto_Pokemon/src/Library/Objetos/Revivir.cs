@@ -12,7 +12,7 @@ public class Revivir : Objetos
         if (pokemonParaRevivir.Vida <= 0)
         {
             pokemonParaRevivir.Vida = (int)(pokemonParaRevivir.VidaBase / 2);
-            return $"{pokemonParaRevivir.Nombre} ha sido revivido y se recuperaron {pokemonParaRevivir.Vida} puntos de vida.";
+            return $"{pokemonParaRevivir.Nombre} ha sido revivido y se recuperaron {pokemonParaRevivir.Vida} puntos de vida.\n";
         }
         else
         {

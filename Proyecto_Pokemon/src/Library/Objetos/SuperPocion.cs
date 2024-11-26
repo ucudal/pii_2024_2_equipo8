@@ -22,7 +22,7 @@ public class SuperPocion : Objetos
         }
 
         pokemon.Vida += vidaRecuperada;
-        return $"{entrenador.Nombre} usó {Nombre} en {pokemon.Nombre}. Se recuperaron {vidaRecuperada} HP.";
+        return $"{entrenador.Nombre} usó {Nombre} en {pokemon.Nombre}. Se recuperaron {vidaRecuperada} HP.\n";
     }
 
 }

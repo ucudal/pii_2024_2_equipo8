@@ -18,6 +18,7 @@ public class HelpComandos : ModuleBase<SocketCommandContext>
         string comandos =
         """
             **Lista de comandos disponibles:**
+            
             - **!unirse**:  Ingresa al usuario al Lobby.
             - **!lobby**:  Muestra quienes estan en el lobby.
             - **!salir**:  Saca al usuario del Lobby.
