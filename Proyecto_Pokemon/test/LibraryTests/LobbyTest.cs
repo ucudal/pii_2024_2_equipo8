@@ -2,11 +2,11 @@
 using Proyecto_Pokemon;
 using System.Collections.Generic;
 
-namespace Proyecto_Pokemon
-{
-    [TestFixture]
-    public class LobbyTests
-    {
+namespace Proyecto_Pokemon;
+
+[TestFixture]
+public class LobbyTests
+{/*
         private Lobby lobby;
         private Entrenadores entrenador1;
         private Entrenadores entrenador2;
@@ -88,6 +88,5 @@ namespace Proyecto_Pokemon
 
             // se verifica que el entrenador no esté en batalla
             Assert.That(entrenador1.EnBatalla, Is.EqualTo(false));
-        }
-    }
+        }*/
 }

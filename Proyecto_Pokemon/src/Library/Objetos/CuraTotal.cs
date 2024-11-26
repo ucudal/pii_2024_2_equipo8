@@ -15,6 +15,6 @@ public class CuraTotal : Objetos
         }
 
         pokemon.Estado = null;
-        return $"{entrenador.Nombre} usó {Nombre} en {pokemon.Nombre}. Se recuperaron los efectos negativos.";
+        return $"{entrenador.Nombre} usó {Nombre} en {pokemon.Nombre}. Se recuperaron los efectos negativos.\n";
     }
 }

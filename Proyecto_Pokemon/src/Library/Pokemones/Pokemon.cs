@@ -48,7 +48,12 @@ public class Pokemon : IPokemon
         Random random = new Random();
         string mensajeCritico = "";
         string mensajeEstado = "";
-
+        
+        if (atacante.Estado == "paralizado" && random.Next(0, 100) < 20)
+        {
+            Console.WriteLine($"{atacante.Nombre} está paralizado. No se puede mover.");
+        }
+        
         double efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoPrincipal);
         int danio = (int)(habilidad.Danio * efectividad);
 
@@ -72,7 +77,7 @@ public class Pokemon : IPokemon
             if (random.Next(0, 100) < 10 && habilidad.EsDobleTurno)
             {
                 danio = (int)(danio * 1.2);
-                mensajeCritico = "¡PIÑA CRÍTICA!";
+                mensajeCritico = "\n¡PIÑA CRÍTICA!";
             }
 
             defensor.Vida -= danio;

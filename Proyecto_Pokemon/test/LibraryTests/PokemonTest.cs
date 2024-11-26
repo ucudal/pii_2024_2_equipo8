@@ -17,24 +17,26 @@ public class PokemonTest
         tipoFuego = new Tipo("Fuego", new Dictionary<string, double> { { "Agua", 0.5 }, { "Planta", 2.0 } });
         tipoAgua = new Tipo("Agua", new Dictionary<string, double> { { "Fuego", 2.0 }, { "Planta", 0.5 } });
         habilidad = new Habilidades("Llamarada", tipoFuego, 50, 80, 10, false);
-        charmander = new Pokemon("Charmeleon", 100, tipoFuego);
+        charmander = new Pokemon("Charmander", 100, tipoFuego);
     }
 
-    // Se verifica que el pokemon tenga el nombre correcto (Charmeleon) y se verifica que el pokemon tenga 100 de vida
     [Test]
     public void Pokemon_CrearPokemon_DeberiaAsignarNombreYVida()
     {
-        Assert.That(charmander.Nombre, Is.EqualTo("Charmeleon"));
+        Assert.That(charmander.Nombre, Is.EqualTo("Charmander"));
         Assert.That(charmander.Vida, Is.EqualTo(100));
+        Assert.That(charmander.VidaBase, Is.EqualTo(100));
+        Assert.That(charmander.TipoPrincipal, Is.EqualTo(tipoFuego));
+        Assert.That(charmander.TipoSecundario, Is.Null);
+        Assert.That(charmander.Habilidades.Count, Is.EqualTo(0));
+        Assert.That(charmander.Estado, Is.Null);
     }
 
     [Test]
     public void Pokemon_AprenderHabilidad_DeberiaAgregarHabilidadALaLista()
     {
         charmander.AprenderHabilidad(habilidad);
-        // se verifica que la lista de habilidades tenga un solo elemento
         Assert.That(charmander.Habilidades.Count, Is.EqualTo(1));
-        // se verifica que la habilidad que aprendió sea "Llamarada"
         Assert.That(charmander.Habilidades[0].Nombre, Is.EqualTo("Llamarada"));
     }
 
@@ -43,13 +45,45 @@ public class PokemonTest
     {
         charmander.AprenderHabilidad(habilidad);
         var habilidades = charmander.MostrarHabilidades();
-        // se verifica que la lista de habilidades tenga habilidades (obviamente, hay que confirmar si un vaso con agua tiene agua :D)
-        Assert.That(habilidades.Count, Is.EqualTo(1));
-
-        var habilidadObtenida = habilidades[0];
-        var resultado = $"1. {habilidadObtenida.Nombre} - Daño: {habilidadObtenida.Danio}, Precisión: {habilidadObtenida.Precision}, Tipo: {habilidadObtenida.Tipo.Nombre}, Puntos de poder: {habilidadObtenida.Puntos_de_Poder}, Doble turno: {habilidadObtenida.EsDobleTurno}";
-
-        // se verifica si la habilidad está bien
-        Assert.That(resultado, Is.EqualTo("1. Llamarada - Daño: 50, Precisión: 80, Tipo: Fuego, Puntos de poder: 10, Doble turno: False"));
+        
+        // Se verifica que el formato sea correcto
+        var resultadoEsperado = "**1. Llamarada** | Daño: 50 | Precisión: 80 | Tipo: Fuego | PP: 10 | Ataque Cargado: *False*\n";
+        Assert.That(habilidades, Is.EqualTo(resultadoEsperado));
     }
+
+    [Test]
+    public void Pokemon_EjecutarAtaque_DeberiaReducirVidaDelDefensor()
+    {
+        var squirtle = new Pokemon("Squirtle", 100, tipoAgua);
+        var resultado = Pokemon.EjecutarAtaque(charmander, squirtle, habilidad, esquivo: false);
+
+        // El daño es afectado por la efectividad (50 * 0.5 = 25)
+        Assert.That(squirtle.Vida, Is.EqualTo(75));
+        Assert.That(resultado, Does.Contain("usó Llamarada, causando 25 puntos de daño"));
+    }
+
+    [Test]
+    public void Pokemon_EjecutarAtaque_DeberiaFallarloSiNoTienePrecision()
+    {
+        var squirtle = new Pokemon("Squirtle", 100, tipoAgua);
+        habilidad.Precision = 0; // Simulamos que la precisión es 0
+        var resultado = Pokemon.EjecutarAtaque(charmander, squirtle, habilidad, esquivo: false);
+
+        Assert.That(squirtle.Vida, Is.EqualTo(100));
+        Assert.That(resultado, Does.Contain("falló el ataque"));
+    }
+
+    [Test]
+    public void Pokemon_EjecutarAtaque_DeberiaAplicarEstadoSiCorresponde()
+    {
+        var quemar = new Efectos("Quemado"); // Usamos el constructor correcto
+        habilidad.Efectos = quemar;
+        var squirtle = new Pokemon("Squirtle", 100, tipoAgua);
+
+        var resultado = Pokemon.EjecutarAtaque(charmander, squirtle, habilidad, esquivo: false);
+
+        Assert.That(squirtle.Estado, Is.EqualTo("Quemado"));
+        Assert.That(resultado, Does.Contain("ahora está Quemado"));
+    }
+
 }

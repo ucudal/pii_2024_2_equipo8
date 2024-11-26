@@ -80,7 +80,7 @@ public class Batallas
 
         habilidad.Puntos_de_Poder--;
         
-        if (atacante.Estado == "paralizado" && random.Next(0, 100) < 100)
+        if (atacante.Estado == "paralizado" && random.Next(0, 100) < 20)
         {
             CambiarTurno();
             return $"{atacante.Nombre} está paralizado. No se puede mover. \n";
@@ -111,7 +111,7 @@ public class Batallas
         string resultadoAtaqueNormal = Pokemon.EjecutarAtaque(atacante, defensor, habilidad, esEsquivoNormal);
         string cambioTurnoNormal = CambiarTurno();
         estadoResultado = VerificarEstado(atacante);
-        return resultadoAtaqueNormal + "\n" + estadoResultado + "\n" + cambioTurnoNormal;
+        return resultadoAtaqueNormal + "\n" + cambioTurnoNormal + estadoResultado;
     }
 
     public List<Entrenadores> JugadoresDisponibles()
@@ -123,12 +123,8 @@ public class Batallas
     {
         Pokemon atacante = entrenadorActual.PokemonActivo;
         string estadoResultado = VerificarEstado(atacante);
-        if (!string.IsNullOrEmpty(estadoResultado))
-        {
-            return estadoResultado;
-        }
         esquivo = true;
-        return $"{atacante.Nombre} de {entrenadorActual.Nombre} está preparado para esquivar el proximo movimiento\n";
+        return $"{atacante.Nombre} de {entrenadorActual.Nombre} está preparado para esquivar el proximo movimiento\n{estadoResultado}";
     }
     
     public bool StatusBatalla()

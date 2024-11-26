@@ -113,7 +113,7 @@ public static class Fachada
             if (batalla.StatusBatalla())
             {
                 Entrenadores proximoTurno = batalla.JugadoresDisponibles().FirstOrDefault(e => e.Nombre == batalla.entrenadorActual.Nombre);
-                return $"El próximo turno es de {proximoTurno?.Nombre ?? "desconocido"} \nVAMOS!";
+                return $"\nEl próximo turno es de {proximoTurno?.Nombre ?? "desconocido"} \nVAMOS!";
             }
             batallaencurso.TerminarPartida(batalla);
             return batalla.DeterminarGanador();
