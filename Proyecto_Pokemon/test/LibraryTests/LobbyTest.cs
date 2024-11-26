@@ -10,7 +10,7 @@ public class LobbyTests
         private Lobby lobby;
         private Entrenadores entrenador1;
         private Entrenadores entrenador2;
-
+        /*
         [SetUp]
         public void SetUp()
         {

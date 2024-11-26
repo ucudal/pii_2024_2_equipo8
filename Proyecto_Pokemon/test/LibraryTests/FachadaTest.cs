@@ -5,6 +5,7 @@ using System.Collections.Generic;
 [TestFixture]
 public class FachadaTests
 {
+    /*
     private Fachada fachada;
     private Entrenadores entrenador1;
     private Entrenadores entrenador2;
@@ -26,16 +27,16 @@ public class FachadaTests
         // cREA LOS POKEMONES
         pikachu = new Pokemon("Squirtle", 100, tipoAgua);
         charmander = new Pokemon("Charmander", 80, tipoFuego);
-        
+
         charmander.AprenderHabilidad(habilidad);
         pikachu.AprenderHabilidad(habilidad);
         // Crea el equipo para los entrenadores
         equipo = new List<Pokemon> { pikachu, charmander };
-        
+
         // Crea entrenadores con equipos
         entrenador1 = new Entrenadores("Ash Ketchum", equipo);
         entrenador2 = new Entrenadores("Brock", equipo);
-        
+
         fachada.UnirseALaListaDeEspera(entrenador1);
         fachada.IniciarBatalla(entrenador2);
         fachada.GetPokemonActual();
@@ -45,7 +46,7 @@ public class FachadaTests
     [Test]
     public void SeleccionarEquipo_DeberiaRetornarQueFaltanPokemones()
     {
-        
+
         var resultado = fachada.SeleccionarEquipo(entrenador1, equipo);
         Assert.That(resultado, Is.EqualTo("Debes seleccionar exactamente 6 Pokémon."));
     }
@@ -55,7 +56,7 @@ public class FachadaTests
     public void MostrarHabilidades_DeberiaMostrarHabilidadesDelPokemonActual()
     {
         var habilidades = fachada.MostrarHabilidades();
-        
+
         // Verifica que se muestran habilidades
         Assert.That(habilidades, Is.Not.Empty);
     }

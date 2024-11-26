@@ -38,17 +38,19 @@ public class BatallasTest
         IEfectos quemadura = new Efectos("quemado");
         
         //Anadir habilidades
-        electrobola = new Habilidades("Electrobola",tipoFuego, 90, 90, 6, false);
-        ascuas = new Habilidades("Ascuas", tipoFuego, 40, 100, 25, false);
+        electrobola = new Habilidades("Electrobola",tipoFuego, 90, 90, 6, false,paralisis);
+        ascuas = new Habilidades("Ascuas", tipoFuego, 40, 100, 25, false,quemadura);
 
         // Crea Pokemones, no les meti habilidades porque no las van a usar
         pikachu = new Pokemon("pikachu", 100, tipoElectrico);
         arcanine = new Pokemon("arcaine", 100, tipoFuego);
         
         // Crea Entrenadores
-        entrenador1 = new Entrenadores("Asho Ketchu", new List<Pokemon>() { pikachu });
-        entrenador2 = new Entrenadores("Brokoso", new List<Pokemon>() { arcanine });
-        
+        entrenador1 = new Entrenadores("Asho Ketchu");
+        entrenador2 = new Entrenadores("Brokoso");
+
+        entrenador1.AñadirPokemon(pikachu);
+        entrenador2.AñadirPokemon(arcanine);
         
         
         // Inicia la batalla con ambos entrenadores
@@ -65,8 +67,8 @@ public class BatallasTest
     {
         string resultado = batalla.Atacar(electrobola);
 
-        Assert.That(resultado, Does.Contain("electrobola"));
-        Assert.That(electrobola.Puntos_de_Poder, Is.EqualTo(9)); // Se reduce el PP despues de usarse
+        Assert.That(resultado, Does.Contain("Electrobola"));
+        Assert.That(electrobola.Puntos_de_Poder, Is.EqualTo(5)); // Se reduce el PP despues de usarse
     }
     // verifica que la batalla inicie en el turno 1
     [Test]
@@ -112,7 +114,7 @@ public class BatallasTest
     [Test]
     public void Atacar_DeberiaAplicarEstadoAlteradoCorrectamente()
     {
-        electrobola.Efectos = "paralizado"; // Habilidad con efecto secundario
+        // Habilidad con efecto secundario paralizado
         string resultado = batalla.Atacar(electrobola);
 
         Assert.That(entrenador2.PokemonActivo.Estado, Is.EqualTo("paralizado"));
@@ -139,13 +141,13 @@ public class BatallasTest
     [Test]
     public void UsarMochila_DeberiaRecuperarVidaCorrectamente()
     {
-        Objetos pocion = new Objetos("Poción", "cura", 20);
+        Objetos pocion = new SuperPocion();
         entrenador1.Mochila.Add(pocion);
-        entrenador1.PokemonActivo.Vida -= 50;
+        entrenador1.PokemonActivo.Vida -= 70;
 
         string resultado = batalla.UsarMochila(pocion, entrenador1.PokemonActivo);
         Assert.That(resultado, Does.Contain("recuperaron"));
-        Assert.That(entrenador1.PokemonActivo.Vida, Is.EqualTo(70));
+        Assert.That(entrenador1.PokemonActivo.Vida, Is.EqualTo(100));
     }
     [Test]
     public void VerificarEstado_DeberiaAplicarEfectosDeEstadoAlterado()

@@ -4,14 +4,104 @@
         <name>Library</name>
     </assembly>
     <members>
+        <member name="T:Proyecto_Pokemon.CambiarCommand">
+            <summary>
+            Esta clase implementa el comando 'cambiar' del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.CambiarCommand.ExecuteAsync(System.String)">
+            <summary>
+            Permite el cambio de pokemon, muestra con ayuda de cambio pokemon.
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.CommandHelper">
+            <summary>
+            Clase que proporciona métodos auxiliares para los comandos del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.CommandHelper.GetDisplayName(Discord.Commands.SocketCommandContext,System.String)">
+            <summary>
+            Obtiene el nombre visible de un usuario en el contexto del comando.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.CommandHelper.GetUser(Discord.Commands.SocketCommandContext,System.String)">
+            <summary>
+            Obtiene un usuario del servidor basado en su nombre.
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.ElegirCommand">
+            <summary>
+            Esta clase implementa el comando 'elegir' del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.ElegirCommand.ExecuteAsync(System.String)">
+            <summary>
+            Agregar pokemon al equipo.
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.ElegirRandomCommand">
+            <summary>
+            Esta clase implementa el comando 'elegirRandom' del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.ElegirRandomCommand.ExecuteAsync">
+            <summary>
+            Genera equipo random y se asocia al entrenador.
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.EsquivoCommand">
+            <summary>
+            Esta clase implementa el comando 'esquivar' del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.EsquivoCommand.ExecuteAsync">
+            <summary>
+            Prepara el esquivo.
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.HelpComandos">
+            <summary>
+            Esta clase implementa el comando 'Help' del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.HelpComandos.ExecuteAsync">
+            <summary>
+            Comando para soporte con lista de ayuda.
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.IniciarCommand">
+            <summary>
+            Esta clase implementa el comando 'iniciar' del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.IniciarCommand.ExecuteAsync(System.String)">
+            <summary>
+            Comando para iniciar batalla entre jugadores.
+            </summary>
+        </member>
         <member name="T:Proyecto_Pokemon.OpcionesCommand">
             <summary>
-            
+            Esta clase implementa el comando 'opciones' del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.OpcionesCommand.ExecuteAsync">
+            <summary>
+            Comando para mostrar pokemones disponibles.
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.SalirCommand">
+            <summary>
+            Esta clase implementa el comando 'salir' del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.SalirCommand.ExecuteAsync">
+            <summary>
+            Comando para salir del lobby.
             </summary>
         </member>
         <member name="T:Proyecto_Pokemon.TurnoCommand">
             <summary>
-            Esta clase implementa el comando 'checkturn' del bot.
+            Esta clase implementa el comando 'turno' del bot.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.TurnoCommand.ExecuteAsync">
@@ -19,20 +109,49 @@
             Devuelve de quien es el turno.
             </summary>
         </member>
+        <member name="T:Proyecto_Pokemon.UnirseCommand">
+            <summary>
+            Esta clase implementa el comando 'unirse' del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.UnirseCommand.ExecuteAsync">
+            <summary>
+            Comando para unirse al lobby.
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.UsarCommand">
+            <summary>
+            Esta clase implementa el comando 'usar' del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.UsarCommand.ExecuteAsync(System.String)">
+            <summary>
+            Comando para usar habilidad como atacar.
+            </summary>
+        </member>
         <member name="T:Proyecto_Pokemon.UsarMochilaCommand">
             <summary>
-            Esta clase implementa el comando 'use' del bot.
+            Esta clase implementa el comando 'curar' del bot.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.UsarMochilaCommand.ExecuteAsync(System.String)">
             <summary>
-            Envía a la fachada un mensaje con el item a usar y el Pokemons que se verá beneficiado.
+            Envía a la fachada un mensaje con el item de cura a usar y el Pokemons que se verá beneficiado.
             </summary>
-            <param name="itemAndPokemonName">Nombre de Pokemon a ser beneficiado y del item a utilizar concatenados.</param>
+        </member>
+        <member name="T:Proyecto_Pokemon.VerLobbyCommand">
+            <summary>
+            Esta clase implementa el comando 'lobby' del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.VerLobbyCommand.ExecuteAsync">
+            <summary>
+            Comando para recibir los entrenadores en el lobby.
+            </summary>
         </member>
         <member name="T:Proyecto_Pokemon.VerMochilaCommand">
             <summary>
-            Esta clase implementa el comando 'showitems' del bot.
+            Esta clase implementa el comando 'verMochila' del bot.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.VerMochilaCommand.ExecuteAsync">
@@ -40,14 +159,34 @@
             Muestra los items disponibles del jugador.
             </summary>
         </member>
+        <member name="T:Proyecto_Pokemon.VerVidaCommand">
+            <summary>
+            Esta clase implementa el comando 'verVida' del bot.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.VerVidaCommand.ExecuteAsync(System.String)">
+            <summary>
+            Muestra el estado de los pokemones .
+            </summary>
+        </member>
         <member name="T:Library.Commands.AtaquesCommand">
             <summary>
-            Esta clase implementa el comando 'showattacks' del bot.
+            Esta clase implementa el comando 'ataques' del bot.
             </summary>
         </member>
         <member name="M:Library.Commands.AtaquesCommand.ExecuteAsync">
             <summary>
             Muestra los ataques disponibles del Pokemon activo del jugador.
+            </summary>
+        </member>
+        <member name="T:ProyectoPokemon.TiposCommand">
+            <summary>
+            Esta clase implementa el comando 'tipos' del bot.
+            </summary>
+        </member>
+        <member name="M:ProyectoPokemon.TiposCommand.ExecuteAsync">
+            <summary>
+            Comando para ver tabla de tipos.
             </summary>
         </member>
         <member name="T:Ucu.Poo.DiscordBot.Services.Bot">
