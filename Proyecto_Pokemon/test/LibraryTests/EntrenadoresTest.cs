@@ -93,5 +93,17 @@ public class EntrenadoresTest
         Assert.That(agregado, Is.False);
         Assert.That(entrenador.Pokemones.Count, Is.EqualTo(6));
     }
+    [Test]
+    public void Entrenador_BuscarPokemon_DeberiaEncontrarPokemonPorNombre()
+    {
+        bool encontrado = entrenador.BuscarPokemon("pikachu");
+        Assert.That(encontrado, Is.True);
+    }
+    [Test]
+    public void Entrenador_BuscarObjeto_NoDeberiaEncontrarObjetoInexistente()
+    {
+        var objeto = entrenador.BuscarObjeto("MasterBall");
+        Assert.That(objeto, Is.Null);
+    }
 
 }
