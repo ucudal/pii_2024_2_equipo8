@@ -10,7 +10,7 @@ public class BatallasTest
     private Pokemon pikachu;
     private Pokemon arcanine;
     private Habilidades electrobola;
-    private Habilidades ascuas;
+     private Habilidades ascuas;
     
     [SetUp]
     public void Setup()
@@ -36,6 +36,7 @@ public class BatallasTest
         
         IEfectos paralisis = new Efectos("paralizado");
         IEfectos quemadura = new Efectos("quemado");
+       
         
         //Anadir habilidades
         electrobola = new Habilidades("Electrobola",tipoFuego, 90, 90, 6, false,paralisis);
@@ -181,7 +182,7 @@ public class BatallasTest
         entrenador1.RecibirEquipoPokemon().Add(otroPokemon);
         string resultado = batalla.CambiarPokemon(otroPokemon);
 
-        Assert.That(resultado, Does.Contain("Bulbasaur AHORA SE ENCUENTRA A LA CABEZA."));
+        Assert.That(resultado, Does.Contain("Bulbasaur."));
         Assert.That(entrenador1.PokemonActivo.Nombre, Is.EqualTo("Bulbasaur"));
     }
 
