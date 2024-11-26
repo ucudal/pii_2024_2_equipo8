@@ -218,7 +218,7 @@ public class Batallas
                     atacante.Vida = 0;
                     return $"{atacante.Nombre} fue derrotado por el veneno.";
                 }
-                return $"{atacante.Nombre} pierde vida por envenenamiento. Vida restante: {atacante.Vida} / {atacante.VidaBase}";
+                return $"{atacante.Nombre} está envenenado y pierde {(int)(atacante.VidaBase * 0.10)} puntos de vida. Vida restante: {atacante.Vida} / {atacante.VidaBase}";
                 break;
             
             case "quemado":
@@ -228,7 +228,7 @@ public class Batallas
                     atacante.Vida = 0;
                     return $"{atacante.Nombre} fue derrotado por la quemadura.";
                 }
-                return $"{atacante.Nombre} está quemado y pierde {(int)(atacante.VidaBase * 0.10)} HP. Vida restante: {atacante.Vida} / {atacante.VidaBase}";
+                return $"{atacante.Nombre} está quemado y pierde {(int)(atacante.VidaBase * 0.10)} puntos de vida. Vida restante: {atacante.Vida} / {atacante.VidaBase}";
                 break;
 
             case "noqueado":
@@ -237,8 +237,8 @@ public class Batallas
                     atacante.Estado = null;
                     return $"{atacante.Nombre} se ha recuperado del noqueo y puede volver a atacar.";
                 }
+                entrenadorActual = (entrenadorActual == entrenador1) ? entrenador2 : entrenador1;
                 return $"{atacante.Nombre} está noqueado. No puede moverse.";
-                
                 break;
         }
 
@@ -259,6 +259,10 @@ public class Batallas
         Pokemon atacante = entrenadorActual.PokemonActivo;
         VerificarEstado(atacante);
         Pokemon defensor = (entrenadorActual == entrenador1) ? entrenador2.PokemonActivo : entrenador1.PokemonActivo;
+        if (defensor.Vida == 0)
+        {
+            return $"{defensor.Vida} ESTÁ FUERA DE COMBATE";
+        }
         if (atacante.HabilidadCargando != null)
         {
             // Ejecuta la habilidad cargada después del cambio de turno
