@@ -4,6 +4,26 @@
         <name>Library</name>
     </assembly>
     <members>
+        <member name="T:Proyecto_Pokemon.BatallasEnCurso">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Proyecto_Pokemon.BatallasEnCurso.Partidas">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.BatallasEnCurso.TerminarPartida(Proyecto_Pokemon.Batallas)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.BatallasEnCurso.BatallaPorEntrenador(Proyecto_Pokemon.Entrenadores)">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Proyecto_Pokemon.CambiarCommand">
             <summary>
             Esta clase implementa el comando 'cambiar' del bot.
@@ -31,7 +51,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.ElegirCommand">
             <summary>
-            Esta clase implementa el comando 'elegir' del bot.
+            Esta clase se encarga de usar las habilidades disponibles del pokemon para usarlos en el rival.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.ElegirCommand.ExecuteAsync(System.String)">
@@ -51,7 +71,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.EsquivoCommand">
             <summary>
-            Esta clase implementa el comando 'esquivar' del bot.
+            
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.EsquivoCommand.ExecuteAsync">
@@ -61,7 +81,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.HelpComandos">
             <summary>
-            Esta clase implementa el comando 'Help' del bot.
+            
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.HelpComandos.ExecuteAsync">
@@ -71,7 +91,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.IniciarCommand">
             <summary>
-            Esta clase implementa el comando 'iniciar' del bot.
+            
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.IniciarCommand.ExecuteAsync(System.String)">
@@ -81,7 +101,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.OpcionesCommand">
             <summary>
-            Esta clase implementa el comando 'opciones' del bot.
+            
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.OpcionesCommand.ExecuteAsync">
@@ -89,9 +109,19 @@
             Comando para mostrar pokemones disponibles.
             </summary>
         </member>
+        <member name="T:Proyecto_Pokemon.RendirseCommand">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.RendirseCommand.ExecuteAsync">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Proyecto_Pokemon.SalirCommand">
             <summary>
-            Esta clase implementa el comando 'salir' del bot.
+            
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.SalirCommand.ExecuteAsync">
@@ -101,7 +131,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.TurnoCommand">
             <summary>
-            Esta clase implementa el comando 'turno' del bot.
+            
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.TurnoCommand.ExecuteAsync">
@@ -111,7 +141,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.UnirseCommand">
             <summary>
-            Esta clase implementa el comando 'unirse' del bot.
+            
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.UnirseCommand.ExecuteAsync">
@@ -121,7 +151,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.UsarCommand">
             <summary>
-            Esta clase implementa el comando 'usar' del bot.
+            
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.UsarCommand.ExecuteAsync(System.String)">
@@ -131,7 +161,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.UsarMochilaCommand">
             <summary>
-            Esta clase implementa el comando 'curar' del bot.
+            
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.UsarMochilaCommand.ExecuteAsync(System.String)">
@@ -141,7 +171,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.VerLobbyCommand">
             <summary>
-            Esta clase implementa el comando 'lobby' del bot.
+            
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.VerLobbyCommand.ExecuteAsync">
@@ -151,7 +181,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.VerMochilaCommand">
             <summary>
-            Esta clase implementa el comando 'verMochila' del bot.
+            
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.VerMochilaCommand.ExecuteAsync">
@@ -161,7 +191,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.VerVidaCommand">
             <summary>
-            Esta clase implementa el comando 'verVida' del bot.
+            
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.VerVidaCommand.ExecuteAsync(System.String)">
@@ -169,9 +199,234 @@
             Muestra el estado de los pokemones .
             </summary>
         </member>
+        <member name="T:Proyecto_Pokemon.Entrenadores">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Entrenadores.Nombre">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Entrenadores.Pokemones">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Entrenadores.CantidadDePokemones">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Entrenadores.PokemonActivo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Entrenadores.Mochila">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Entrenadores.EnBatalla">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.BuscarPokemon(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.BuscarPokemonYGuardar(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.InicializarMochila">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.FijarPokemonActual(Proyecto_Pokemon.Pokemon)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.RecibirEquipoPokemon">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.TienePokemonesVivos">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.AñadirPokemon(Proyecto_Pokemon.Pokemon)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.MostrarMochila">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.BuscarObjeto(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.Fachada">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.OpcionesPokemones">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.CrearBatalla(System.String,System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.VerHabilidades(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.ElegirHabilidad(System.String,System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.RevisarTurno(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.CierreDeLaBatalla(Proyecto_Pokemon.Batallas)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.Rendirse(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.IniciarBatalla(System.String,System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.SacarEntrenadorDelLobby(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.MeterUsuarioAlLobby(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.VerLobby">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.EsquivarPokemon(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.CambiarPokemones(System.String,System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.VerMochila(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.UsarObjetoMochila(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.SeleccionarEquipo(System.String,System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.elegirRandomente(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.VerPokemones(System.String,System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.IEfectos">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IEfectos.Nombre">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.Lobby">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Lobby.Cantidad">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Lobby.AgregarEntrenadores(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Lobby.SacarEntrenadores(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Lobby.EntrenadorPorNombre(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Lobby.AnadirRandom(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Lobby.VerListaLobby">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Library.Commands.AtaquesCommand">
             <summary>
-            Esta clase implementa el comando 'ataques' del bot.
+            Esta clase se encarga de usar las habilidade disponibles del pokemon para usarlos en el rival.
             </summary>
         </member>
         <member name="M:Library.Commands.AtaquesCommand.ExecuteAsync">
@@ -181,7 +436,7 @@
         </member>
         <member name="T:ProyectoPokemon.TiposCommand">
             <summary>
-            Esta clase implementa el comando 'tipos' del bot.
+            
             </summary>
         </member>
         <member name="M:ProyectoPokemon.TiposCommand.ExecuteAsync">

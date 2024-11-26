@@ -46,14 +46,12 @@ public class FachadaTests
         [Test]
         public void CrearBatalla_EntrenadoresDisponibles_DevuelveMensajeInicioBatalla()
         {
-            // Arrange
             string entrenador1 = "Ash";
             string entrenador2 = "Gary";
+            Fachada.Rendirse(entrenador1);
             Fachada.MeterUsuarioAlLobby(entrenador1);
             Fachada.MeterUsuarioAlLobby(entrenador2);
-            // Act
-            string resultado = Fachada.CrearBatalla(entrenador1, entrenador2);
-            // Assert
+            string resultado = Fachada.IniciarBatalla(entrenador1, entrenador2);
             Assert.That(resultado,Does.Contain("EMPIEZA LA PELEA ENTRE Ash CONTRA Gary"));
         }
         [Test]
@@ -80,17 +78,12 @@ public class FachadaTests
         {
             // Arrange
             string nombreEntrenador = "Ash";
+            Fachada.Rendirse(nombreEntrenador);
             Fachada.MeterUsuarioAlLobby(nombreEntrenador);
+            Fachada.MeterUsuarioAlLobby("Gary");
             Fachada.IniciarBatalla(nombreEntrenador, "Gary");
-            // Simula un equipo completo
-            for (int i = 0; i < 6; i++)
-            {
-                Fachada.SeleccionarEquipo(nombreEntrenador, $"Pokemon_{i}");
-            }
-            // Act
             string resultado = Fachada.elegirRandomente(nombreEntrenador);
-            // Assert
-            Assert.That(resultado,Is.EqualTo("Ash, ya tenes un equipo completo de Pokémon."));
+            Assert.That(resultado,Does.Contain("Ash, estos son los Pokemones elegidos aleatoriamente:"));
         }
         [Test]
         public void CambiarPokemones_CambioExitoso_DevuelveMensajeCorrecto()
