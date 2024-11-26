@@ -14,10 +14,10 @@ public class UsarCommand : ModuleBase<SocketCommandContext>
     public async Task ExecuteAsync(
         [Remainder]
         [Summary("Ataque que vas a usar.")]
-        string? attack = null)
+        string? ataque = null)
     {
         string displayName = CommandHelper.GetDisplayName(Context);
-        string result = Fachada.ElegirHabilidad(displayName, attack);
+        string result = Fachada.ElegirHabilidad(displayName, ataque);
         await ReplyAsync(result);
     }
 }
