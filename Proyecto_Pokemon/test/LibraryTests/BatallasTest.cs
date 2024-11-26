@@ -8,25 +8,43 @@ public class BatallasTest
     private Entrenadores entrenador1;
     private Entrenadores entrenador2;
     private Pokemon pikachu;
-    private Pokemon jynx;
+    private Pokemon arcanine;
     private Habilidades electrobola;
-    private Habilidades bolasombra;
+    private Habilidades ascuas;
 
     [SetUp]
     public void Setup()
     {
-
+        var elementoFuego = new Dictionary<string, double>
+        {
+            { "Acero", 2.0 }, { "Volador", 0.5 }, { "Agua", 0.5 }, { "Hielo", 2.0 }, { "Planta", 2.0 },
+            { "Bicho", 2.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 }, { "Roca", 2.0 }, { "Tierra", 1.0 },
+            { "Fuego", 0.5 }, { "Lucha", 1.0 }, { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 },
+            { "Dragon", 1.0 }, { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
+        };
+        var elementoElectrico = new Dictionary<string, double>
+        {
+            { "Acero", 1.0 }, { "Volador", 2.0 }, { "Agua", 2.0 }, { "Hielo", 1.0 },
+            { "Planta", 0.5 }, { "Bicho", 1.0 }, { "Electrico", 0.5 }, { "Normal", 1.0 },
+            { "Roca", 0.5 }, { "Tierra", 0.0 }, { "Fuego", 1.0 }, { "Lucha", 1.0 },
+            { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 }, { "Dragon", 0.5 },
+            { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
+        };
+        
+        ITipo tipoFuego = new Tipo("Fuego", elementoFuego);
+        ITipo tipoElectrico = new Tipo("Electrico", elementoElectrico);
+        
         //Anadir habilidades
-        electrobola = new Habilidades("Electrobola",, 90, 90, 6, false);
-        bolasombra = new Habilidades("Bola Sombra", , 70, 80, 15, false);
+        electrobola = new Habilidades("Electrobola",tipoFuego, 90, 90, 6, false);
+        ascuas = new Habilidades("Ascuas", tipoFuego, 40, 100, 25, false);
 
         // Crea Pokemones, no les meti habilidades porque no las van a usar
-        pikachu = new Pokemon("pikachu", 100, 1);
-        jynx = new Pokemon("jynx", 100, tipoFuego);
+        pikachu = new Pokemon("pikachu", 100, tipoElectrico);
+        arcanine = new Pokemon("arcaine", 100, tipoFuego);
         
         // Crea Entrenadores
         entrenador1 = new Entrenadores("Asho Ketchu", new List<Pokemon>() { pikachu });
-        entrenador2 = new Entrenadores("Brokoso", new List<Pokemon>() { jynx });
+        entrenador2 = new Entrenadores("Brokoso", new List<Pokemon>() { arcanine });
         
         // Inicia la batalla con ambos entrenadores
         batalla = new Batallas(entrenador1, entrenador2);
@@ -35,7 +53,7 @@ public class BatallasTest
     public void Pokemon_DeberiaTenerHabilidadesAsignadas()
     {
         Assert.That(pikachu.Habilidades.Contains(electrobola));
-        Assert.That(jynx.Habilidades.Contains(bolasombra));
+        Assert.That(arcanine.Habilidades.Contains(ascuas));
     }
     [Test]
     public void Atacar_DeberiaUsarHabilidadCorrectamente()
