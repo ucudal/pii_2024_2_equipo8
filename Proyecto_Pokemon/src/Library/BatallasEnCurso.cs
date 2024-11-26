@@ -13,10 +13,8 @@ public class BatallasEnCurso
         {
             return true;
         }
-            return false;
+        return false;
     }
-    
-
 
     // Devolver batalla que contiene entrenador 
     public Batallas BatallaPorEntrenador(Entrenadores entrenador)

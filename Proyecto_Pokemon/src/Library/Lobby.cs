@@ -5,7 +5,7 @@ namespace Proyecto_Pokemon;
 public class Lobby
 {
     // Lista de entrenadores en el lobby
-    private List<Entrenadores> Entrenadoress { get; }= new List<Entrenadores>();
+    private List<Entrenadores> Entrenadoress { get; } = new List<Entrenadores>();
    
     public int Cantidad
     {
