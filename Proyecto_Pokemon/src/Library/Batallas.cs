@@ -16,12 +16,13 @@ public class Batallas
         entrenadorActual = entrenador1;
         turno = 1;
     }
-
+    // Verifica si alguno de los entrenadores ya no tiene pokemones vivos
     public bool ChequerMuerte()
     {
         return !entrenador1.TienePokemonesVivos() || !entrenador2.TienePokemonesVivos();
     }
     
+    // Comprobar si el entrenador está participando en esta batalla
     public bool ConfirmarSiEntrenadorEstaPeleando(Entrenadores entrenadores)
     {
         if (entrenadores != null)
@@ -38,12 +39,14 @@ public class Batallas
         return false;
     }
     
+    // Verifica si ambos entrenadores ya tienen sus equipos completos
     public bool ConfirmandoEquipoCompleto()
     {
         return entrenador1.RecibirEquipoPokemon().Count == 6 &&
                entrenador2.RecibirEquipoPokemon().Count == 6;
     }
-
+    
+    // Requisitos previos para iniciar batalla
     public string Iniciar(Entrenadores Entrenador1, Entrenadores Entrenador2)
     {
         if(entrenador1.EnBatalla && entrenador2.EnBatalla)
@@ -54,6 +57,7 @@ public class Batallas
         entrenador2 = Entrenador2;
         entrenador1.EnBatalla = true;
         entrenador2.EnBatalla = true;
+        // Decide aleatoriamente quién empieza
         Random Turno = new Random();
         if (Turno.Next(0, 2) == 0)
         {
@@ -66,6 +70,7 @@ public class Batallas
         return $"{entrenador1.Nombre} y {entrenador2.Nombre} están listos para la batalla \n {entrenadorActual.Nombre} empieza.";
     }
 
+    // Método para gestionar ataque
     public string Atacar(IHabilidades habilidad)
     {
         Random random = new Random();
@@ -80,6 +85,7 @@ public class Batallas
 
         habilidad.Puntos_de_Poder--;
         
+        // Verifica si el atacante está paralizado
         if (atacante.Estado == "paralizado" && random.Next(0, 100) < 100)
         {
             CambiarTurno();
@@ -88,6 +94,7 @@ public class Batallas
 
         if (habilidad.EsDobleTurno)
         {
+            // Si la habilidad requiere carga, la prepara
             atacante.HabilidadCargando = habilidad;
             CambiarTurno();
             return $"{atacante.Nombre} está cargando la habilidad {habilidad.Nombre}...\n";
@@ -95,6 +102,7 @@ public class Batallas
 
         if (atacante.HabilidadCargando != null)
         {
+            // Ejecuta la habilidad cargada
             habilidad = atacante.HabilidadCargando;
             atacante.HabilidadCargando = null;
             bool esEsquivo = esquivo;
@@ -106,6 +114,7 @@ public class Batallas
             return resultadoAtaque + "\n" + estadoResultado + "\n" + cambioTurno;
         }
 
+        // Ataque normal
         bool esEsquivoNormal = esquivo;
         esquivo = false;
         string resultadoAtaqueNormal = Pokemon.EjecutarAtaque(atacante, defensor, habilidad, esEsquivoNormal);
@@ -113,12 +122,14 @@ public class Batallas
         estadoResultado = VerificarEstado(atacante);
         return resultadoAtaqueNormal + "\n" + estadoResultado + "\n" + cambioTurnoNormal;
     }
-
+    
+    // Devuelve lista de entrenadores disponibles
     public List<Entrenadores> JugadoresDisponibles()
     {
         return new List<Entrenadores> { entrenador1, entrenador2 };
     }
     
+    // Método interno de esquivo, utilizado en fachada 
     public string Esquivar()
     {
         Pokemon atacante = entrenadorActual.PokemonActivo;
@@ -131,6 +142,7 @@ public class Batallas
         return $"{atacante.Nombre} de {entrenadorActual.Nombre} está preparado para esquivar el proximo movimiento\n";
     }
     
+    // Verificar si ambos entrenadores aún tienen pokemones vivos
     public bool StatusBatalla()
     {
         foreach (var entrenador in JugadoresDisponibles())
@@ -150,7 +162,8 @@ public class Batallas
         }
         return true;
     }
-
+    
+    // Cambio interno de cambiar pokemon, utilizado en fachada
     public string CambiarPokemon(Pokemon pokemon)
     {
         if (pokemon == null)
@@ -170,6 +183,7 @@ public class Batallas
         return $"{entrenadorActual.Nombre} no pudo cambiar a {pokemon.Nombre}.";
     }
     
+    // Método interno de usar mochila, uso de objetos presentes en mochila
     public string UsarMochila(Objetos? objeto, Pokemon? pokemon)
     {
         Entrenadores entrenador = JugadoresDisponibles()[turno];
@@ -184,6 +198,7 @@ public class Batallas
         string final = objeto.Usar(pokemon, entrenadorActual);
         if (final.Contains("recuperaron"))
         {
+            // Remueve el objeto usado de la mochila
             Objetos objetoEnMochila = entrenador.Mochila.FirstOrDefault(o => o.Nombre == objeto.Nombre);
             if (objetoEnMochila != null)
             {
@@ -193,6 +208,7 @@ public class Batallas
         return final;
     }
 
+    // Verifica el caso de cada pokemon para ver como se gestiona
     public string VerificarEstado(Pokemon atacante)
     {
         Random random = new Random();
@@ -233,6 +249,7 @@ public class Batallas
         return "";
     }
 
+    // En cambio de turno se chequea estado de batalla, 
     public string CambiarTurno()
     {
         if (ChequerMuerte())
@@ -241,12 +258,14 @@ public class Batallas
             return $"LA BATALLA TERMINÓ! EL GANADOR ES {ganador}!";
         }
         
+        // Cambia al entrenador contrario
         entrenadorActual = (entrenadorActual == entrenador1) ? entrenador2 : entrenador1;
         Pokemon atacante = entrenadorActual.PokemonActivo;
         VerificarEstado(atacante);
         Pokemon defensor = (entrenadorActual == entrenador1) ? entrenador2.PokemonActivo : entrenador1.PokemonActivo;
         if (atacante.HabilidadCargando != null)
         {
+            // Ejecuta la habilidad cargada después del cambio de turno
             IHabilidades habilidad = atacante.HabilidadCargando;
             atacante.HabilidadCargando = null;
             bool esEsquivo = esquivo;
@@ -262,6 +281,7 @@ public class Batallas
         return null;
     }
     
+    // Chequeo de ganador según si tiene pokemones vivos, el que tenga vivos gana, si ninguno tiene es empate
     public string DeterminarGanador()
     {
         if (entrenador1.TienePokemonesVivos()) return entrenador1.Nombre;
