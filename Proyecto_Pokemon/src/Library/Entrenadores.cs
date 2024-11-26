@@ -12,7 +12,7 @@ public class Entrenadores
     public List<Objetos> Mochila { get; }
     public bool EnBatalla { get; set; }
 
-    public Entrenadores(string nombre)
+    public Entrenadores(string nombre, List<Pokemon> pokemons)
     {
         Nombre = nombre;
         Pokemones = new List<Pokemon>();
