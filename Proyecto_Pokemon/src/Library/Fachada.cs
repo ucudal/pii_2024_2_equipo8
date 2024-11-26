@@ -179,7 +179,7 @@ namespace Proyecto_Pokemon
         // devuelve el nombre del entrenador que tiene el turno actual
         public string EsTurnoDe()
         {
-            return $"Turno de {batallaActual.entrenadorActual.Nombre}";
+            return $"{batallaActual.entrenadorActual.Nombre}";
         }
 
         // chequea si la batalla terminó y retorna el ganador
@@ -343,7 +343,7 @@ namespace Proyecto_Pokemon
         }
         public Entrenadores GetEntrenadorPorNombre(string nombre)
         {
-            foreach (Entrenadores entrenador in lobbyActual.listaEspera)
+            foreach (Entrenadores entrenador in lobbyActual.entrenadoresServer)
             {
                 if (nombre == entrenador.Nombre)
                 {
@@ -366,6 +366,11 @@ namespace Proyecto_Pokemon
             LogicaDePokemones todoslospoke = new LogicaDePokemones();
             List<Pokemon> todosLosPokemones = todoslospoke.InicializarPokemones();
             return todosLosPokemones;
+        }
+
+        public Entrenadores ObtenerEntrenadorActual()
+        {
+            return batallaActual.entrenadorActual;
         }
     }
     

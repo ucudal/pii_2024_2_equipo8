@@ -7,7 +7,8 @@ public class Lobby
     public string Nombre { get; }
     public string Region { get; }
     public int Capacidad { get; }
-    
+
+    public List<Entrenadores> entrenadoresServer = new List<Entrenadores>();
     public  List<Entrenadores> listaEspera = new List<Entrenadores>();
     public  List<Batallas> batallasActivas = new List<Batallas>();
 
@@ -28,6 +29,7 @@ public class Lobby
         
         if (!listaEspera.Contains(entrenador))
         {
+            entrenadoresServer.Add(entrenador);
             listaEspera.Add(entrenador);
             return $"{entrenador.Nombre} ha sido agregado a la lista de espera en el lobby '{Nombre}' de la región {Region}.";
         }
