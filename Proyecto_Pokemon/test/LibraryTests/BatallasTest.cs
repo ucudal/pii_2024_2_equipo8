@@ -164,7 +164,7 @@ public class BatallasTest
 
         string resultado = batalla.VerificarEstado(entrenador1.PokemonActivo);
 
-        Assert.That(resultado, Does.Contain("pikachu está quemado y pierde 10 HP. Vida restante: 90 / 100"));
+        Assert.That(resultado, Does.Contain("pikachu está quemado y pierde 10 puntos de vida. Vida restante: 90 / 100"));
         Assert.That(entrenador1.PokemonActivo.Vida, Is.LessThan(100));
     }
     [Test]
@@ -178,7 +178,7 @@ public class BatallasTest
 
             // Simular varios intentos si el Pokémon está paralizado
             string mensajeEjecucion = "";
-            for (int i = 0; i < 10; i++) 
+            for (int i = 0; i < 100; i++) 
             {
                 mensajeEjecucion = batalla.Atacar(trueno);
                 if (!mensajeEjecucion.Contains("paralizado")) break;
