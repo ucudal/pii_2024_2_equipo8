@@ -13,7 +13,6 @@ public class FachadaTests
     private ITipo tipoFuego;
     private ITipo tipoAgua;
     private IHabilidades habilidad;
-
     
        
     
@@ -96,17 +95,17 @@ public class FachadaTests
         [Test]
         public void CambiarPokemones_CambioExitoso_DevuelveMensajeCorrecto()
         {
-            // Arrange
             string nombreEntrenador = "Ash";
-            Fachada.Rendirse(nombreEntrenador);
-            Fachada.MeterUsuarioAlLobby(nombreEntrenador);
-            Fachada.IniciarBatalla(nombreEntrenador, "Gary");
-            Fachada.SeleccionarEquipo(nombreEntrenador, "Snorlax");
-            Fachada.SeleccionarEquipo(nombreEntrenador, "Jynx");
+            string nombreEntrenador2 = "Gary";
             string nombrePokemon = "Pikachu";
-            Fachada.CambiarPokemones(nombreEntrenador, nombrePokemon);
-            List<Pokemon> resultado = equipo;
-            // Assert
-            Assert.That(resultado,Does.Contain("Pikachu"));
+            Fachada.MeterUsuarioAlLobby(nombreEntrenador);
+            Fachada.MeterUsuarioAlLobby(nombreEntrenador2);
+            Fachada.IniciarBatalla(nombreEntrenador, nombreEntrenador2);
+            Fachada.elegirRandomente(nombreEntrenador);
+            Fachada.elegirRandomente(nombreEntrenador2);
+            Fachada.SeleccionarEquipo(nombreEntrenador, nombrePokemon);
+            Fachada.SeleccionarEquipo(nombreEntrenador2, "SNORLAX");
+            string resultado = Fachada.CambiarPokemones(nombreEntrenador, nombrePokemon);
+            Assert.That(resultado, Does.Contain("Pikachu"));
         }
     }
