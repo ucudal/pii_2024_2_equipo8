@@ -40,7 +40,7 @@ public class BatallasTest
        
         
         //Anadir habilidades
-        trueno = new Habilidades("Trueno", tipoElectrico, 120, 50, 5, true, paralisis);
+        trueno = new Habilidades("Trueno", tipoElectrico, 120, 100, 5, true, paralisis);
         electrobola = new Habilidades("Electrobola",tipoFuego, 90, 90, 6, false,paralisis);
         ascuas = new Habilidades("Ascuas", tipoFuego, 40, 100, 25, false,quemadura);
 
