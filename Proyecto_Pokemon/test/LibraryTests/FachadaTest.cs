@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [TestFixture]
 public class FachadaTests
 {
-    /*private Fachada fachada;
+    private Fachada fachada;
     private Entrenadores entrenador1;
     private Entrenadores entrenador2;
     private Pokemon pikachu;
