@@ -2,6 +2,7 @@ namespace Proyecto_Pokemon;
 
 public class LogicaDePokemones
 {
+    private static LogicaDePokemones? _instance;
     private Pokemon Sceptile;
     private Pokemon Arcanine;
     private Pokemon Blastoise;
@@ -20,6 +21,19 @@ public class LogicaDePokemones
     private Pokemon Metagross;
     private Pokemon Dragonite;
     private Pokemon Sylveon;
+    
+    public static LogicaDePokemones Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new LogicaDePokemones();
+            }
+
+            return _instance;
+        }
+    }
     
     public List<Pokemon> InicializarPokemones()
     {
@@ -242,7 +256,7 @@ public class LogicaDePokemones
         IHabilidades ascuas = new Habilidades("Ascuas", tipoFuego, 40, 100, 25, false);
         IHabilidades lanzallamas = new Habilidades("Lanzallamas", tipoFuego, 90, 90, 15, false);
         IHabilidades velocidadExtrema = new Habilidades("Velocidad Extrema", tipoNormal, 80, 70, 5, false);
-        IHabilidades enviteigneo = new Habilidades("Envite Ígneo", tipoFuego, 120, 100, 15, true, quemadura);
+        IHabilidades enviteigneo = new Habilidades("Envite igneo", tipoFuego, 120, 100, 15, true, quemadura);
 
         Arcanine.AprenderHabilidad(ascuas);
         Arcanine.AprenderHabilidad(lanzallamas);
@@ -286,8 +300,8 @@ public class LogicaDePokemones
 
         // JYNX
         IHabilidades bolasombra = new Habilidades("Bola Sombra", tipoFantasma, 70, 80, 15, false);
-        IHabilidades psiquico = new Habilidades("Psíquico", tipoPsiquico, 90, 90, 10, false);
-        IHabilidades confusion = new Habilidades("Confusión", tipoPsiquico, 70, 100, 20, false);
+        IHabilidades psiquico = new Habilidades("Psiquico", tipoPsiquico, 90, 90, 10, false);
+        IHabilidades confusion = new Habilidades("Confusion", tipoPsiquico, 70, 100, 20, false);
         IHabilidades cabezazozen = new Habilidades("Cabezazo Zen", tipoPsiquico, 130, 70, 5, true, noqueado);
 
         Jynx.AprenderHabilidad(bolasombra);
@@ -309,7 +323,7 @@ public class LogicaDePokemones
         // FLYGON
         IHabilidades terremoto = new Habilidades("Terremoto", tipoTierra, 70, 70, 15, false);
         IHabilidades pataleta = new Habilidades("Pataleta", tipoTierra, 75, 100, 10, false);
-        IHabilidades danzadeldragon = new Habilidades("Danza del Dragón", tipoDragon, 80, 90, 20, false);
+        IHabilidades danzadeldragon = new Habilidades("Danza del Dragon", tipoDragon, 80, 90, 20, false);
         IHabilidades cataclismo = new Habilidades("Cataclismo", tipoTierra, 140, 60, 5, true, noqueado);
 
         Flygon.AprenderHabilidad(terremoto);
@@ -330,9 +344,9 @@ public class LogicaDePokemones
 
         // PIDGEOT
         IHabilidades aereocontrol = new Habilidades("Aereocontrol", tipoVolador, 85, 100, 10, false);
-        IHabilidades corteAereo = new Habilidades("Corte Aéreo", tipoVolador, 90, 100, 15, false);
+        IHabilidades corteAereo = new Habilidades("Corte Aereo", tipoVolador, 90, 100, 15, false);
         IHabilidades vientoAullador = new Habilidades("Viento Aullador", tipoVolador, 75, 95, 20, false);
-        IHabilidades tormentaAerea = new Habilidades("Tormenta Aérea", tipoVolador, 130, 70, 5, true);
+        IHabilidades tormentaAerea = new Habilidades("Tormenta Aerea", tipoVolador, 130, 70, 5, true);
 
         Pidgeot.AprenderHabilidad(aereocontrol);
         Pidgeot.AprenderHabilidad(corteAereo);
@@ -340,7 +354,7 @@ public class LogicaDePokemones
         Pidgeot.AprenderHabilidad(tormentaAerea);
 
         // SCYTHER
-        IHabilidades tajoAereo = new Habilidades("Tajo Aéreo", tipoBicho, 80, 100, 15, false);
+        IHabilidades tajoAereo = new Habilidades("Tajo Aereo", tipoBicho, 80, 100, 15, false);
         IHabilidades danzaDeHojas = new Habilidades("Danza de Hojas", tipoPlanta, 70, 100, 20, false);
         IHabilidades punioDeAcero = new Habilidades("Puño de Acero", tipoBicho, 75, 100, 15, false);
         IHabilidades tormentaBichos = new Habilidades("Tormenta Bichos", tipoBicho, 130, 60, 5, true, envenenado);
@@ -374,10 +388,10 @@ public class LogicaDePokemones
         Umbreon.AprenderHabilidad(mareaOscura);
 
         // GENGAR
-        IHabilidades sombraBola = new Habilidades("Sombra Bola", tipoFantasma, 80, 100, 15, false);
+        IHabilidades sombraBola = new Habilidades("Bola Sombra", tipoFantasma, 80, 100, 15, false);
         IHabilidades sombraAterradora = new Habilidades("Sombra Aterradora", tipoSiniestro, 75, 100, 15, false);
         IHabilidades punioSiniestro = new Habilidades("Puño Siniestro", tipoSiniestro, 70, 100, 20, false);
-        IHabilidades tormentaSombria = new Habilidades("Tormenta Sombría", tipoFantasma, 155, 60, 5, true);
+        IHabilidades tormentaSombria = new Habilidades("Tormenta Sombria", tipoFantasma, 155, 60, 5, true);
 
         Gengar.AprenderHabilidad(sombraBola);
         Gengar.AprenderHabilidad(sombraAterradora);
@@ -398,21 +412,21 @@ public class LogicaDePokemones
 
         // METAGROSS
         IHabilidades punioAcero = new Habilidades("Puño de Acero", tipoAcero, 90, 90, 10, false);
-        IHabilidades poderPsiquico = new Habilidades("Poder Psíquico", tipoPsiquico, 90, 60, 10, false);
-        IHabilidades golpePsíquico = new Habilidades("Golpe Psíquico", tipoPsiquico, 40, 100, 15, false);
-        IHabilidades meteorito = new Habilidades("Meteorito", tipoAcero, 140, 50, 5, true);
+        IHabilidades poderPsiquico = new Habilidades("Poder Psiquico", tipoPsiquico, 90, 60, 10, false);
+        IHabilidades golpePsiquico = new Habilidades("Golpe Psiquico", tipoPsiquico, 40, 100, 15, false);
+        IHabilidades meteorito = new Habilidades("Meteorito", tipoAcero, 140, 50, 5, true, noqueado);
 
         Metagross.AprenderHabilidad(punioAcero);
         Metagross.AprenderHabilidad(poderPsiquico);
-        Metagross.AprenderHabilidad(golpePsíquico);
+        Metagross.AprenderHabilidad(golpePsiquico);
         Metagross.AprenderHabilidad(meteorito);
 
 
         // DRAGONITE
-        IHabilidades golpeDragon = new Habilidades("Golpe Dragón", tipoDragon, 75, 100, 15, false);
+        IHabilidades golpeDragon = new Habilidades("Golpe Dragon", tipoDragon, 75, 100, 15, false);
         IHabilidades hiperrayo = new Habilidades("Hiperrayo", tipoNormal, 100, 90, 5, false);
         IHabilidades colasDeFuego = new Habilidades("Colas de Fuego", tipoFuego, 90, 100, 15, false);
-        IHabilidades tormentaDeDragones = new Habilidades("Furia Dragón", tipoDragon, 150, 50, 5, true, paralisis);
+        IHabilidades tormentaDeDragones = new Habilidades("Furia Dragon", tipoDragon, 150, 50, 5, true, paralisis);
 
         Dragonite.AprenderHabilidad(golpeDragon);
         Dragonite.AprenderHabilidad(hiperrayo);
@@ -434,4 +448,18 @@ public class LogicaDePokemones
             Pikachu, Jynx, Lucario, Tyranitar, Flygon, Pidgeot, Scyther, Amoonguss, 
             Umbreon, Gengar, Lapras, Metagross, Dragonite, Sylveon };
     }
+    
+    public string MostrarPokemones()
+    {
+        string pokemones = "```";
+        foreach (Pokemon pokemon in InicializarPokemones())
+        {
+            pokemones += pokemon.Nombre + ", Tipo: " +
+                         pokemon.TipoPrincipal.Nombre + ", HP: " +
+                         pokemon.Vida + "\n";
+        }
+        pokemones += "```";
+        return pokemones;
+    }
+    
 }

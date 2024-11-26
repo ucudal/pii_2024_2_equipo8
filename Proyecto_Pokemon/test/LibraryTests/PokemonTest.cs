@@ -20,6 +20,7 @@ public class PokemonTest
         charmander = new Pokemon("Charmeleon", 100, tipoFuego);
     }
 
+    // Se verifica que el pokemon tenga el nombre correcto (Charmeleon) y se verifica que el pokemon tenga 100 de vida
     [Test]
     public void Pokemon_CrearPokemon_DeberiaAsignarNombreYVida()
     {
@@ -31,7 +32,9 @@ public class PokemonTest
     public void Pokemon_AprenderHabilidad_DeberiaAgregarHabilidadALaLista()
     {
         charmander.AprenderHabilidad(habilidad);
+        // se verifica que la lista de habilidades tenga un solo elemento
         Assert.That(charmander.Habilidades.Count, Is.EqualTo(1));
+        // se verifica que la habilidad que aprendió sea "Llamarada"
         Assert.That(charmander.Habilidades[0].Nombre, Is.EqualTo("Llamarada"));
     }
 
@@ -39,12 +42,14 @@ public class PokemonTest
     public void Pokemon_MostrarHabilidades_DeberiaMostrarHabilidadCorrectamente()
     {
         charmander.AprenderHabilidad(habilidad);
-        using (var sw = new StringWriter())
-        {
-            Console.SetOut(sw);
-            charmander.MostrarHabilidades();
-            var resultado = sw.ToString().Trim();
-            Assert.That(resultado, Is.EqualTo("1. Llamarada - Daño: 50, Precisión: 80, Tipo: Fuego, PP: 10, Doble turno: False"));
-        }
+        var habilidades = charmander.MostrarHabilidades();
+        // se verifica que la lista de habilidades tenga habilidades (obviamente, hay que confirmar si un vaso con agua tiene agua :D)
+        Assert.That(habilidades.Count, Is.EqualTo(1));
+
+        var habilidadObtenida = habilidades[0];
+        var resultado = $"1. {habilidadObtenida.Nombre} - Daño: {habilidadObtenida.Danio}, Precisión: {habilidadObtenida.Precision}, Tipo: {habilidadObtenida.Tipo.Nombre}, Puntos de poder: {habilidadObtenida.Puntos_de_Poder}, Doble turno: {habilidadObtenida.EsDobleTurno}";
+
+        // se verifica si la habilidad está bien
+        Assert.That(resultado, Is.EqualTo("1. Llamarada - Daño: 50, Precisión: 80, Tipo: Fuego, Puntos de poder: 10, Doble turno: False"));
     }
 }

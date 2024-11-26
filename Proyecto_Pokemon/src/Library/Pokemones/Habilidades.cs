@@ -6,18 +6,19 @@ public class Habilidades : IHabilidades
     public ITipo Tipo { set; get; }
     public int Danio { set; get; }
     public int Precision { get; set; }
-    public int PP { get; set; }
+    public int Puntos_de_Poder { get; set; } // Los PP son los puntos de poder, que serian la cantidad de veces que se puede usar una habilidad, o sea que si se quedan sin PP, no se podrá usar de nuevo la habilidad
     public bool EsDobleTurno { get; set; }
     public IEfectos Efectos { get; set; }
     
 
-    public Habilidades(string nombre, ITipo tipo, int danio, int precision, int pp, bool esdobleturno, IEfectos efectos = null)
+    // constructor de las habilidades
+    public Habilidades(string nombre, ITipo tipo, int danio, int precision, int puntosdepoder, bool esdobleturno, IEfectos efectos = null)
     {
         Nombre = nombre;
         Tipo = tipo;
         Danio = danio;
         Precision = precision;
-        PP = pp;
+        Puntos_de_Poder = puntosdepoder;
         EsDobleTurno = esdobleturno;
         Efectos = efectos;
     }

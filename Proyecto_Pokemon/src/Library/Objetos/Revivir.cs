@@ -2,24 +2,21 @@ namespace Proyecto_Pokemon;
 
 public class Revivir : Objetos
 {
+    // constructor de revivir, llama al constructor base de la clase objetos y le da el nombre "revivir"
     public Revivir() : base("Revivir") { }
 
-    public void Usar(Pokemon pokemon, Entrenadores entrenador)
+    // metodo para usar el objeto "Revivir" en un pokemon. Si el pokemon esta debilitado (vida <= 0),
+    // lo revive con la mitad de su vida base. Si no esta debilitado, devuelve un mensaje indicando que no se puede revivir
+    public override string Usar(Pokemon pokemonParaRevivir, Entrenadores entrenador)
     {
-        Console.WriteLine("Elige el número del Pokémon que quieres revivir:");
-        entrenador.MostrarPokemones();
-
-        int opcionPokemon = int.Parse(Console.ReadLine()) - 1;
-        Pokemon pokemonParaRevivir = entrenador.Pokemones[opcionPokemon];
-
         if (pokemonParaRevivir.Vida <= 0)
         {
             pokemonParaRevivir.Vida = (int)(pokemonParaRevivir.VidaBase / 2);
-            Console.WriteLine($"{pokemonParaRevivir.Nombre} ha sido revivido con {pokemonParaRevivir.Vida} puntos de vida.");
+            return $"{pokemonParaRevivir.Nombre} ha sido revivido y se recuperaron {pokemonParaRevivir.Vida} puntos de vida.";
         }
         else
         {
-            Console.WriteLine($"{pokemonParaRevivir.Nombre} no está debilitado. No puedes revivirlo.");
+            return $"{pokemonParaRevivir.Nombre} no está debilitado. No puedes revivirlo.";
         }
     }
 }

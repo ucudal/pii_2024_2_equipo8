@@ -1,128 +1,152 @@
 ﻿using NUnit.Framework;
+using Proyecto_Pokemon;
+using System.Collections.Generic;
 
-namespace Proyecto_Pokemon
+[TestFixture]
+public class FachadaTests
 {
-    [TestFixture]
-    public class FachadaTest
+    private Fachada fachada;
+    private Entrenadores entrenador1;
+    private Entrenadores entrenador2;
+    private Pokemon pikachu;
+    private Pokemon charmander;
+    private List<Pokemon> equipo;
+    private ITipo tipoFuego;
+    private ITipo tipoAgua;
+    private IHabilidades habilidad;
+
+    [SetUp]
+    public void SetUp()
     {
-        private Fachada fachada;
-        private Batallas batalla;
-        private Entrenadores entrenador1;
-        private Entrenadores entrenador2;
-        private Pokemon pikachu;
-        private Pokemon charmander;
-        private IHabilidades habilidad;
+        fachada = new Fachada();
+        tipoFuego = new Tipo("Fuego", new Dictionary<string, double> { { "Agua", 0.5 }, { "Planta", 2.0 } });
+        tipoAgua = new Tipo("Agua", new Dictionary<string, double> { { "Fuego", 2.0 }, { "Planta", 0.5 } });
+        habilidad = new Habilidades("Llamarada", tipoFuego, 50, 80, 10, false);
 
-        [SetUp]
-        public void Setup()
-        {
-            var elementoElectrico = new Dictionary<string, double>
-            {
-                { "Acero", 1.0 }, { "Volador", 2.0 }, { "Agua", 2.0 }, { "Hielo", 1.0 },
-                { "Planta", 0.5 }, { "Bicho", 1.0 }, { "Electrico", 0.5 }, { "Normal", 1.0 },
-                { "Roca", 0.5 }, { "Tierra", 0.0 }, { "Fuego", 1.0 }, { "Lucha", 1.0 },
-                { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 }, { "Dragon", 0.5 },
-                { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
-            };
+        // cREA LOS POKEMONES
+        pikachu = new Pokemon("Squirtle", 100, tipoAgua);
+        charmander = new Pokemon("Charmander", 80, tipoFuego);
         
-            var elementoFuego = new Dictionary<string, double>
-            {
-                { "Acero", 2.0 }, { "Volador", 0.5 }, { "Agua", 0.5 }, { "Hielo", 2.0 }, { "Planta", 2.0 },
-                { "Bicho", 2.0 }, { "Electrico", 1.0 }, { "Normal", 1.0 }, { "Roca", 2.0 }, { "Tierra", 1.0 },
-                { "Fuego", 0.5 }, { "Lucha", 1.0 }, { "Hada", 1.0 }, { "Psiquico", 1.0 }, { "Veneno", 1.0 },
-                { "Dragon", 1.0 }, { "Fantasma", 1.0 }, { "Siniestro", 1.0 }
-            };
+        charmander.AprenderHabilidad(habilidad);
+        pikachu.AprenderHabilidad(habilidad);
+        // Crea el equipo para los entrenadores
+        equipo = new List<Pokemon> { pikachu, charmander };
         
-            habilidad = new Habilidades("Impactrueno", null, 20, 80, 30, false);
+        // Crea entrenadores con equipos
+        entrenador1 = new Entrenadores("Ash Ketchum", equipo);
+        entrenador2 = new Entrenadores("Brock", equipo);
         
-            ITipo electrico = new Tipo("Electrico", elementoElectrico);
-            ITipo fuego = new Tipo("Fuego", elementoFuego);
+        fachada.UnirseALaListaDeEspera(entrenador1);
+        fachada.IniciarBatalla(entrenador2);
+        fachada.GetPokemonActual();
+    }
 
-            pikachu = new Pokemon("pikachu", 100, electrico);
-            charmander = new Pokemon("charmander", 100, fuego);
-
-            entrenador1 = new Entrenadores("Asho Ketchu", new List<Pokemon>() { pikachu });
-            entrenador2 = new Entrenadores("Brokoso", new List<Pokemon>() { charmander });
-
-            batalla = new Batallas(entrenador1, entrenador2);
-            fachada = new Fachada();
-        }
-
-        [Test]
-        public void EjecutarAtaque_DeberiaReducirVidaDelDefensor()
-        {
-            fachada.EjecutarAtaque(pikachu, charmander, habilidad, false);
-            Assert.That(charmander.Vida, Is.LessThan(100));
-        }
-
-        [Test]
-        public void EjecutarAtaque_DeberiaNoReducirVidaSiAtaqueFalla()
-        {
-            habilidad = new Habilidades("Impactrueno", null, 20, 0, 30, false);
-            pikachu.Habilidades[0] = habilidad;
-
-            fachada.EjecutarAtaque(pikachu, charmander, habilidad, false);
-            Assert.That(charmander.Vida, Is.EqualTo(100));
-        }
-
-        [Test]
-        public void MostrarOpciones_DeberiaEjecutarAtaqueCuandoSelecciona1()
-        {
-            using (var sw = new StringWriter())
-            {
-                Console.SetOut(sw);
-                Console.SetIn(new StringReader("1"));
-
-                fachada.MostrarOpciones(batalla);
-
-                string output = sw.ToString();
-                Assert.That(output, Does.Contain("usó Impactrueno"));
-            }
-        }
+    // test que verifica si se muestra el mensaje cuando faltan pokemon para el equipo
+    [Test]
+    public void SeleccionarEquipo_DeberiaRetornarQueFaltanPokemones()
+    {
         
-        [Test]
-        public void MostrarOpciones_DeberiaCambiarPokemonCuandoSelecciona2()
-        {
-            using (var sw = new StringWriter())
-            {
-                Console.SetOut(sw);
-                Console.SetIn(new StringReader("2"));
+        var resultado = fachada.SeleccionarEquipo(entrenador1, equipo);
+        Assert.That(resultado, Is.EqualTo("Debes seleccionar exactamente 6 Pokémon."));
+    }
 
-                fachada.MostrarOpciones(batalla);
-
-                string output = sw.ToString();
-                Assert.That(output, Does.Contain("cambió a"));
-            }
-        }
+    // test que verifica si se muestran las habilidades del pokemon actual
+    [Test]
+    public void MostrarHabilidades_DeberiaMostrarHabilidadesDelPokemonActual()
+    {
+        var habilidades = fachada.MostrarHabilidades();
         
-        [Test]
-        public void MostrarOpciones_DeberiaEsquivarCuandoSelecciona3()
-        {
-            using (var sw = new StringWriter())
-            {
-                Console.SetOut(sw);
-                Console.SetIn(new StringReader("3"));
+        // Verifica que se muestran habilidades
+        Assert.That(habilidades, Is.Not.Empty);
+    }
 
-                fachada.MostrarOpciones(batalla);
+    // test que verifica si se retorna la vida del pokemon en batalla
+    [Test]
+    public void VerVida_DeberiaRetornarVidaDelPokemonEnBatalla()
+    {
+        fachada.IniciarBatalla(entrenador1);
+        var vida = fachada.VerVida();
+        Assert.That(vida, Is.Not.Empty);
+    }
 
-                string output = sw.ToString();
-                Assert.That(output, Does.Contain("está preparado para esquivar"));
-            }
-        }
-        
-        [Test]
-        public void MostrarOpciones_DeberiaPedirOpcionNuevamenteSiEsInvalida()
-        {
-            using (var sw = new StringWriter())
-            {
-                Console.SetOut(sw);
-                Console.SetIn(new StringReader("4\n1"));
+    // test que verifica si se ejecuta el ataque y se retorna el resultado
+    [Test]
+    public void EjecutarAtaque_DeberiaRealizarAtaqueYRetornarResultado()
+    {
+        fachada.IniciarBatalla(entrenador1);
+        fachada.GetPokemonActual();
+        var resultado = fachada.EjecutarAtaque(0);
+        Assert.That(resultado, Is.Not.Null);
+    }
 
-                fachada.MostrarOpciones(batalla);
+    // test que verifica si se retorna el nombre del entrenador actual durante su turno
+    [Test]
+    public void EsTurnoDe_DeberiaRetornarElNombreDelEntrenadorActual()
+    {
+        fachada.IniciarBatalla(entrenador1);
+        var turno = fachada.EsTurnoDe();
+        Assert.That(turno, Is.EqualTo("Turno de Brock"));
+    }
 
-                string output = sw.ToString();
-                Assert.That(output, Does.Contain("Opcion incorrecta"));
-            }
-        }
+    // test que verifica si se muestra el estado de la batalla (en curso o finalizada)
+    [Test]
+    public void CheckFinBatalla_DeberiaRetornarMensajeDeBatallaEnCursoOFinalizada()
+    {
+        fachada.IniciarBatalla(entrenador1);
+        var estadoBatalla = fachada.CheckFinBatalla();
+        Assert.That(estadoBatalla, Is.Not.Empty);
+    }
+
+    // test que verifica si se cambia el pokemon correctamente y se retorna un mensaje
+    [Test]
+    public void CambiarPokemon_DeberiaCambiarPokemonYRetornarMensaje()
+    {
+        fachada.IniciarBatalla(entrenador1);
+        var mensaje = fachada.CambiarPokemon(0);
+        Assert.That(mensaje, Does.Contain("cambió a"));
+    }
+
+    // test que verifica si se usa un objeto de la mochila y se retorna un resultado
+    [Test]
+    public void UsarMochila_DeberiaUsarObjetoYRetornarResultado()
+    {
+        fachada.IniciarBatalla(entrenador1);
+        var resultado = fachada.UsarMochila(0);
+        Assert.That(resultado, Is.Not.Empty);
+    }
+
+    // test que verifica si un entrenador se agrega a la lista de espera correctamente
+    [Test]
+    public void UnirseALaListaDeEspera_DeberiaAgregarEntrenadorALaListaYRetornarMensaje()
+    {
+        var mensaje = fachada.UnirseALaListaDeEspera(entrenador1);
+        Assert.That(mensaje, Does.Contain("a la lista de espera en el lobby"));
+    }
+
+    // test que verifica si se retornan los entrenadores en la lista de espera
+    [Test]
+    public void VerListaDeEspera_DeberiaRetornarEntrenadoresEnLaLista()
+    {
+        fachada.UnirseALaListaDeEspera(entrenador1);
+        fachada.UnirseALaListaDeEspera(entrenador2);
+        var lista = fachada.VerListaDeEspera();
+        Assert.That(lista, Does.Contain("Ash Ketchum").And.Contain("Brock"));
+    }
+
+    // test que verifica si se inicia la batalla correctamente y se retorna un mensaje
+    [Test]
+    public void IniciarBatalla_DeberiaIniciarBatallaYRetornarMensaje()
+    {
+        fachada.UnirseALaListaDeEspera(entrenador1);
+        var mensaje = fachada.IniciarBatalla(entrenador2);
+        Assert.That(mensaje, Does.Contain("ha comenzado una batalla contra"));
+    }
+
+    // test que verifica si se muestran los Pokémon del entrenador
+    [Test]
+    public void MostrarPokemones_DeberiaRetornarListaDePokemonesDelEntrenador()
+    {
+        var pokemones = fachada.MostrarPokemones(entrenador1);
+        Assert.That(pokemones, Is.Not.Empty);
     }
 }
