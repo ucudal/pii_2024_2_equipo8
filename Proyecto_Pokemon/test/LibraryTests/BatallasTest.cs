@@ -125,6 +125,7 @@ public class BatallasTest
     public void Atacar_DeberiaAplicarEstadoAlteradoCorrectamente()
     {
         // Habilidad con efecto secundario paralizado
+        electrobola.Precision = 100; 
         string resultado = batalla.Atacar(electrobola);
 
         Assert.That(entrenador2.PokemonActivo.Estado, Is.EqualTo("paralizado"));
