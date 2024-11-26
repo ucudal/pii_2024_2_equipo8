@@ -43,6 +43,51 @@ namespace Proyecto_Pokemon
             Assert.That(pokemones[1].Habilidades[1].Nombre, Is.EqualTo("Lanzallamas"));
             Assert.That(pokemones[1].Habilidades[2].Nombre, Is.EqualTo("Velocidad Extrema"));
             Assert.That(pokemones[1].Habilidades[3].Nombre, Is.EqualTo("Envite igneo"));
+            
+            // se verifica que el segundo pokemon (BLASTOISE) tenga las características correctas
+            Assert.That(pokemones[2].Nombre, Is.EqualTo("BLASTOISE"));
+            Assert.That(pokemones[2].Vida, Is.EqualTo(299));
+            Assert.That(pokemones[2].Habilidades.Count, Is.EqualTo(4));
+
+            // se verifican las habilidades del segundo pokemon (BLASTOISE)
+            Assert.That(pokemones[2].Habilidades[0].Nombre, Is.EqualTo("Hidroomba"));
+            Assert.That(pokemones[2].Habilidades[1].Nombre, Is.EqualTo("Hidropulso"));
+            Assert.That(pokemones[2].Habilidades[2].Nombre, Is.EqualTo("Acua cola"));
+            Assert.That(pokemones[2].Habilidades[3].Nombre, Is.EqualTo("Pistola Agua"));
+          
+            // Verificación de SNORLAX
+            Assert.That(pokemones[3].Nombre, Is.EqualTo("SNORLAX"));
+            Assert.That(pokemones[3].Vida, Is.EqualTo(461));
+            Assert.That(pokemones[3].Habilidades.Count, Is.EqualTo(4));
+
+            // Verificación de las habilidades de SNORLAX
+            Assert.That(pokemones[3].Habilidades[0].Nombre, Is.EqualTo("Golpe cuerpo"));
+            Assert.That(pokemones[3].Habilidades[1].Nombre, Is.EqualTo("Mordisco"));
+            Assert.That(pokemones[3].Habilidades[2].Nombre, Is.EqualTo("Fuerza equina"));
+            Assert.That(pokemones[3].Habilidades[3].Nombre, Is.EqualTo("Gigaimpacto"));
+
+            // Verificación de PIKACHU
+            Assert.That(pokemones[4].Nombre, Is.EqualTo("PIKACHU"));
+            Assert.That(pokemones[4].Vida, Is.EqualTo(211));
+            Assert.That(pokemones[4].Habilidades.Count, Is.EqualTo(4));
+
+            // Verificación de las habilidades de PIKACHU
+            Assert.That(pokemones[4].Habilidades[0].Nombre, Is.EqualTo("Electrobola"));
+            Assert.That(pokemones[4].Habilidades[1].Nombre, Is.EqualTo("Rayo"));
+            Assert.That(pokemones[4].Habilidades[2].Nombre, Is.EqualTo("Puño Trueno"));
+            Assert.That(pokemones[4].Habilidades[3].Nombre, Is.EqualTo("Trueno"));
+
+            // Verificación de JYNX
+            Assert.That(pokemones[5].Nombre, Is.EqualTo("JYNX"));
+            Assert.That(pokemones[5].Vida, Is.EqualTo(271));
+            Assert.That(pokemones[5].Habilidades.Count, Is.EqualTo(4));
+
+            // Verificación de las habilidades de JYNX
+            Assert.That(pokemones[5].Habilidades[0].Nombre, Is.EqualTo("Bola Sombra"));
+            Assert.That(pokemones[5].Habilidades[1].Nombre, Is.EqualTo("Psiquico"));
+            Assert.That(pokemones[5].Habilidades[2].Nombre, Is.EqualTo("Confusion"));
+            Assert.That(pokemones[5].Habilidades[3].Nombre, Is.EqualTo("Cabezazo Zen"));
+            
         }
     }
 }
