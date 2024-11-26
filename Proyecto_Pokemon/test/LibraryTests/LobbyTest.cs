@@ -2,19 +2,12 @@
 using Proyecto_Pokemon;
 using System.Collections.Generic;
 
-<<<<<<< HEAD
-namespace Proyecto_Pokemon
-{
-    [TestFixture]
-    public class LobbyTests
-    {
-=======
 namespace Proyecto_Pokemon;
+
 
 [TestFixture]
 public class LobbyTests
 {
->>>>>>> 8505a4e59e12baba60efe23f25b5f24d3e5d2b31
         private Lobby lobby;
         private Entrenadores entrenador1;
         private Entrenadores entrenador2;
@@ -202,32 +195,6 @@ public class LobbyTests
 
             Assert.That(lobby.Cantidad, Is.EqualTo(2));
         }
-
         
-<<<<<<< HEAD
-        [Test]
-        public void IniciarBatallaConEntrenadoresDisponibles()
-        {
-            lobby.UnirseALaListaDeEspera(entrenador1);
-            lobby.UnirseALaListaDeEspera(entrenador2);
-
-            lobby.IniciarBatalla(entrenador1);
-
-            // se verifica que ambos entrenadores estén en batalla
-            Assert.That(entrenador1.EnBatalla, Is.EqualTo(true));
-            Assert.That(entrenador2.EnBatalla, Is.EqualTo(true));
-        }
-
-        [Test]
-        public void IniciarBatallaConListaEsperaVacia()
-        {
-            string resultado = lobby.IniciarBatalla(entrenador1);
-
-            // se verifica que el entrenador no esté en batalla
-            Assert.That(entrenador1.EnBatalla, Is.EqualTo(false));
-        }
     }
-}
-=======
-    }
->>>>>>> 8505a4e59e12baba60efe23f25b5f24d3e5d2b31
+
