@@ -3,7 +3,8 @@ namespace Proyecto_Pokemon;
 // Clase que gestiona batallas en curso, se divide responsabilidad con batallas para que sea una unica responsabilidad
 public class BatallasEnCurso
 {
-    private List<Batallas> Partidas;
+    private List<Batallas> Partidas = new List<Batallas>();
+    private Lobby lobby = new Lobby();
     
     // Terminar batalla, bool de indicador si se logra
     public bool TerminarPartida(Batallas partida)
