@@ -49,6 +49,8 @@ public class BatallasTest
         entrenador1 = new Entrenadores("Asho Ketchu", new List<Pokemon>() { pikachu });
         entrenador2 = new Entrenadores("Brokoso", new List<Pokemon>() { arcanine });
         
+        
+        
         // Inicia la batalla con ambos entrenadores
         batalla = new Batallas(entrenador1, entrenador2);
     }
@@ -110,7 +112,7 @@ public class BatallasTest
     [Test]
     public void Atacar_DeberiaAplicarEstadoAlteradoCorrectamente()
     {
-        electrobola. = "paralizado"; // Habilidad con efecto secundario
+        electrobola.Efectos = "paralizado"; // Habilidad con efecto secundario
         string resultado = batalla.Atacar(electrobola);
 
         Assert.That(entrenador2.PokemonActivo.Estado, Is.EqualTo("paralizado"));
@@ -156,5 +158,30 @@ public class BatallasTest
         Assert.That(resultado, Does.Contain("pierde vida por quemadura"));
         Assert.That(entrenador1.PokemonActivo.Vida, Is.LessThan(100));
     }
+    [Test]
+    public void Atacar_HabilidadDeCarga_DeberiaCargarYEjecutar()
+    {
+        electrobola.EsDobleTurno = true;
+        string carga = batalla.Atacar(electrobola);
+        Assert.That(carga, Does.Contain("cargando"));
+
+        // Cambiar turno para completar la carga
+        batalla.CambiarTurno();
+        string resultado = batalla.Atacar(electrobola);
+
+        Assert.That(resultado, Does.Contain("terminó de cargar"));
+        Assert.That(entrenador2.PokemonActivo.Vida, Is.LessThan(entrenador2.PokemonActivo.VidaBase));
+    }
+    [Test]
+    public void CambiarPokemon_DeberiaCambiarElPokemonActivo()
+    {
+        Pokemon otroPokemon = new Pokemon("Bulbasaur", 100, new Tipo("Planta", new Dictionary<string, double>()));
+        entrenador1.RecibirEquipoPokemon().Add(otroPokemon);
+        string resultado = batalla.CambiarPokemon(otroPokemon);
+
+        Assert.That(resultado, Does.Contain("Bulbasaur AHORA SE ENCUENTRA A LA CABEZA."));
+        Assert.That(entrenador1.PokemonActivo.Nombre, Is.EqualTo("Bulbasaur"));
+    }
+
 
 }
