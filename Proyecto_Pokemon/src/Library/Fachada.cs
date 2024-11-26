@@ -67,7 +67,7 @@ public static class Fachada
 
         if (batalla == null)
         {
-            return "No estás participando en una batalla activa.";
+            return "No estás participando en una batalla.";
         }
 
         if (batalla.entrenadorActual.Nombre != nombreEntrenador)
@@ -130,6 +130,23 @@ public static class Fachada
             return batalla.DeterminarGanador();
         }
         return "La partida no pudo ser encontrada";
+    }
+    
+    public static string Rendirse(string entrenadorNombre)
+    {
+        Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(entrenadorNombre);
+        if (entrenador == null)
+        {
+            return $"{entrenadorNombre}, no te podés rendir si no estás en una batalla";
+        }
+        Batallas batalla = batallaencurso.BatallaPorEntrenador(entrenador);
+        int noEntrenadorActual = (batalla.turno+1)%2;
+        batallaencurso.TerminarPartida(batalla);
+        if (batalla.JugadoresDisponibles()[batalla.turno].Nombre == entrenadorNombre)
+        {
+            return $"EL INCREIBLE ENTRENADOR {batalla.JugadoresDisponibles()[batalla.turno].Nombre} SE RINDIÓ.\nEL GANADOR ES {batalla.JugadoresDisponibles()[noEntrenadorActual].Nombre} \nY EL PERDEDOR {batalla.JugadoresDisponibles()[batalla.turno].Nombre}";
+        }
+        return $"EL INCREIBLE ENTRENADOR {batalla.JugadoresDisponibles()[noEntrenadorActual].Nombre} SE RINDIÓ.\nEL GANADOR ES {batalla.JugadoresDisponibles()[batalla.turno].Nombre} \nY EL PERDEDOR {batalla.JugadoresDisponibles()[noEntrenadorActual].Nombre}";
     }
     
     // Inicia una batalla buscando un oponente en el lobby o con un nombre específico solo si se cumplen requisitos de disponibilidad, se llama a CrearBatalla
@@ -329,31 +346,31 @@ public static class Fachada
     public static string UsarObjetoMochila(string nombreEntrenador, string item, string pokemon)
     {
         Entrenadores player = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
-        Batallas game = batallaencurso.BatallaPorEntrenador(player);
+        Batallas batalla = batallaencurso.BatallaPorEntrenador(player);
         
         if (player == null)
         {
             return $"El entrenador {nombreEntrenador} no está en batalla.";
         }
 
-        if (game == null)
+        if (batalla == null)
         {
             return "La batalla no se ha encontrado.";
         }
         
-        if (game.JugadoresDisponibles()[game.entrenadorActual == game.entrenador1 ? 0 : 1].Nombre == nombreEntrenador)
+        if (batalla.JugadoresDisponibles()[batalla.entrenadorActual == batalla.entrenador1 ? 0 : 1].Nombre == nombreEntrenador)
         {
-            if (!game.ConfirmandoEquipoCompleto())
+            if (!batalla.ConfirmandoEquipoCompleto())
             {
                 return "Los entrenadores todavia no eligieron todos los pokemones para su equipo";
             }
 
-            string result = game.UsarMochila(player.BuscarObjeto(item), player.BuscarPokemonYGuardar(pokemon));
+            string result = batalla.UsarMochila(player.BuscarObjeto(item), player.BuscarPokemonYGuardar(pokemon));
             if (result.Contains("recuperaron"))
             {
-                string nextTurn = game.CambiarTurno();
-                string gameStatus = CierreDeLaBatalla(game);
-                return result + "\n" + nextTurn + "\n" + gameStatus;
+                string nextTurn = batalla.CambiarTurno();
+                string batallaStatus = CierreDeLaBatalla(batalla);
+                return result + "\n" + nextTurn + "\n" + batallaStatus;
             }
             return result;
         }
