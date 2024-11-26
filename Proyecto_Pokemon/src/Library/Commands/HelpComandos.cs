@@ -28,12 +28,13 @@ public class HelpComandos : ModuleBase<SocketCommandContext>
             - **!elegirRandom**:  Agrega al equipo del jugador Pokemones aleatorios.
             - **!verVida**:  Muestra la vida actual de los Pokémon en batalla.
             - **!ataques**:  Ataques disponibles del Pokemon activo del jugador.
-            - **!usar**:  Ataque que vas a usar.
+            - **!usar + ataque**:  Ataque que vas a usar.
             - **!cambiar**:  Cambiar Pokemon activo en batalla.
             - **!esquivar**:  Intenta esquivar el ataque del oponente.
             - **!turno**:  Devuelve de quien es el turno.
             - **!curar**:  Usa el item seleccionado para beneficiar al Pokemon especificado.
             - **!verMochila**:  Muestra los items disponibles del jugador.
+            - **!rendirse**:  Rendirse y perder
         """;
 
         await ReplyAsync(comandos);

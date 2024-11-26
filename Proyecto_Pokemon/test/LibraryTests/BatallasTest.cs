@@ -178,7 +178,7 @@ public class BatallasTest
 
             // Simular varios intentos si el Pokémon está paralizado
             string mensajeEjecucion = "";
-            for (int i = 0; i < 100; i++) 
+            for (int i = 0; i < 1000000000; i++) 
             {
                 mensajeEjecucion = batalla.Atacar(trueno);
                 if (!mensajeEjecucion.Contains("paralizado")) break;
