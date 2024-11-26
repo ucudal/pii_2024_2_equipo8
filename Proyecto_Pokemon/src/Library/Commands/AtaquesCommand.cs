@@ -6,7 +6,7 @@ using Proyecto_Pokemon;
 namespace Library.Commands;
 
 /// <summary>
-/// Esta clase implementa el comando 'showattacks' del bot.
+/// Esta clase implementa el comando 'ataques' del bot.
 /// </summary>
 public class AtaquesCommand : ModuleBase<SocketCommandContext>
 {

@@ -1,8 +1,14 @@
 using Discord.Commands;
 namespace Proyecto_Pokemon;
 
+/// <summary>
+/// Esta clase implementa el comando 'elegirRandom' del bot.
+/// </summary>
 public class ElegirRandomCommand : ModuleBase<SocketCommandContext>
 {
+    /// <summary>
+    /// Genera equipo random y se asocia al entrenador.
+    /// </summary>
     [Command("elegirRandom")]
     [Summary(
         """

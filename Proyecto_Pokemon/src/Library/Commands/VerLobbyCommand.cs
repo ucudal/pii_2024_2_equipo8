@@ -2,8 +2,14 @@ using Discord.Commands;
 
 namespace Proyecto_Pokemon;
 
+/// <summary>
+/// Esta clase implementa el comando 'lobby' del bot.
+/// </summary>
 public class VerLobbyCommand : ModuleBase<SocketCommandContext>
 {
+    /// <summary>
+    /// Comando para recibir los entrenadores en el lobby.
+    /// </summary>
     [Command("lobby")]
     [Summary("Muestra quienes estan en el lobby")]
     // ReSharper disable once UnusedMember.Global

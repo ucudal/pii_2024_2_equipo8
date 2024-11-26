@@ -3,8 +3,14 @@ using Discord.WebSocket;
 
 namespace Proyecto_Pokemon;
 
+/// <summary>
+/// Clase que proporciona métodos auxiliares para los comandos del bot.
+/// </summary>
 public static class CommandHelper
 {
+    /// <summary>
+    /// Obtiene el nombre visible de un usuario en el contexto del comando.
+    /// </summary>
     public static string GetDisplayName(
         SocketCommandContext context, 
         string? name = null)
@@ -28,6 +34,9 @@ public static class CommandHelper
         return name;
     }
 
+    /// <summary>
+    /// Obtiene un usuario del servidor basado en su nombre.
+    /// </summary>
     public static SocketGuildUser? GetUser(
         SocketCommandContext context,
         string? name)

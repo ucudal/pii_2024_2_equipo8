@@ -3,8 +3,14 @@ using Library.Commands;
 
 namespace Proyecto_Pokemon;
 
+/// <summary>
+/// Esta clase implementa el comando 'Help' del bot.
+/// </summary>
 public class HelpComandos : ModuleBase<SocketCommandContext>
 {
+    /// <summary>
+    /// Comando para soporte con lista de ayuda.
+    /// </summary>
     [Command("Help")]
     [Summary("Muestra la lista de comandos disponibles.")]
     public async Task ExecuteAsync()
