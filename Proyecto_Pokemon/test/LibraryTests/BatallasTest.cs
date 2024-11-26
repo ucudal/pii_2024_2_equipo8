@@ -10,8 +10,8 @@ public class BatallasTest
     private Pokemon pikachu;
     private Pokemon arcanine;
     private Habilidades electrobola;
-    private Habilidades ascuas;
-
+     private Habilidades ascuas;
+    
     [SetUp]
     public void Setup()
     {
@@ -34,17 +34,25 @@ public class BatallasTest
         ITipo tipoFuego = new Tipo("Fuego", elementoFuego);
         ITipo tipoElectrico = new Tipo("Electrico", elementoElectrico);
         
+        IEfectos paralisis = new Efectos("paralizado");
+        IEfectos quemadura = new Efectos("quemado");
+       
+        
         //Anadir habilidades
-        electrobola = new Habilidades("Electrobola",tipoFuego, 90, 90, 6, false);
-        ascuas = new Habilidades("Ascuas", tipoFuego, 40, 100, 25, false);
+        electrobola = new Habilidades("Electrobola",tipoFuego, 90, 90, 6, false,paralisis);
+        ascuas = new Habilidades("Ascuas", tipoFuego, 40, 100, 25, false,quemadura);
 
         // Crea Pokemones, no les meti habilidades porque no las van a usar
         pikachu = new Pokemon("pikachu", 100, tipoElectrico);
         arcanine = new Pokemon("arcaine", 100, tipoFuego);
         
         // Crea Entrenadores
-        entrenador1 = new Entrenadores("Asho Ketchu", new List<Pokemon>() { pikachu });
-        entrenador2 = new Entrenadores("Brokoso", new List<Pokemon>() { arcanine });
+        entrenador1 = new Entrenadores("Asho Ketchu");
+        entrenador2 = new Entrenadores("Brokoso");
+
+        entrenador1.AñadirPokemon(pikachu);
+        entrenador2.AñadirPokemon(arcanine);
+        
         
         // Inicia la batalla con ambos entrenadores
         batalla = new Batallas(entrenador1, entrenador2);
@@ -60,8 +68,8 @@ public class BatallasTest
     {
         string resultado = batalla.Atacar(electrobola);
 
-        Assert.That(resultado, Does.Contain("electrobola"));
-        Assert.That(electrobola.Puntos_de_Poder, Is.EqualTo(9)); // Se reduce el PP despues de usarse
+        Assert.That(resultado, Does.Contain("Electrobola"));
+        Assert.That(electrobola.Puntos_de_Poder, Is.EqualTo(5)); // Se reduce el PP despues de usarse
     }
     // verifica que la batalla inicie en el turno 1
     [Test]
@@ -90,11 +98,7 @@ public class BatallasTest
         batalla.CambiarTurno();
 
         Assert.That(batalla.entrenadorActual, Is.Not.EqualTo(entrenadorInicial));
-        //var entrenadorInicial = batalla.entrenadorActual;
-        //batalla.CambiarTurno();
-
-        //Assert.That(batalla.entrenadorActual, Is.Not.EqualTo(entrenadorInicial));
-        //Assert.That(batalla.CambiarTurno(), Is.EqualTo(2));
+        
     }
 
     // verifica que devuelva el estado de los pokemon
@@ -106,9 +110,81 @@ public class BatallasTest
         Assert.That(estadoPikachu, Does.Contain("vida restante"));
         Assert.That(estadoCharmander, Does.Contain("vida restante"));
         
-        ///var resultadoEsperado = $"{entrenador1.Nombre}:\n{entrenador1.VerificarEstado()}\n" +
-           ///                     $"{entrenador2.Nombre}:\n{entrenador2.MostrarPokemones()}\n";
-           ///Assert.That(batalla.VerVida(), Is.EqualTo(resultadoEsperado));
+        
     }
+    [Test]
+    public void Atacar_DeberiaAplicarEstadoAlteradoCorrectamente()
+    {
+        // Habilidad con efecto secundario paralizado
+        string resultado = batalla.Atacar(electrobola);
+
+        Assert.That(entrenador2.PokemonActivo.Estado, Is.EqualTo("paralizado"));
+        Assert.That(resultado, Does.Contain("paralizado"));
+    }
+    [Test]
+    public void DeterminarGanador_DeberiaFinalizarBatallaYAnunciarGanador()
+    {
+        entrenador2.PokemonActivo.Vida = 0; // El Pokémon de entrenador2 queda derrotado
+        string resultado = batalla.CambiarTurno();
+
+        Assert.That(resultado, Does.Contain("LA BATALLA TERMINÓ"));
+        Assert.That(resultado, Does.Contain(entrenador1.Nombre));
+    }
+    [Test]
+    public void Esquivar_DeberiaEvitarAtaque()
+    {
+        string esquivarMensaje = batalla.Esquivar();
+        Assert.That(esquivarMensaje, Does.Contain("está preparado para esquivar"));
+
+        string resultadoAtaque = batalla.Atacar(electrobola);
+        Assert.That(resultadoAtaque, Does.Contain("falló el ataque")); // Suponiendo que este mensaje se incluye al esquivar
+    }
+    [Test]
+    public void UsarMochila_DeberiaRecuperarVidaCorrectamente()
+    {
+        Objetos pocion = new SuperPocion();
+        entrenador1.Mochila.Add(pocion);
+        entrenador1.PokemonActivo.Vida -= 70;
+
+        string resultado = batalla.UsarMochila(pocion, entrenador1.PokemonActivo);
+        Assert.That(resultado, Does.Contain("recuperaron"));
+        Assert.That(entrenador1.PokemonActivo.Vida, Is.EqualTo(100));
+    }
+    [Test]
+    public void VerificarEstado_DeberiaAplicarEfectosDeEstadoAlterado()
+    {
+        entrenador1.PokemonActivo.Estado = "quemado";
+        entrenador1.PokemonActivo.Vida = 100;
+
+        string resultado = batalla.VerificarEstado(entrenador1.PokemonActivo);
+
+        Assert.That(resultado, Does.Contain("pierde vida por quemadura"));
+        Assert.That(entrenador1.PokemonActivo.Vida, Is.LessThan(100));
+    }
+    [Test]
+    public void Atacar_HabilidadDeCarga_DeberiaCargarYEjecutar()
+    {
+        electrobola.EsDobleTurno = true;
+        string carga = batalla.Atacar(electrobola);
+        Assert.That(carga, Does.Contain("cargando"));
+
+        // Cambiar turno para completar la carga
+        batalla.CambiarTurno();
+        string resultado = batalla.Atacar(electrobola);
+
+        Assert.That(resultado, Does.Contain("terminó de cargar"));
+        Assert.That(entrenador2.PokemonActivo.Vida, Is.LessThan(entrenador2.PokemonActivo.VidaBase));
+    }
+    [Test]
+    public void CambiarPokemon_DeberiaCambiarElPokemonActivo()
+    {
+        Pokemon otroPokemon = new Pokemon("Bulbasaur", 100, new Tipo("Planta", new Dictionary<string, double>()));
+        entrenador1.RecibirEquipoPokemon().Add(otroPokemon);
+        string resultado = batalla.CambiarPokemon(otroPokemon);
+
+        Assert.That(resultado, Does.Contain("Bulbasaur."));
+        Assert.That(entrenador1.PokemonActivo.Nombre, Is.EqualTo("Bulbasaur"));
+    }
+
 
 }
