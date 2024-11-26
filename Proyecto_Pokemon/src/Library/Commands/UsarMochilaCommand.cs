@@ -6,14 +6,13 @@ using Library;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'use' del bot.
+/// Esta clase implementa el comando 'curar' del bot.
 /// </summary>
 public class UsarMochilaCommand : ModuleBase<SocketCommandContext>
 {
     /// <summary>
-    /// Envía a la fachada un mensaje con el item a usar y el Pokemons que se verá beneficiado.
+    /// Envía a la fachada un mensaje con el item de cura a usar y el Pokemons que se verá beneficiado.
     /// </summary>
-    /// <param name="itemAndPokemonName">Nombre de Pokemon a ser beneficiado y del item a utilizar concatenados.</param>
     [Command("curar")]
     [Summary(
         """

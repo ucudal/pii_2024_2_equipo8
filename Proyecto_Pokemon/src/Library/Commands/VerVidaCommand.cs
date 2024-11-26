@@ -2,10 +2,16 @@ using Discord.Commands;
 
 namespace Proyecto_Pokemon;
 
+/// <summary>
+/// Esta clase implementa el comando 'verVida' del bot.
+/// </summary>
 public class VerVidaCommand : ModuleBase<SocketCommandContext>
 {
+    /// <summary>
+    /// Muestra el estado de los pokemones .
+    /// </summary>
     [Command("verVida")]
-    [Summary("Saca al usuario del Lobby")]
+    [Summary("Devuelve la vida de los pokemones y sus detalles")]
     // ReSharper disable once UnusedMember.Global
     public async Task ExecuteAsync(
         [Remainder] [Summary("Display name del oponente, opcional")]

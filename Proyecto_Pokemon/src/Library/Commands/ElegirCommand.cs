@@ -1,8 +1,14 @@
 using Discord.Commands;
 namespace Proyecto_Pokemon;
 
+/// <summary>
+/// Esta clase implementa el comando 'elegir' del bot.
+/// </summary>
 public class ElegirCommand : ModuleBase<SocketCommandContext>
 {
+    /// <summary>
+    /// Agregar pokemon al equipo.
+    /// </summary>
     [Command("elegir")]
     [Summary(
         """

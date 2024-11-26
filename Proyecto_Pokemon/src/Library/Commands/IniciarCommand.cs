@@ -2,8 +2,14 @@ using Discord.Commands;
 
 namespace Proyecto_Pokemon;
 
+/// <summary>
+/// Esta clase implementa el comando 'iniciar' del bot.
+/// </summary>
 public class IniciarCommand : ModuleBase<SocketCommandContext>
 {
+    /// <summary>
+    /// Comando para iniciar batalla entre jugadores.
+    /// </summary>
     [Command("iniciar")]
     [Summary("Empieza la batalla entre dos jugadores que estan en el Lobby.")]
     public async Task ExecuteAsync(

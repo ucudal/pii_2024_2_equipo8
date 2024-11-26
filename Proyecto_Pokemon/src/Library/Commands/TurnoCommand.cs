@@ -6,7 +6,7 @@ using Library;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'checkturn' del bot.
+/// Esta clase implementa el comando 'turno' del bot.
 /// </summary>
 public class TurnoCommand : ModuleBase<SocketCommandContext>
 {

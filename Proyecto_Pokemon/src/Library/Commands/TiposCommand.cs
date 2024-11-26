@@ -3,8 +3,14 @@ using Discord;
 
 namespace ProyectoPokemon;
 
+/// <summary>
+/// Esta clase implementa el comando 'tipos' del bot.
+/// </summary>
 public class TiposCommand : ModuleBase<SocketCommandContext>
 {
+    /// <summary>
+    /// Comando para ver tabla de tipos.
+    /// </summary>
     [Command("tipos")]
     [Summary("Ver los diferentes tipos de pokemones junto a sus efectividades y debilidades")]
     public async Task ExecuteAsync()

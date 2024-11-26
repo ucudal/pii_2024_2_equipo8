@@ -2,10 +2,16 @@ using Discord.Commands;
 
 namespace Proyecto_Pokemon;
 
+/// <summary>
+/// Esta clase implementa el comando 'esquivar' del bot.
+/// </summary>
 public class EsquivoCommand : ModuleBase<SocketCommandContext>
 {
+    /// <summary>
+    /// Prepara el esquivo.
+    /// </summary>
     [Command("esquivar")]
-    [Summary("")]
+    [Summary("Prepara el esquivo para el siguiente ataque")]
     public async Task ExecuteAsync()
 
     {
