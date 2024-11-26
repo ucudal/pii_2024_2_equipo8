@@ -192,13 +192,14 @@ public class Batallas
             return $"{JugadoresDisponibles()[turno].Nombre} no cuentas con ese objeto.\nBusca otro.\n";
         }
         string final = objeto.Usar(pokemon, entrenadorActual);
+        esquivo = false;
         if (final.Contains("recuperaron"))
         {
             // Remueve el objeto usado de la mochila
             Objetos objetoEnMochila = entrenador.Mochila.FirstOrDefault(o => o.Nombre == objeto.Nombre);
             if (objetoEnMochila != null)
             {
-                entrenador.Mochila.Remove(objetoEnMochila);
+                entrenador.GetItemList().Remove(objetoEnMochila);
             }
         }
         return final;
