@@ -30,15 +30,67 @@ public class Pokemon : IPokemon
     }
     
     // metodo que devuelve una lista con las habilidades del pokemon
-    public List<IHabilidades> MostrarHabilidades()
+    public string MostrarHabilidades()
     {
-        List<IHabilidades> habilidades = new List<IHabilidades>();
+        string resultado = "";
+
         for (int i = 0; i < Habilidades.Count; i++)
         {
-            IHabilidades habilidad = Habilidades[i];
-            habilidades.Add(habilidad); // añade cada habilidad a la lista que se va a devolver
+            var habilidad = Habilidades[i];
+            resultado += $"**{i + 1}. {habilidad.Nombre}** | Daño: {habilidad.Danio} | Precisión: {habilidad.Precision} | Tipo: {habilidad.Tipo.Nombre} | PP: {habilidad.Puntos_de_Poder} | Ataque Cargado: *{habilidad.EsDobleTurno}*\n"; // añade cada habilidad a la lista que se va a devolver
         }
-        return habilidades;
+
+        return resultado;
+    }
+    
+    public static string EjecutarAtaque(Pokemon atacante, Pokemon defensor, IHabilidades habilidad, bool esquivo)
+    {
+        Random random = new Random();
+        string mensajeCritico = "";
+        string mensajeEstado = "";
+
+        double efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoPrincipal);
+        int danio = (int)(habilidad.Danio * efectividad);
+
+        if (defensor.TipoSecundario != null)
+        {
+            efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoSecundario);
+            danio = (int)(danio * efectividad);
+        }
+
+        int probabilidad = random.Next(0, 100);
+        int precisionFinal = habilidad.Precision;
+        Console.WriteLine(precisionFinal);
+        if (esquivo)
+        {
+            precisionFinal -= 30;
+            Console.WriteLine(precisionFinal);
+        }
+
+        if (probabilidad <= precisionFinal)
+        {
+            if (random.Next(0, 100) < 10 && habilidad.EsDobleTurno)
+            {
+                danio = (int)(danio * 1.2);
+                mensajeCritico = "¡PIÑA CRÍTICA!";
+            }
+
+            defensor.Vida -= danio;
+            if (defensor.Vida < 0)
+            {
+                defensor.Vida = 0;
+            }
+
+            if (habilidad.Efectos != null && random.Next(0, 100) < 100 && string.IsNullOrEmpty(defensor.Estado))
+            {
+                defensor.Estado = habilidad.Efectos.Nombre;
+                mensajeEstado = $"\n{defensor.Nombre} ahora está {defensor.Estado}.";
+            }
+            
+            return $"{mensajeCritico} \n{atacante.Nombre} usó {habilidad.Nombre}, causando {danio} puntos de daño. Vida actual de {defensor.Nombre} = {defensor.Vida} / {defensor.VidaBase} {mensajeEstado}";
+        }
+
+        return $"\n{atacante.Nombre} falló el ataque.";
     }
 
 }

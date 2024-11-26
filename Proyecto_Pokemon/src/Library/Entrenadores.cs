@@ -3,20 +3,43 @@ namespace Proyecto_Pokemon;
 public class Entrenadores
 {
     public string Nombre { get; }
-    public List<Pokemon> Pokemones { get;  }
+    public List<Pokemon> Pokemones { get; }
+    public int CantidadDePokemones
+    {
+        get { return Pokemones.Count; }
+    }
+    public Pokemon PokemonActivo { get; set; }
     public List<Objetos> Mochila { get; }
-    
     public bool EnBatalla { get; set; }
 
-    public Entrenadores(string nombre, List<Pokemon> pokemones, List<Objetos> mochila = null)
+    public Entrenadores(string nombre)
     {
         Nombre = nombre;
-        Pokemones = pokemones;
-        Mochila = mochila ?? InicializarMochila();
+        Pokemones = new List<Pokemon>();
+        Mochila = InicializarMochila();
         EnBatalla = false;
     }
+
+    public bool BuscarPokemon(string nombrePokemon)
+    {
+        foreach (Pokemon pokemon in Pokemones)
+            if (pokemon.Nombre == nombrePokemon)
+                return true;
+        return false;
+    }
     
-    // constructor que inicializa el nombre, lista de pokemones y mochila del entrenador
+    public Pokemon BuscarPokemonYGuardar(string nombrePokemon)
+    {
+        foreach (Pokemon pokemon in Pokemones)
+        {
+            if (pokemon.Nombre == nombrePokemon)
+            {
+                return pokemon;
+            }
+        }
+        return null;
+    }
+    
     private List<Objetos> InicializarMochila()
     {
         return new List<Objetos>
@@ -29,63 +52,92 @@ public class Entrenadores
             new CuraTotal(),
             new CuraTotal()
         };
+        
     }
     
-    // metodo privado que inicializa la mochila con objetos predeterminados
-    public string MostrarPokemones()
+    public bool FijarPokemonActual(Pokemon? pokemon = null)
     {
-        string pokemones = "";
-        for (int i = 0; i < Pokemones.Count; i++)
+        if (pokemon != null)
         {
-            var estado = Pokemones[i].Vida > 0 ? "Vivo" : "Debilitado";
-            pokemones += ($"{i + 1}. {Pokemones[i].Nombre} ({estado}) - Vida: {Pokemones[i].Vida}/{Pokemones[i].VidaBase}; ");
+            if (pokemon.Vida > 0)
+            {
+                PokemonActivo = pokemon;
+                return true;
+            }
+            return false;
         }
-        return pokemones;
+        else
+        {
+            foreach (Pokemon poke in Pokemones)
+            {
+                if (poke.Vida > 0)
+                {
+                    PokemonActivo = poke;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
-    // metodo que muestra el estado de vida de cada pokemon del entrenador
+    public List<Pokemon> RecibirEquipoPokemon()
+    {
+        return Pokemones;
+    }
+    
     public bool TienePokemonesVivos()
     {
         return Pokemones.Any(pokemon => pokemon.Vida > 0);
     }
-    
-    // metodo que devuelve la mochila con los objetos unicos y su cantidad en formato string
-    public List<string> ObtenerMochila()
-    {
-        Dictionary<string, int> contadorDeObjetos = new Dictionary<string, int>();
-        List<string> listaObjetosUnicos = new List<string>();
 
-        foreach (var objeto in Mochila)
+    public bool AñadirPokemon(Pokemon pokemon)
+    {
+        if (Pokemones.Count < 6)
         {
-            if (contadorDeObjetos.ContainsKey(objeto.Nombre))
+            if (!Pokemones.Contains(pokemon))
             {
-                contadorDeObjetos[objeto.Nombre]++;
+                if (Pokemones.Count == 0)
+                    FijarPokemonActual(pokemon);
+                Pokemones.Add(pokemon);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public List<Objetos> MostrarMochila()
+    {
+        Dictionary<string, int> contadordeObjetos = new Dictionary<string, int>();
+        List<Objetos> listaObjetosUnicos = new List<Objetos>();
+        
+        foreach (var objetos in Mochila)
+        {
+            if (contadordeObjetos.ContainsKey(objetos.Nombre))
+            {
+                contadordeObjetos[objetos.Nombre]++;
             }
             else
             {
-                contadorDeObjetos[objeto.Nombre] = 1;
+                contadordeObjetos[objetos.Nombre] = 1;
+                listaObjetosUnicos.Add(objetos);
             }
-        }
-
-        foreach (var kvp in contadorDeObjetos)
-        {
-            listaObjetosUnicos.Add($"{kvp.Key} ({kvp.Value}x)");
         }
 
         return listaObjetosUnicos;
     }
-
-    // metodo que selecciona un equipo de exactamente 6 pokemones y los agrega al equipo del entrenador
-    public string SeleccionarEquipo( List<Pokemon> equipoSeleccionado)
+    
+    public Objetos? BuscarObjeto(string nombreObjeto)
     {
-        if (equipoSeleccionado.Count != 6)
+        foreach (Objetos objeto in Mochila)
         {
-            return ("Debes seleccionar exactamente 6 Pokémon.");
+            if (objeto.Nombre == nombreObjeto)
+            {
+                return objeto;
+            }
         }
-
-        // agrega los pokemones seleccionados al equipo del entrenador
-        Pokemones.AddRange(equipoSeleccionado);
-        return "Equipo seleccionado con exito";
+        return null;
     }
+
+    
     
 }

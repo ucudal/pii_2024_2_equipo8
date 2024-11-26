@@ -7,7 +7,7 @@ public class CuraTotal : Objetos
 
     // metodo para usar el objeto en un pokemon, si el pokemon no tiene estado alterado, 
     // devuelve un mensaje indicando que no esta afectado, si tiene, lo cura eliminando cualquier estado alterado
-    public string Usar(Pokemon pokemon, Entrenadores entrenador)
+    public override string Usar(Pokemon pokemon, Entrenadores entrenador)
     {
         if (pokemon.Estado == null)
         {
@@ -15,6 +15,6 @@ public class CuraTotal : Objetos
         }
 
         pokemon.Estado = null;
-        return $"{entrenador.Nombre} usó {Nombre} en {pokemon.Nombre}. Todos los efectos negativos fueron curados.";
+        return $"{entrenador.Nombre} usó {Nombre} en {pokemon.Nombre}. Se recuperaron los efectos negativos.";
     }
 }

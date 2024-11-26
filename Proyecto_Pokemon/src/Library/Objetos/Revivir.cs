@@ -7,12 +7,12 @@ public class Revivir : Objetos
 
     // metodo para usar el objeto "Revivir" en un pokemon. Si el pokemon esta debilitado (vida <= 0),
     // lo revive con la mitad de su vida base. Si no esta debilitado, devuelve un mensaje indicando que no se puede revivir
-    public string Usar(Pokemon pokemonParaRevivir, Entrenadores entrenador)
+    public override string Usar(Pokemon pokemonParaRevivir, Entrenadores entrenador)
     {
         if (pokemonParaRevivir.Vida <= 0)
         {
             pokemonParaRevivir.Vida = (int)(pokemonParaRevivir.VidaBase / 2);
-            return $"{pokemonParaRevivir.Nombre} ha sido revivido con {pokemonParaRevivir.Vida} puntos de vida.";
+            return $"{pokemonParaRevivir.Nombre} ha sido revivido y se recuperaron {pokemonParaRevivir.Vida} puntos de vida.";
         }
         else
         {

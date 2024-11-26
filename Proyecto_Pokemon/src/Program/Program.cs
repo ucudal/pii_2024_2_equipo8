@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Ucu.Poo.DiscordBot.Services;
 
 namespace Proyecto_Pokemon
 {
     class Program
     {
-        
-        static void Main(string[] args)
+        private static void Main()
         {
-             
-            DemoConsola demo = new DemoConsola();
-            demo.IniciarJuego();
+            DemoBot();
+        }
+        
+        private static void DemoBot()
+        {
+            BotLoader.LoadAsync().GetAwaiter().GetResult();
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace Proyecto_Pokemon;
 
-public class Objetos
+public abstract class Objetos
 {
     public string Nombre { get; }
 
@@ -9,4 +9,6 @@ public class Objetos
     {
         Nombre = nombre;
     }
+    
+    public abstract string Usar(Pokemon pokemon, Entrenadores entrenador);
 }

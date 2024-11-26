@@ -1,319 +1,528 @@
-namespace Proyecto_Pokemon
+namespace Proyecto_Pokemon;
+
+public static class Fachada
 {
-    public class Fachada
+    private static LogicaDePokemones CantidadPokemones { get;  set; } = LogicaDePokemones.Instance;
+    private static Lobby lobby { get; } = new Lobby();
+    private static BatallasEnCurso batallaencurso { get; } = new BatallasEnCurso();
+    
+    public static string OpcionesPokemones()
     {
-        private Lobby lobbyActual = new Lobby("Mitre", "LATAM", 10);
-        private LogicaDePokemones TodosLosPoke = new LogicaDePokemones();
-        public Batallas batallaActual;
-        public Pokemon pokemonActual;
-        private bool esquivo;
-        
-        
+        return "**Opciones para el Equipo:**\n" + CantidadPokemones.MostrarPokemones();
+    }
+    
+    public static string CrearBatalla(string NombreEntrenador1, string NombreEntrenador2)
+    {
+        Entrenadores entrenador1 = lobby.EntrenadorPorNombre(NombreEntrenador1);
+        Entrenadores entrenador2 = lobby.EntrenadorPorNombre(NombreEntrenador2);
+        lobby.SacarEntrenadores(NombreEntrenador1);
+        lobby.SacarEntrenadores(NombreEntrenador2);
+        batallaencurso.CrearPartida(entrenador1, entrenador2);
+        return $"**EMPIEZA LA PELEA ENTRE {NombreEntrenador1} CONTRA {NombreEntrenador2}**\n";
+    }
+    
+    public static string VerHabilidades(string nombreEntrenador)
+    {
+        Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
+    
+        if (entrenador == null)
+            return $"{nombreEntrenador}, no estás en ninguna partida.";
+    
+        if (entrenador.CantidadDePokemones == 0)
+            return $"{nombreEntrenador}, no tenes ningún Pokémon.";
+    
+        Pokemon pokemonActivo = entrenador.PokemonActivo;
+        if (pokemonActivo == null)
+            return $"{nombreEntrenador} no tenes un pokemon principal.";
+    
+        string ataques = pokemonActivo.MostrarHabilidades();
+        if (string.IsNullOrEmpty(ataques))
+            return $"{nombreEntrenador} tu pokemon actual no tiene ataques disponibles.";
+    
+        return $"{nombreEntrenador} estas son las habilidades de tu __{pokemonActivo.Nombre}__:\n{ataques}";
+    }
 
-        // permite al entrenador seleccionar un equipo de 6 pokemones
-        public string SeleccionarEquipo(Entrenadores entrenador, List<Pokemon> equipoSeleccionado)
+    public static string ElegirHabilidad(string nombreEntrenador, string nombreHabilidad) 
+    {
+        Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
+        if (entrenador == null)
         {
-            return entrenador.SeleccionarEquipo(equipoSeleccionado);
+            return $"{nombreEntrenador}, necesitas estar en una batalla para atacar.";
+        }
+        Batallas batalla = batallaencurso.BatallaPorEntrenador(entrenador);
+        if (!batalla.ConfirmandoEquipoCompleto())
+        {
+            return "Los entrenadores todavia no eligieron todos los pokemones para su equipo";
         }
 
-        // muestra las habilidades del pokemon actual en formato detallado
-        public string MostrarHabilidades()
+        if (batalla == null)
         {
-            GetPokemonActual();
-            string habilidades = "";
-            List<IHabilidades> habilidadesList = pokemonActual.MostrarHabilidades();
-            for (int i = 0; i < habilidadesList.Count; i++)
-            {
-                var habilidad = habilidadesList[i];
-                habilidades += $"{i + 1}. {habilidad.Nombre} - Daño: {habilidad.Danio}, Precisión: {habilidad.Precision}, Tipo: {habilidad.Tipo.Nombre}, Puntos de poder: {habilidad.Puntos_de_Poder}, Doble turno: {habilidad.EsDobleTurno}; ";
-            }
-            return habilidades;
+            return "No estás participando en una batalla activa.";
         }
 
-        // muestra la vida actual de los pokemones en batalla
-        public string VerVida()
+        if (batalla.entrenadorActual.Nombre != nombreEntrenador)
         {
-            return batallaActual.VerVida();
+            return $"{nombreEntrenador} no es tu turno.";
         }
 
-        // ejecuta el ataque seleccionado por el usuario
-        public string EjecutarAtaque(int indiceHabilidad)
+        Pokemon atacante = batalla.entrenadorActual.PokemonActivo;
+
+        if (atacante == null || atacante.Vida == 0)
         {
-            Pokemon atacante = batallaActual.entrenadorActual == batallaActual.entrenador1 ? batallaActual.pokemonActivo1 : batallaActual.pokemonActivo2;
-            Pokemon defensor = batallaActual.entrenadorActual == batallaActual.entrenador1 ? batallaActual.pokemonActivo2 : batallaActual.pokemonActivo1;
-
-            if (atacante.HabilidadCargando != null)
-            {
-                // resuelve el ataque en el segundo turno de habilidades de doble turno
-                string resultado = RealizarAtaque(atacante, defensor, atacante.HabilidadCargando);
-                atacante.HabilidadCargando = null;
-                CambiarTurno();
-                return resultado;
-            }
-            else
-            {
-                // verifica el índice de habilidad y realiza el ataque
-                if (indiceHabilidad < 0 || indiceHabilidad >= atacante.Habilidades.Count)
-                {
-                    return "La habilidad que elegiste no existe. Inténtalo de nuevo.";
-                }
-
-                IHabilidades habilidad = atacante.Habilidades[indiceHabilidad];
-
-                if (habilidad.Puntos_de_Poder <= 0)
-                {
-                    return $"La habilidad {habilidad.Nombre} no tiene PP suficientes, elige otra habilidad.";
-                }
-
-                habilidad.Puntos_de_Poder--;
-
-                if (habilidad.EsDobleTurno)
-                {
-                    atacante.HabilidadCargando = habilidad;
-                    CambiarTurno();
-                    return $"{atacante.Nombre} está cargando la habilidad {habilidad.Nombre}...";
-                }
-                else
-                {
-                    string resultado = RealizarAtaque(atacante, defensor, habilidad);
-                    CambiarTurno();
-                    return resultado;
-                }
-            }
-        }
-
-        // hace el cálculo de ataque y daño entre dos pokemones
-        private string RealizarAtaque(Pokemon atacante, Pokemon defensor, IHabilidades habilidad)
-        {
-            double efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoPrincipal);
-            int danio = (int)(habilidad.Danio * efectividad);
-            if (defensor.TipoSecundario != null)
-            {
-                efectividad = habilidad.Tipo.EsEfectivoOPocoEfectivo(defensor.TipoSecundario);
-                danio = (int)(danio * efectividad);
-            }
-
-            Random random = new Random();
-            int probabilidad = random.Next(0, 100);
-            int precisionfinal = habilidad.Precision;
-            if (esquivo)
-            {
-                precisionfinal -= 30;
-            }
-
-            if (probabilidad <= precisionfinal)
-            {
-                if (random.Next(0, 100) < 10 && habilidad.EsDobleTurno)
-                {
-                    danio = (int)(danio * 1.2);
-                    return "Lo dejaste tieso";
-                }
-
-                defensor.Vida -= danio;
-                if (defensor.Vida <= 0)
-                {
-                    defensor.Vida = 0;
-                    return $"{atacante.Nombre} usó {habilidad.Nombre}, hizo {danio} puntos de daño, {defensor.Nombre} ha sido debilitado!";
-                }
-
-                string resultado = $"{atacante.Nombre} usó {habilidad.Nombre}, hizo {danio} puntos de daño, la vida actual de {defensor.Nombre} = {defensor.Vida}";
-
-                if (habilidad.Efectos != null && random.Next(0, 100) < 100 && defensor.Estado == null)
-                {
-                    defensor.Estado = habilidad.Efectos.Nombre;
-                    resultado += $"\n{defensor.Nombre} ahora está {defensor.Estado}!";
-                }
-
-                return resultado;
-            }
-            else
-            {
-                return $"{atacante.Nombre} falló el ataque";
-            }
-        }
-
-        // activa el estado de esquivar en el próximo turno
-        public void Esquivar()
-        {
-            esquivo = true;
-        }
-
-        // devuelve el nombre del entrenador que tiene el turno actual
-        public string EsTurnoDe()
-        {
-            return $"Turno de {batallaActual.entrenadorActual.Nombre}";
+            return $"{nombreEntrenador} tu pokemon actual está fuera de combate. Cambia de pokemon.";
         }
         
-        public string EjecutarAtaqueCargando()
+        IHabilidades habilidad = atacante.Habilidades.FirstOrDefault(h => h.Nombre == nombreHabilidad);
+        if (habilidad == null)
         {
-            if (pokemonActual.HabilidadCargando != null)
-            {
-                Pokemon defensor = batallaActual.entrenadorActual == batallaActual.entrenador1 ? batallaActual.pokemonActivo2 : batallaActual.pokemonActivo1;
-                string resultado = RealizarAtaque(pokemonActual, defensor, pokemonActual.HabilidadCargando);
-                pokemonActual.HabilidadCargando = null;
-                CambiarTurno();
-                return resultado;
-            }
-            else
-            {
-                return $"{pokemonActual.Nombre} no tiene ninguna habilidad cargando actualmente.";
-            }
+            return $"La habilidad '{nombreHabilidad}' no se encuentra disponible en la lista del Pokemon {atacante.Nombre}";
+        }
+        string finaladoAtaque = batalla.Atacar(habilidad);
+        string estadoJuego = CierreDeLaBatalla(batalla);
+        return $"{finaladoAtaque}{estadoJuego}";
+    }
+
+
+    public static string RevisarTurno(string nombreEntrenador)
+    {
+        Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
+        if (entrenador == null)
+        {
+            return $"El entrenador {nombreEntrenador} no se encuentra en ninguna batalla";
         }
 
-        public Pokemon ObtenerPokemonActivo()
+        Batallas batalla = batallaencurso.BatallaPorEntrenador(entrenador);
+        if (batalla != null)
         {
-            GetPokemonActual();
-            return pokemonActual;
-        }
-
-
-        // chequea si la batalla terminó y retorna el ganador
-        public string CheckFinBatalla()
-        {
-            if (!batallaActual.entrenador1.TienePokemonesVivos())
+            if (batalla.ConfirmarSiEntrenadorEstaPeleando(entrenador))
             {
-                return $"El ganador de la batalla es {batallaActual.entrenador2.Nombre}!";
-            }
-            else if (!batallaActual.entrenador2.TienePokemonesVivos())
-            {
-                return $"El ganador de la batalla es {batallaActual.entrenador1.Nombre}!";
-            }
-            else
-            {
-                return "La batalla aún no ha finalizado";
-            }
-        }
-
-        // cambia el pokemon activo por otro del equipo del entrenador actual
-        public string CambiarPokemon(int indicePokemon)
-        {
-            if (indicePokemon >= batallaActual.entrenadorActual.Pokemones.Count || indicePokemon < 0)
-            {
-                return "El Pokémon que elegiste no existe. Inténtalo de nuevo.";
-            }
-
-            if (batallaActual.entrenadorActual.Pokemones[indicePokemon].Vida > 0)
-            {
-                if (batallaActual.entrenadorActual == batallaActual.entrenador1)
+                if (batalla.entrenadorActual.Nombre == nombreEntrenador)
                 {
-                    batallaActual.pokemonActivo1 = batallaActual.entrenadorActual.Pokemones[indicePokemon];
+                    return $"{nombreEntrenador} es tu turno";
                 }
-                else
-                {
-                    batallaActual.pokemonActivo2 = batallaActual.entrenadorActual.Pokemones[indicePokemon];
-                }
-                Entrenadores entrenadorPre = batallaActual.entrenadorActual;
-                // Cambiar el turno después de cambiar de Pokémon
-                CambiarTurno();
+                return $"{nombreEntrenador} no es tu turno";
+            }
+        }
+        return null;
+    }
 
-                return $"{entrenadorPre.Nombre} cambió a {entrenadorPre.Pokemones[indicePokemon].Nombre}";
-            }
-            else
+    public static string CierreDeLaBatalla(Batallas batalla)
+    {
+        if (batalla != null)
+        {
+            if (batalla.StatusBatalla())
             {
-                return "No puedes elegir un Pokémon debilitado.";
+                Entrenadores proximoTurno = batalla.JugadoresDisponibles().FirstOrDefault(e => e.Nombre == batalla.entrenadorActual.Nombre);
+                return $"El próximo turno es de {proximoTurno?.Nombre ?? "desconocido"} \nVAMOS!";
             }
+            batallaencurso.TerminarPartida(batalla);
+            return batalla.DeterminarGanador();
+        }
+        return "La partida no pudo ser encontrada";
+    }
+    
+    public static string IniciarBatalla(string NombreEntrenador1, string NombreEntrenador2)
+    {
+        Entrenadores entrenador2;
+        Entrenadores entrenador1 = batallaencurso.EntrenadorPorNombre(NombreEntrenador1);
+        if (batallaencurso.BatallaPorEntrenador(entrenador1) != null)
+        {
+            return $"{NombreEntrenador1} se encuentra en una batalla.";
+        }
+
+        if (lobby.EntrenadorPorNombre(NombreEntrenador1) == null)
+            return $"{NombreEntrenador1} no estás en el lobby.";
+        
+        if (!RevisarEntrenador2() && !HayEntrenadoresLobby())
+            return "no hay nadie en el lobby.";
+        
+        if (!RevisarEntrenador2())
+        {
+            entrenador2 = batallaencurso.EntrenadorPorNombre(NombreEntrenador2);
+            if (batallaencurso.BatallaPorEntrenador(entrenador2) != null)
+            {
+                return $"{NombreEntrenador2} se encuentra en una batalla.";
+            }
+            entrenador2 = lobby.AnadirRandom(NombreEntrenador1);
+            if (entrenador2 == null)
+            {
+                return "No se encuentra un oponente en el Lobby";
+            }
+            return CrearBatalla(NombreEntrenador1, entrenador2!.Nombre);
         }
         
-        // usa un objeto de la mochila del entrenador y lo aplica al pokemon objetivo
-        public string UsarMochila(int indiceObjeto, int indicePokemon = -1)
+        entrenador2 = lobby.EntrenadorPorNombre(NombreEntrenador2!);
+        if (!BuscarEntrenador2())
         {
-            Entrenadores entrenador = batallaActual.entrenadorActual;
-            Pokemon objetivo = entrenador == batallaActual.entrenador1 ? batallaActual.pokemonActivo1 : batallaActual.pokemonActivo2;
-
-            if (indiceObjeto >= entrenador.Mochila.Count || indiceObjeto < 0)
-            {
-                return "El objeto que elegiste no existe. Inténtalo de nuevo.";
-            }
-
-            Objetos objeto = entrenador.Mochila[indiceObjeto];
-
-            string resultado = "";
-
-            switch (objeto)
-            {
-                case SuperPocion superPocion:
-                    resultado = superPocion.Usar(objetivo, entrenador);
-                    break;
-                case Revivir revivir:
-                    if (indicePokemon == -1)
-                    {
-                        return "Debes indicar el índice del Pokémon que quieres revivir.";
-                    }
-                    if (indicePokemon < 0 || indicePokemon >= entrenador.Pokemones.Count)
-                    {
-                        return "El Pokémon seleccionado no existe.";
-                    }
-                    Pokemon pokemonParaRevivir = entrenador.Pokemones[indicePokemon];
-                    resultado = revivir.Usar(pokemonParaRevivir, entrenador);
-                    break;
-                case CuraTotal curaTotal:
-                    resultado = curaTotal.Usar(objetivo, entrenador);
-                    break;
-                default:
-                    return "No se puede usar ese objeto.";
-            }
-
-            // Remover el objeto usado de la mochila
-            entrenador.Mochila.RemoveAt(indiceObjeto);
-            CambiarTurno();
-            return resultado;
+            return $"{NombreEntrenador2} no se lo encontró en el Lobby";
         }
 
-        // agrega un entrenador a la lista de espera del lobby
-        public string UnirseALaListaDeEspera(Entrenadores entrenador)
-        {
-            return lobbyActual.UnirseALaListaDeEspera(entrenador);
-        }
+        if (batallaencurso.BatallaPorEntrenador(entrenador2) != null)
+            return $"{NombreEntrenador2} se encuentra en una batalla.";
+        
+        return CrearBatalla(NombreEntrenador1, entrenador2!.Nombre);
 
-        // muestra todos los entrenadores que están en la lista de espera
-        public string VerListaDeEspera()
+        bool BuscarEntrenador2()
         {
-            string nombresJugadores = "Entrenadores en lista de espera: ";
-            foreach (string nombreJugador in lobbyActual.VerListaDeEspera())
-            {
-                nombresJugadores += nombreJugador + " ";
-            }
-            return nombresJugadores;
+            return entrenador2 != null;
         }
-
-        // inicia una batalla entre el entrenador actual y el primero en la lista de espera
-        public string IniciarBatalla(Entrenadores entrenador)
+        
+        bool HayEntrenadoresLobby()
         {
-            string nuevaBatalla = lobbyActual.IniciarBatalla(entrenador);
-            GetBatallaActual();
-            return nuevaBatalla;
+            return lobby.Cantidad != 0;
         }
-
-        // cambia el turno al siguiente entrenador
-        public void GetBatallaActual()
+        
+        bool RevisarEntrenador2()
         {
-            if (lobbyActual.batallasActivas.Count > 0)
-            {
-                batallaActual = lobbyActual.batallasActivas[0];
-            }
-        }
-
-        // retorna el pokemon actual del turno
-        public void GetPokemonActual()
-        {
-            if (batallaActual.entrenadorActual == batallaActual.entrenador1)
-            {
-                pokemonActual = batallaActual.pokemonActivo1;
-            }
-            else
-            {
-                pokemonActual = batallaActual.pokemonActivo2;
-            }
-        }
-
-        public string MostrarPokemones(Entrenadores entrenador)
-        {
-            return entrenador.MostrarPokemones();
-        }
-
-        private void CambiarTurno()
-        {
-            batallaActual.CambiarTurno();
+            return !string.IsNullOrEmpty(NombreEntrenador2);
         }
     }
+    
+    public static string SacarEntrenadorDelLobby(string nombre)
+    {
+        if (lobby.SacarEntrenadores(nombre))
+        {
+            return $"{nombre} fue sacado del Lobby.";
+        }
+        return $"{nombre} ni siquiera está en el Lobby.";
+    }
+    
+    public static string MeterUsuarioAlLobby(string nombre)
+    {
+        if (batallaencurso.EntrenadorPorNombre(nombre) != null)
+        {
+            return $"{nombre} ya te encuentras en una batalla y no podes ser agregado al Lobby.";
+        }
+        
+        if (lobby.AgregarEntrenadores(nombre))
+        {
+            
+            return $"{nombre} ha sido agregado en el Lobby para un encuentro.";
+        }
+
+        return $"{nombre} ya se encuentra en el Lobby.";
+    }
+
+    public static string VerLobby()
+    {
+        if (lobby.VerListaLobby() == null)
+        {
+            return "Nadie se encuentra en el Lobby actualmente";
+        }
+        
+        return "Gente en Lobby: \n" + lobby.VerListaLobby();
+    }
+    
+    public static string EsquivarPokemon(string nombreEntrenador)
+    {
+        Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
+        if (entrenador == null)
+        {
+            return $"El jugador {nombreEntrenador} no está en ninguna partida.";
+        }
+
+        Batallas batalla = batallaencurso.BatallaPorEntrenador(entrenador);
+        if (batalla == null)
+        {
+            return "La partida no pudo ser encontrada";
+        }
+        
+        if (batalla.entrenadorActual.Nombre == nombreEntrenador)
+        {
+            if (!batalla.ConfirmandoEquipoCompleto())
+            {
+                return "Los entrenadores todavia no eligieron todos los pokemones para su equipo";
+            }
+            string final = batalla.Esquivar();
+            string cambioDeTurno = batalla.CambiarTurno();
+            string cierre = CierreDeLaBatalla(batalla);
+            return final + "\n" + cambioDeTurno + cierre;
+        }
+        return "No es tu turno, no podes hacer movimientos";
+    }
+    
+    public static string CambiarPokemones(string nombreEntrenador, string nombrePokemon)
+    {
+        Entrenadores player = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
+        if (player == null)
+        {
+            return $"El jugador {nombreEntrenador} no está en ninguna partida.";
+        }
+
+        Batallas batalla = batallaencurso.BatallaPorEntrenador(player);
+        if (batalla == null)
+        {
+            return "La partida no pudo ser encontrada";
+        }
+
+        if (batalla.entrenadorActual.Nombre == nombreEntrenador)
+        {
+            if (!batalla.ConfirmandoEquipoCompleto())
+            {
+                return "Los entrenadores todavia no eligieron todos los pokemones para su equipo";
+            }
+
+            Pokemon choosenPokemon = player.BuscarPokemonYGuardar(nombrePokemon);
+            if (choosenPokemon == null)
+            {
+                return $"El pokemon {nombrePokemon} no fue encontrado en tu equipo";
+            }
+            
+            if (choosenPokemon.Vida == 0)
+            {
+                return $"{nombreEntrenador}, tu pokemon actuall está fuera de combate. Cambie de pokemon.";
+            }
+
+            string final = batalla.CambiarPokemon(choosenPokemon);
+            if (final == "Ese Pokemon no está en tu equipo.")
+            {
+                return final;
+            }
+
+            string cambioDeTurno = batalla.CambiarTurno();
+            string cierre = CierreDeLaBatalla(batalla);
+            return final + "\n" + cambioDeTurno + cierre;
+        }
+
+        return "No es tu turno, no podes hacer movimientos";
+    }
+    
+    public static string VerMochila(string nombreEntrenador)
+    {
+        Entrenadores? entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
+
+        if (entrenador == null || batallaencurso.BatallaPorEntrenador(entrenador) == null)
+        {
+            return $"{nombreEntrenador}, no estas en batalla.";
+        }
+
+        List<Objetos> listaObjetosUnicos = entrenador.MostrarMochila();
+        string final = $"{nombreEntrenador}, tenes en la mochila los siguientes objetos:\n```";
+    
+        foreach (var objeto in listaObjetosUnicos)
+        {
+            int cantidad = entrenador.Mochila.Count(o => o.Nombre == objeto.Nombre);
+            final += $"{cantidad} {objeto.Nombre}\n";
+        }
+        return final += "```" ;
+    }
+    
+    public static string UsarObjetoMochila(string nombreEntrenador, string item, string pokemon)
+    {
+        Entrenadores player = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
+        Batallas game = batallaencurso.BatallaPorEntrenador(player);
+        
+        if (player == null)
+        {
+            return $"El entrenador {nombreEntrenador} no está en batalla.";
+        }
+
+        if (game == null)
+        {
+            return "La batalla no se ha encontrado.";
+        }
+        
+        if (game.JugadoresDisponibles()[game.entrenadorActual == game.entrenador1 ? 0 : 1].Nombre == nombreEntrenador)
+        {
+            if (!game.ConfirmandoEquipoCompleto())
+            {
+                return "Los entrenadores todavia no eligieron todos los pokemones para su equipo";
+            }
+
+            string result = game.UsarMochila(player.BuscarObjeto(item), player.BuscarPokemonYGuardar(pokemon));
+            if (result.Contains("recuperaron"))
+            {
+                string nextTurn = game.CambiarTurno();
+                string gameStatus = CierreDeLaBatalla(game);
+                return result + "\n" + nextTurn + "\n" + gameStatus;
+            }
+            return result;
+        }
+
+        return $"{player.Nombre}, no eres el jugador activo, no puedes realizar acciones";
+    }
+
+    
+    public static string SeleccionarEquipo(string nombreEntrenador, string nombrePokemon)
+    {
+        LogicaDePokemones logicaDePokemones = new LogicaDePokemones();
+        List<Pokemon> listaPokemones = logicaDePokemones.InicializarPokemones();
+        Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
+        if (entrenador == null)
+        {
+            return $"{nombreEntrenador}, para poder elegir un equipo, primero debes estar en una batalla";
+        }
+        if (entrenador.CantidadDePokemones < 6)
+        {
+            foreach (Pokemon pokemon in listaPokemones)
+            {
+                if (pokemon.Nombre == nombrePokemon)
+                {
+                    entrenador.AñadirPokemon(pokemon);
+                    if (entrenador.CantidadDePokemones == 6)
+                    {
+                        return $"El pokemon {nombrePokemon} fue añadido al equipo de {nombreEntrenador}\nTu equipo está completo.";
+                    }
+                    return $"El pokemon {nombrePokemon} fue añadido al equipo de {nombreEntrenador}.\nQuedan **{entrenador.CantidadDePokemones} / 6** Pokemones por elegir";
+                }
+            }
+            return $"{nombreEntrenador}, el pokemon {nombrePokemon} no fue encontrado";
+        }
+        return $"{nombreEntrenador} ya tenes 6 pokemones en el equipo, no podes elegir más";
+    }
+    
+    public static string elegirRandomente(string nombreEntrenador)
+    {
+        LogicaDePokemones logicaDePokemones = new LogicaDePokemones();
+        List<Pokemon> listaPokemones = logicaDePokemones.InicializarPokemones();
+        Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
+        if (entrenador == null)
+        {
+            return $"{nombreEntrenador}, no estás en una partida.";
+        }
+        if (entrenador.CantidadDePokemones >= 6)
+        {
+            return $"{nombreEntrenador}, ya tenes un equipo completo de Pokémon.";
+        }
+        List<int> availablePokemonIndexes = Enumerable.Range(0, listaPokemones.Count).ToList();
+        Random random = new Random();
+        string final = $"{nombreEntrenador}, estos son los Pokemones elegidos aleatoriamente:\n**";
+        while (entrenador.CantidadDePokemones < 6)
+        {
+            int valorRandom = random.Next(availablePokemonIndexes.Count);
+            Pokemon pokemonElegido = listaPokemones[availablePokemonIndexes[valorRandom]];
+
+            if (!entrenador.BuscarPokemon(pokemonElegido.Nombre))
+            {
+                entrenador.AñadirPokemon(pokemonElegido);
+                final += $"{pokemonElegido.Nombre}\n";
+                availablePokemonIndexes.RemoveAt(valorRandom);
+            }
+        }
+        return final += "**";
+    }
+
+    public static string VerPokemones(string nombreEntrenador, string? nombreEntrenador2 = null)
+    {
+        Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
+        if (entrenador == null)
+        {
+            return $"El jugador {nombreEntrenador} no está en ninguna partida.";
+        }
+        if (nombreEntrenador2 == null)
+        {
+            if (entrenador.CantidadDePokemones < 6)
+            {
+                return $"{entrenador.Nombre} aún no tenés tu equipo completo.";
+            }
+            string final = $"__{nombreEntrenador} esta es la vida de tus Pokemones:__ \n";
+            foreach (Pokemon pokemon in entrenador.RecibirEquipoPokemon())
+            {
+                string tipo = "";
+                if (pokemon.TipoPrincipal != null)
+                {
+                    tipo += $"{pokemon.TipoPrincipal.Nombre}";
+                }
+                
+                if (pokemon.TipoSecundario != null)
+                {
+                    tipo += $" - {pokemon.TipoSecundario.Nombre}";
+                }
+
+                if (pokemon == entrenador.PokemonActivo)
+                {
+                    if (pokemon.Estado != null)
+                    {
+                        if (pokemon.Vida == 0)
+                        {
+                            final += $"~~{pokemon.Nombre} | HP: {pokemon.Vida} / {pokemon.VidaBase} | Tipo: ({tipo}) " + $"**({pokemon.Estado})**" + "**-MUERTO-**~~\n";
+                        }
+                        else
+                        {
+                            final += $"**{pokemon.Nombre} | HP: {pokemon.Vida} / {pokemon.VidaBase} | Tipo: ({tipo})**" + $" **({pokemon.Estado})**\n";
+                        }
+                    }
+                    else
+                    {
+                        final += $"**{pokemon.Nombre} | HP: {pokemon.Vida} / {pokemon.VidaBase} | Tipo: ({tipo})**\n";
+                    }
+                }
+                else if (pokemon.Vida == 0)
+                {
+                    final += $"~~{pokemon.Nombre} | HP: {pokemon.Vida} / {pokemon.VidaBase} | Tipo: ({tipo}) **-MUERTO-**~~\n";
+                }
+                else
+                {
+                    if (pokemon.Estado != null)
+                    {
+                        final += $"{pokemon.Nombre} | HP: {pokemon.Vida} / {pokemon.VidaBase} | Tipo: ({tipo})" + $" **({pokemon.Estado})**\n";
+                    }
+                    else
+                    {
+                        final += $"{pokemon.Nombre} | HP: {pokemon.Vida} / {pokemon.VidaBase} | Tipo: ({tipo})\n";
+                    }
+                }
+                
+            }
+            return final;
+        }
+        else
+        {
+            Entrenadores entrenador2 = batallaencurso.EntrenadorPorNombre(nombreEntrenador2);
+            string final = $"Esta es la vida de los Pokemones de {nombreEntrenador2}: \n";
+            Batallas batalla = batallaencurso.BatallaPorEntrenador(entrenador);
+            if (batalla != null && batalla.ConfirmarSiEntrenadorEstaPeleando(entrenador) && batalla.ConfirmarSiEntrenadorEstaPeleando(entrenador2) && entrenador2 != null)
+            {
+                if (entrenador2.CantidadDePokemones < 6)
+                {
+                    return $"{nombreEntrenador2} aún no tiene su equipo completo.";
+                }
+                foreach (Pokemon pokemon in entrenador2.RecibirEquipoPokemon())
+                {
+                    string tipo = "";
+                    if (pokemon.TipoPrincipal != null)
+                        tipo += $"{pokemon.TipoPrincipal.Nombre} ";
+    
+                    if (pokemon == entrenador2.PokemonActivo)
+                    {
+                        if (pokemon.Estado != null)
+                        {
+                            if (pokemon.Vida == 0)
+                            {
+                                final += $"~~{pokemon.Nombre} | HP: {pokemon.Vida} / {pokemon.VidaBase} | Tipo: ({tipo}) " + $"**({pokemon.Estado})**" + "**-MUERTO-**~~\n";
+                            }
+                            else
+                            {
+                                final += $"**{pokemon.Nombre} | HP: {pokemon.Vida} / {pokemon.VidaBase} | Tipo: ({tipo})**" + $" **({pokemon.Estado})**\n";
+                            }
+                        }
+                        else
+                        {
+                            final += $"**{pokemon.Nombre} | HP: {pokemon.Vida} / {pokemon.VidaBase} ({tipo})**\n";
+                        }
+                    }
+                    else if (pokemon.Vida == 0)
+                    {
+                        final += $"~~{pokemon.Nombre} | HP: {pokemon.Vida} / {pokemon.VidaBase} | Tipo: ({tipo}) **-MUERTO-**~~\n";
+                    }
+                    else
+                    {
+                        if (pokemon.Estado != null)
+                        {
+                            final += $"{pokemon.Nombre} | HP: {pokemon.Vida} / {pokemon.VidaBase} | Tipo: ({tipo})" + $" **({pokemon.Estado})**\n";
+                        }
+                        else
+                        {
+                            final += $"{pokemon.Nombre} | HP: {pokemon.Vida} / {pokemon.VidaBase} | Tipo: ({tipo})\n";
+                        }
+                    }
+                        
+                }
+                return final;
+            }
+
+            return $"El jugador {nombreEntrenador2} no está en tu partida.";
+        }
+    }
+
 }
