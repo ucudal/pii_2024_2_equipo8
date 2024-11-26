@@ -1,6 +1,6 @@
 namespace Proyecto_Pokemon;
 
-public class Pokemon : IPokemon
+public class Pokemon
 {
     public string Nombre { get; }
     public int Vida { get; set; }
