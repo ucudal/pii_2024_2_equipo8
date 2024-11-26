@@ -176,10 +176,18 @@ public class BatallasTest
 
             batalla.CambiarTurno();
 
-            string mensajeEjecucion = batalla.Atacar(trueno);
+            // Simular varios intentos si el Pokémon está paralizado
+            string mensajeEjecucion = "";
+            for (int i = 0; i < 10; i++) 
+            {
+                mensajeEjecucion = batalla.Atacar(trueno);
+                if (!mensajeEjecucion.Contains("paralizado")) break;
 
-            Assert.That(mensajeEjecucion, Does.Contain("Trueno")); // Asegura que Trueno fue utilizado
-            Assert.That(entrenador2.PokemonActivo.Vida, Is.LessThan(entrenador2.PokemonActivo.VidaBase)); // Verifica que causó daño
+                batalla.CambiarTurno(); 
+            }
+            Assert.That(mensajeEjecucion, Does.Contain("Trueno")); 
+            Assert.That(entrenador2.PokemonActivo.Vida, Is.LessThan(entrenador2.PokemonActivo.VidaBase)); 
+        
         }
         
     }
