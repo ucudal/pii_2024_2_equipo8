@@ -1,16 +1,24 @@
 namespace Proyecto_Pokemon;
 
+//Clase que actúa como interfaz principal del proyecto, hace la conexión entre logica de proyecto y usuario
 public static class Fachada
 {
+    // Instancia de LogicaDePokemones para manejar los Pokémon disponibles
     private static LogicaDePokemones CantidadPokemones { get;  set; } = LogicaDePokemones.Instance;
+    
+    // Instancia del Lobby para manejar entrenadores que esperan partida
     private static Lobby lobby { get; } = new Lobby();
+    
+    // Instancia para manejar las batallas activas
     private static BatallasEnCurso batallaencurso { get; } = new BatallasEnCurso();
     
+    // Muestra lista de pokemon disponibles para usar
     public static string OpcionesPokemones()
     {
         return "**Opciones para el Equipo:**\n" + CantidadPokemones.MostrarPokemones();
     }
     
+    // Inicia batalla entre dos entrenadores dados
     public static string CrearBatalla(string NombreEntrenador1, string NombreEntrenador2)
     {
         Entrenadores entrenador1 = lobby.EntrenadorPorNombre(NombreEntrenador1);
@@ -21,6 +29,7 @@ public static class Fachada
         return $"**EMPIEZA LA PELEA ENTRE {NombreEntrenador1} CONTRA {NombreEntrenador2}**\n";
     }
     
+    // Muestra habilidades de pokemon activo
     public static string VerHabilidades(string nombreEntrenador)
     {
         Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
@@ -42,6 +51,7 @@ public static class Fachada
         return $"{nombreEntrenador} estas son las habilidades de tu __{pokemonActivo.Nombre}__:\n{ataques}";
     }
 
+    // Usar habilidad de pokemon activo
     public static string ElegirHabilidad(string nombreEntrenador, string nombreHabilidad) 
     {
         Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
@@ -82,7 +92,7 @@ public static class Fachada
         return $"{finaladoAtaque}{estadoJuego}";
     }
 
-
+    // Confirma si es el turno del entrenador actual
     public static string RevisarTurno(string nombreEntrenador)
     {
         Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
@@ -106,6 +116,7 @@ public static class Fachada
         return null;
     }
 
+    // Verifica si una batalla ha finalizado y anuncia al ganador
     public static string CierreDeLaBatalla(Batallas batalla)
     {
         if (batalla != null)
@@ -121,6 +132,7 @@ public static class Fachada
         return "La partida no pudo ser encontrada";
     }
     
+    // Inicia una batalla buscando un oponente en el lobby o con un nombre específico solo si se cumplen requisitos de disponibilidad, se llama a CrearBatalla
     public static string IniciarBatalla(string NombreEntrenador1, string NombreEntrenador2)
     {
         Entrenadores entrenador2;
@@ -178,6 +190,7 @@ public static class Fachada
         }
     }
     
+    // Remueve a un entrenador del lobby
     public static string SacarEntrenadorDelLobby(string nombre)
     {
         if (lobby.SacarEntrenadores(nombre))
@@ -187,6 +200,7 @@ public static class Fachada
         return $"{nombre} ni siquiera está en el Lobby.";
     }
     
+    // Agrega a un entrenador al lobby
     public static string MeterUsuarioAlLobby(string nombre)
     {
         if (batallaencurso.EntrenadorPorNombre(nombre) != null)
@@ -202,7 +216,8 @@ public static class Fachada
 
         return $"{nombre} ya se encuentra en el Lobby.";
     }
-
+    
+    // Muestra los entrenadores actualmente en el lobby
     public static string VerLobby()
     {
         if (lobby.VerListaLobby() == null)
@@ -213,6 +228,7 @@ public static class Fachada
         return "Gente en Lobby: \n" + lobby.VerListaLobby();
     }
     
+    // Permite a un entrenador esquivar un ataque durante su turno
     public static string EsquivarPokemon(string nombreEntrenador)
     {
         Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
@@ -241,6 +257,7 @@ public static class Fachada
         return "No es tu turno, no podes hacer movimientos";
     }
     
+    // Cambia el pokemon activo de un entrenador
     public static string CambiarPokemones(string nombreEntrenador, string nombrePokemon)
     {
         Entrenadores player = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
@@ -287,6 +304,7 @@ public static class Fachada
         return "No es tu turno, no podes hacer movimientos";
     }
     
+    // Muestra los objetos disponibles en la mochila de un entrenador
     public static string VerMochila(string nombreEntrenador)
     {
         Entrenadores? entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
@@ -307,6 +325,7 @@ public static class Fachada
         return final += "```" ;
     }
     
+    // Usa un objeto de la mochila de un entrenador sobre un pokemon
     public static string UsarObjetoMochila(string nombreEntrenador, string item, string pokemon)
     {
         Entrenadores player = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
@@ -342,7 +361,7 @@ public static class Fachada
         return $"{player.Nombre}, no eres el jugador activo, no puedes realizar acciones";
     }
 
-    
+    // Seleccionar equipo usando strings
     public static string SeleccionarEquipo(string nombreEntrenador, string nombrePokemon)
     {
         LogicaDePokemones logicaDePokemones = new LogicaDePokemones();
@@ -350,6 +369,7 @@ public static class Fachada
         Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
         if (entrenador == null)
         {
+            // Solo se elige equipo al estar en una batalla
             return $"{nombreEntrenador}, para poder elegir un equipo, primero debes estar en una batalla";
         }
         if (entrenador.CantidadDePokemones < 6)
@@ -371,6 +391,7 @@ public static class Fachada
         return $"{nombreEntrenador} ya tenes 6 pokemones en el equipo, no podes elegir más";
     }
     
+    //Método utilizado para formar un equipo de forma aleatoria, sin pasar por selección uno a uno 
     public static string elegirRandomente(string nombreEntrenador)
     {
         LogicaDePokemones logicaDePokemones = new LogicaDePokemones();
@@ -401,7 +422,8 @@ public static class Fachada
         }
         return final += "**";
     }
-
+    // Muestra la lista de pokemon de un entrenador, junto con su estado, vida y tipo.
+    // Si se especifica un segundo entrenador, muestra la lista de pokemon de ese entrenador.
     public static string VerPokemones(string nombreEntrenador, string? nombreEntrenador2 = null)
     {
         Entrenadores entrenador = batallaencurso.EntrenadorPorNombre(nombreEntrenador);
@@ -411,6 +433,7 @@ public static class Fachada
         }
         if (nombreEntrenador2 == null)
         {
+            // Verifica si el equipo del entrenador está completo
             if (entrenador.CantidadDePokemones < 6)
             {
                 return $"{entrenador.Nombre} aún no tenés tu equipo completo.";
@@ -428,7 +451,7 @@ public static class Fachada
                 {
                     tipo += $" - {pokemon.TipoSecundario.Nombre}";
                 }
-
+                // Construye la descripción del pokemon según su estado y vida
                 if (pokemon == entrenador.PokemonActivo)
                 {
                     if (pokemon.Estado != null)
@@ -468,6 +491,7 @@ public static class Fachada
         }
         else
         {
+            // Si se especifica un segundo entrenador, verifica su existencia y muestra su equipo
             Entrenadores entrenador2 = batallaencurso.EntrenadorPorNombre(nombreEntrenador2);
             string final = $"Esta es la vida de los Pokemones de {nombreEntrenador2}: \n";
             Batallas batalla = batallaencurso.BatallaPorEntrenador(entrenador);

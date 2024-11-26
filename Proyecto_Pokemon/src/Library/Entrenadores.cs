@@ -105,6 +105,7 @@ public class Entrenadores
         return false;
     }
     
+    
     public List<Objetos> MostrarMochila()
     {
         Dictionary<string, int> contadordeObjetos = new Dictionary<string, int>();
@@ -126,6 +127,7 @@ public class Entrenadores
         return listaObjetosUnicos;
     }
     
+    // Método para acceder a objetos desde strings
     public Objetos? BuscarObjeto(string nombreObjeto)
     {
         foreach (Objetos objeto in Mochila)
