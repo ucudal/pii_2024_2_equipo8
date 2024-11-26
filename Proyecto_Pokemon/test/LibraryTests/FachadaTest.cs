@@ -14,28 +14,9 @@ public class FachadaTests
     private ITipo tipoAgua;
     private IHabilidades habilidad;
 
-    [SetUp]
-    public void SetUp()
-    {
-        tipoFuego = new Tipo("Fuego", new Dictionary<string, double> { { "Agua", 0.5 }, { "Planta", 2.0 } });
-        tipoAgua = new Tipo("Agua", new Dictionary<string, double> { { "Fuego", 2.0 }, { "Planta", 0.5 } });
-        habilidad = new Habilidades("Llamarada", tipoFuego, 50, 80, 10, false);
-
-        // cREA LOS POKEMONES
-        pikachu = new Pokemon("Squirtle", 100, tipoAgua);
-        charmander = new Pokemon("Charmander", 80, tipoFuego);
-
-        charmander.AprenderHabilidad(habilidad);
-        pikachu.AprenderHabilidad(habilidad);
-        // Crea el equipo para los entrenadores
-        equipo = new List<Pokemon> { pikachu, charmander };
-
-        // Crea entrenadores con equipos
-        entrenador1 = new Entrenadores("Ash Ketchum");
-        entrenador2 = new Entrenadores("Brock");
-
+    
        
-    }
+    
 
     // test que verifica si se muestra el mensaje cuando faltan pokemon para el equipo
      [Test]
