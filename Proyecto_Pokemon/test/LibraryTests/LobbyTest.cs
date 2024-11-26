@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace Proyecto_Pokemon;
 
-
 [TestFixture]
 public class LobbyTests
 {
@@ -195,6 +194,6 @@ public class LobbyTests
 
             Assert.That(lobby.Cantidad, Is.EqualTo(2));
         }
+
         
     }
-
