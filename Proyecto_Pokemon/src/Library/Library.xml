@@ -6,37 +6,37 @@
     <members>
         <member name="T:Proyecto_Pokemon.Batallas">
             <summary>
-            
+                clase que representa una batalla entre dos entrenadores.
             </summary>
         </member>
         <member name="P:Proyecto_Pokemon.Batallas.entrenador1">
             <summary>
-            
+                primer entrenador que participa en la batalla.
             </summary>
         </member>
         <member name="P:Proyecto_Pokemon.Batallas.entrenador2">
             <summary>
-            
+                segundo entrenador que participa en la batalla.
             </summary>
         </member>
         <member name="P:Proyecto_Pokemon.Batallas.entrenadorActual">
             <summary>
-            
+                entrenador que tiene el turno actual en la batalla.
             </summary>
         </member>
         <member name="P:Proyecto_Pokemon.Batallas.turno">
             <summary>
-            
+                numero del turno actual de la batalla.
             </summary>
         </member>
         <member name="F:Proyecto_Pokemon.Batallas.esquivo">
             <summary>
-            
+                indica si el pokemon actual tiene activado el "esquivar"
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.Batallas.#ctor(Proyecto_Pokemon.Entrenadores,Proyecto_Pokemon.Entrenadores)">
             <summary>
-            
+                inicializa una nueva instancia de la clase batalla con los entrenadores especificados.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.Batallas.ChequerMuerte">
