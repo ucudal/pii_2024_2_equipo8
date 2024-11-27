@@ -9,7 +9,7 @@ public class Entrenadores
         get { return Pokemones.Count; }
     }
     public Pokemon PokemonActivo { get; set; }
-    public List<Objetos> Mochila { get; }
+    public List<Objetos> Mochila { get; } = new List<Objetos>();
     public bool EnBatalla { get; set; }
 
     public Entrenadores(string nombre)
@@ -134,6 +134,11 @@ public class Entrenadores
         return listaObjetosUnicos;
     }
     
+    public List<Objetos> GetItemList()
+    {
+        return Mochila;
+    }
+    
     // Método para acceder a objetos desde strings
     public Objetos? BuscarObjeto(string nombreObjeto)
     {
@@ -145,6 +150,19 @@ public class Entrenadores
             }
         }
         return null;
+    }
+    
+    public int ItemCount(string itemName)
+    {
+        int result = 0;
+        foreach (Objetos item in Mochila)
+        {
+            if (item.Nombre == itemName)
+            {
+                result++;
+            }
+        }
+        return result;
     }
 
     

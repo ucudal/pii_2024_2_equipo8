@@ -14,11 +14,7 @@ public class VerMochilaCommand : ModuleBase<SocketCommandContext>
     /// Muestra los items disponibles del jugador.
     /// </summary>
     [Command("verMochila")]
-    [Summary(
-        """
-        Muestra los items disponibles del jugador.
-        Se debe estar en partida para utilizar este comando.
-        """)]
+    [Summary("Enseña los objetos de la mochila del jugador")]
     public async Task ExecuteAsync()
     {
         string displayName = CommandHelper.GetDisplayName(Context);
