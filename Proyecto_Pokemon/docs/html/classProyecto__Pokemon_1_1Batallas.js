@@ -1,5 +1,6 @@
 var classProyecto__Pokemon_1_1Batallas =
 [
+    [ "Batallas", "classProyecto__Pokemon_1_1Batallas.html#a56a768844740ce454eea14a4d8df15ae", null ],
     [ "Atacar", "classProyecto__Pokemon_1_1Batallas.html#a4595705e2232c7b1631fd2679ab756a5", null ],
     [ "CambiarPokemon", "classProyecto__Pokemon_1_1Batallas.html#af467acb34fbf06501cbb4b1297b2cea9", null ],
     [ "CambiarTurno", "classProyecto__Pokemon_1_1Batallas.html#ad7c2487fe1cdea744b0d792e339cbb54", null ],
@@ -12,5 +13,10 @@ var classProyecto__Pokemon_1_1Batallas =
     [ "JugadoresDisponibles", "classProyecto__Pokemon_1_1Batallas.html#af7f192bf1da0b84f05453b0145cd5279", null ],
     [ "StatusBatalla", "classProyecto__Pokemon_1_1Batallas.html#adcb044a194325a6e8251f40ebfba9c9d", null ],
     [ "UsarMochila", "classProyecto__Pokemon_1_1Batallas.html#a94791924f0ac299d21644d6052c41364", null ],
-    [ "VerificarEstado", "classProyecto__Pokemon_1_1Batallas.html#ac98fdf99fe045a48cefcd155cb240f69", null ]
+    [ "VerificarEstado", "classProyecto__Pokemon_1_1Batallas.html#ac98fdf99fe045a48cefcd155cb240f69", null ],
+    [ "esquivo", "classProyecto__Pokemon_1_1Batallas.html#acd46472c268fce6fafc51bea5e5abb15", null ],
+    [ "entrenador1", "classProyecto__Pokemon_1_1Batallas.html#a983bb9a6f02cfff3d9d818105b80cd72", null ],
+    [ "entrenador2", "classProyecto__Pokemon_1_1Batallas.html#a2be1f655194425a3a57cb0731d52849e", null ],
+    [ "entrenadorActual", "classProyecto__Pokemon_1_1Batallas.html#ac189d5dd2ceb43b1bc2dbdde0a194f0d", null ],
+    [ "turno", "classProyecto__Pokemon_1_1Batallas.html#a026eeb5c9bb8e8707902d2cca04f957f", null ]
 ];
