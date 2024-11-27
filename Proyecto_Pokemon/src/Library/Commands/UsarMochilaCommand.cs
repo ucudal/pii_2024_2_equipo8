@@ -6,7 +6,7 @@ using Library;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'curar' del bot.
+/// 
 /// </summary>
 public class UsarMochilaCommand : ModuleBase<SocketCommandContext>
 {

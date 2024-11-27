@@ -4,7 +4,7 @@ using Discord;
 namespace ProyectoPokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'tipos' del bot.
+/// 
 /// </summary>
 public class TiposCommand : ModuleBase<SocketCommandContext>
 {

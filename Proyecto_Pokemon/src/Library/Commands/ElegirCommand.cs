@@ -2,7 +2,7 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'elegir' del bot.
+/// Esta clase se encarga de usar las habilidades disponibles del pokemon para usarlos en el rival.
 /// </summary>
 public class ElegirCommand : ModuleBase<SocketCommandContext>
 {

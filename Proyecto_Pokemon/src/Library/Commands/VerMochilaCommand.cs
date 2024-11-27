@@ -6,7 +6,7 @@ using Library;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'verMochila' del bot.
+/// 
 /// </summary>
 public class VerMochilaCommand : ModuleBase<SocketCommandContext>
 {

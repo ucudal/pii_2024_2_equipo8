@@ -4,7 +4,7 @@ using Library.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'Help' del bot.
+/// 
 /// </summary>
 public class HelpComandos : ModuleBase<SocketCommandContext>
 {

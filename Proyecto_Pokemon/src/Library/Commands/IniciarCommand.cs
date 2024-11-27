@@ -3,7 +3,7 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'iniciar' del bot.
+/// 
 /// </summary>
 public class IniciarCommand : ModuleBase<SocketCommandContext>
 {

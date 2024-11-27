@@ -334,14 +334,11 @@ public static class Fachada
         List<Objetos> listaObjetosUnicos = entrenador.MostrarMochila();
         string final = $"{nombreEntrenador}, tenes en la mochila los siguientes objetos:\n```";
     
-        List<string> repeatedItems = new List<string>();
-        foreach (Objetos item in entrenador.MostrarMochila())
-            if (!repeatedItems.Contains(item.Nombre))
-                if (entrenador.ItemCount(item.Nombre) != 0)
-                {
-                    final += entrenador.ItemCount(item.Nombre) + " " + item.Nombre + "\n";
-                    repeatedItems.Add(item.Nombre);
-                }
+        foreach (var objeto in listaObjetosUnicos)
+        {
+            int cantidad = entrenador.Mochila.Count(o => o.Nombre == objeto.Nombre);
+            final += $"{cantidad} {objeto.Nombre}\n";
+        }
         return final += "```" ;
     }
     

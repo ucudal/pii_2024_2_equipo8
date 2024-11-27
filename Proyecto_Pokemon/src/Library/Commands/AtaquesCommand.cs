@@ -6,7 +6,7 @@ using Proyecto_Pokemon;
 namespace Library.Commands;
 
 /// <summary>
-/// Esta clase implementa el comando 'ataques' del bot.
+/// Esta clase se encarga de usar las habilidade disponibles del pokemon para usarlos en el rival.
 /// </summary>
 public class AtaquesCommand : ModuleBase<SocketCommandContext>
 {

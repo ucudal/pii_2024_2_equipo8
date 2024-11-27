@@ -4,7 +4,7 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'unirse' del bot.
+/// 
 /// </summary>
 public class UnirseCommand : ModuleBase<SocketCommandContext>
 {

@@ -3,7 +3,7 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'lobby' del bot.
+/// 
 /// </summary>
 public class VerLobbyCommand : ModuleBase<SocketCommandContext>
 {

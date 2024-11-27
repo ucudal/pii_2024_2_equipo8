@@ -3,7 +3,7 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'verVida' del bot.
+/// 
 /// </summary>
 public class VerVidaCommand : ModuleBase<SocketCommandContext>
 {

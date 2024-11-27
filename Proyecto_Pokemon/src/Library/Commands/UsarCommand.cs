@@ -2,7 +2,7 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'usar' del bot.
+/// 
 /// </summary>
 public class UsarCommand : ModuleBase<SocketCommandContext>
 {

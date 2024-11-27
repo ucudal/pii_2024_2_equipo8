@@ -3,7 +3,7 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'salir' del bot.
+/// 
 /// </summary>
 public class SalirCommand : ModuleBase<SocketCommandContext>
 {
