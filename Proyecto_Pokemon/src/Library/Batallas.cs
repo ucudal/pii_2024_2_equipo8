@@ -1,32 +1,38 @@
 namespace Proyecto_Pokemon;
 /// <summary>
-/// 
+/// clase que representa una batalla entre dos entrenadores.
 /// </summary>
 public class Batallas
 {
     /// <summary>
-    /// 
+    /// primer entrenador que participa en la batalla.
     /// </summary>
     public Entrenadores entrenador1 {get; set;}
     /// <summary>
-    /// 
+    /// segundo entrenador que participa en la batalla.
     /// </summary>
     public Entrenadores entrenador2 {get; set;}
     /// <summary>
-    /// 
+    /// entrenador que tiene el turno actual en la batalla.
     /// </summary>
     public Entrenadores entrenadorActual {get; set;}
     /// <summary>
-    /// 
+    /// numero del turno actual de la batalla.
     /// </summary>
     public int turno {get; set;}
     /// <summary>
-    /// 
+    /// numero de turnos que un pokemon permanece noqueado.
+    /// </summary>
+    int turnos_noqueado = 4;
+    /// <summary>
+    /// indica si el pokemon actual tiene activado el "esquivar"
     /// </summary>
     public bool esquivo;
     /// <summary>
-    /// 
+    /// inicializa una nueva instancia de la clase batalla con los entrenadores especificados.
     /// </summary>
+    /// /// <param name="AshKetchup">primer entrenador.</param>
+    /// <param name="diezMedallasGary">segundo entrenador.</param>
     public Batallas(Entrenadores AshKetchup, Entrenadores diezMedallasGary)
     {
         entrenador1 = AshKetchup;
@@ -145,10 +151,31 @@ public class Batallas
         // Ataque normal
         bool esEsquivoNormal = esquivo;
         esquivo = false;
-        string resultadoAtaqueNormal = Pokemon.EjecutarAtaque(atacante, defensor, habilidad, esEsquivoNormal);
-        string cambioTurnoNormal = CambiarTurno();
-        estadoResultado = VerificarEstado(atacante);
-        return resultadoAtaqueNormal + "\n" + cambioTurnoNormal + estadoResultado;
+        if (atacante.Estado == "noqueado")
+        {
+            estadoResultado = VerificarEstado(atacante);
+            if (estadoResultado.Contains("noqueado"))
+            {
+                entrenadorActual = (entrenadorActual == entrenador1) ? entrenador2 : entrenador1;
+                return estadoResultado;
+            }
+            else
+            {
+                string resultadoAtaqueNormal = Pokemon.EjecutarAtaque(atacante, defensor, habilidad, esEsquivoNormal);
+                string cambioTurnoNormal = CambiarTurno();
+                estadoResultado += VerificarEstado(atacante);
+                return estadoResultado + resultadoAtaqueNormal + "\n" + cambioTurnoNormal;
+            }
+        }
+        else
+        {
+            string resultadoAtaqueNormal = Pokemon.EjecutarAtaque(atacante, defensor, habilidad, esEsquivoNormal);
+            string cambioTurnoNormal = CambiarTurno();
+            estadoResultado = VerificarEstado(atacante);
+            return resultadoAtaqueNormal + "\n" + cambioTurnoNormal + estadoResultado;
+        }
+
+        return null;
     }
     
     /// <summary>
@@ -245,7 +272,7 @@ public class Batallas
     public string VerificarEstado(Pokemon atacante)
     {
         Random random = new Random();
-        int turnos_noqueado = 4;
+        
         switch (atacante.Estado)
         {
             case "envenenado":
@@ -269,12 +296,20 @@ public class Batallas
                 break;
 
             case "noqueado":
-                if (random.Next(1, 5) < turnos_noqueado)
+                if (random.Next(1, 5) > turnos_noqueado)
                 {
                     atacante.Estado = null;
+                    turnos_noqueado = 4;
                     return $"{atacante.Nombre} se ha recuperado del noqueo y puede volver a atacar.";
                 }
-                entrenadorActual = (entrenadorActual == entrenador1) ? entrenador2 : entrenador1;
+
+                if (turnos_noqueado == 4)
+                {
+                    turnos_noqueado--;
+                    return null;
+                }
+                
+                turnos_noqueado--;
                 return $"{atacante.Nombre} está noqueado. No puede moverse.";
                 break;
         }

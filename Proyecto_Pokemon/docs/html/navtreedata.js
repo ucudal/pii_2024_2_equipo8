@@ -43,6 +43,7 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ],
         [ "Properties", "functions_prop.html", null ]
       ] ]
     ] ],
@@ -55,7 +56,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AtaquesCommand_8cs_source.html",
-"classProyecto__Pokemon_1_1Pokemon.html#aa828d0a049977a16027ddafb83803f42"
+"classProyecto__Pokemon_1_1Pokemon.html#a05ba75d6e967e4e3cacde1f910aa81bb"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

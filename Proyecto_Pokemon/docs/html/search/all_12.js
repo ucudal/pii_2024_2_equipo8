@@ -8,5 +8,6 @@ var searchData=
   ['tiposcommand_5',['TiposCommand',['../classProyectoPokemon_1_1TiposCommand.html',1,'ProyectoPokemon']]],
   ['tiposecundario_6',['TipoSecundario',['../interfaceProyecto__Pokemon_1_1IPokemon.html#ad24e6626cf1dea3cfda94cda9aabe735',1,'Proyecto_Pokemon.IPokemon.TipoSecundario'],['../classProyecto__Pokemon_1_1Pokemon.html#a4fb1702696b8432f9bcb6726756f7a07',1,'Proyecto_Pokemon.Pokemon.TipoSecundario']]],
   ['tipotest_7',['TipoTest',['../classProyecto__Pokemon_1_1TipoTest.html',1,'Proyecto_Pokemon']]],
-  ['turnocommand_8',['TurnoCommand',['../classProyecto__Pokemon_1_1TurnoCommand.html',1,'Proyecto_Pokemon']]]
+  ['turno_8',['turno',['../classProyecto__Pokemon_1_1Batallas.html#a026eeb5c9bb8e8707902d2cca04f957f',1,'Proyecto_Pokemon::Batallas']]],
+  ['turnocommand_9',['TurnoCommand',['../classProyecto__Pokemon_1_1TurnoCommand.html',1,'Proyecto_Pokemon']]]
 ];

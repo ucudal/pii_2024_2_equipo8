@@ -11,6 +11,7 @@ var namespaceProyecto__Pokemon =
     [ "Entrenadores", "classProyecto__Pokemon_1_1Entrenadores.html", "classProyecto__Pokemon_1_1Entrenadores" ],
     [ "EntrenadoresTest", "classProyecto__Pokemon_1_1EntrenadoresTest.html", null ],
     [ "EsquivoCommand", "classProyecto__Pokemon_1_1EsquivoCommand.html", "classProyecto__Pokemon_1_1EsquivoCommand" ],
+    [ "FachadaTests", "classProyecto__Pokemon_1_1FachadaTests.html", null ],
     [ "Habilidades", "classProyecto__Pokemon_1_1Habilidades.html", "classProyecto__Pokemon_1_1Habilidades" ],
     [ "HabilidadesTest", "classProyecto__Pokemon_1_1HabilidadesTest.html", null ],
     [ "HelpComandos", "classProyecto__Pokemon_1_1HelpComandos.html", "classProyecto__Pokemon_1_1HelpComandos" ],

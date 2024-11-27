@@ -5,7 +5,7 @@ var hierarchy =
     [ "Proyecto_Pokemon.BatallasTest", "classProyecto__Pokemon_1_1BatallasTest.html", null ],
     [ "Proyecto_Pokemon.Entrenadores", "classProyecto__Pokemon_1_1Entrenadores.html", null ],
     [ "Proyecto_Pokemon.EntrenadoresTest", "classProyecto__Pokemon_1_1EntrenadoresTest.html", null ],
-    [ "FachadaTests", "classFachadaTests.html", null ],
+    [ "Proyecto_Pokemon.FachadaTests", "classProyecto__Pokemon_1_1FachadaTests.html", null ],
     [ "Proyecto_Pokemon.HabilidadesTest", "classProyecto__Pokemon_1_1HabilidadesTest.html", null ],
     [ "Ucu.Poo.DiscordBot.Services.IBot", "interfaceUcu_1_1Poo_1_1DiscordBot_1_1Services_1_1IBot.html", [
       [ "Ucu.Poo.DiscordBot.Services.Bot", "classUcu_1_1Poo_1_1DiscordBot_1_1Services_1_1Bot.html", null ]
