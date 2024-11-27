@@ -13,7 +13,6 @@ public class FachadaTests
     private ITipo tipoFuego;
     private ITipo tipoAgua;
     private IHabilidades habilidad;
-
     
        
     
@@ -47,14 +46,12 @@ public class FachadaTests
         [Test]
         public void CrearBatalla_EntrenadoresDisponibles_DevuelveMensajeInicioBatalla()
         {
-            // Arrange
             string entrenador1 = "Ash";
             string entrenador2 = "Gary";
+            Fachada.Rendirse(entrenador1);
             Fachada.MeterUsuarioAlLobby(entrenador1);
             Fachada.MeterUsuarioAlLobby(entrenador2);
-            // Act
-            string resultado = Fachada.CrearBatalla(entrenador1, entrenador2);
-            // Assert
+            string resultado = Fachada.IniciarBatalla(entrenador1, entrenador2);
             Assert.That(resultado,Does.Contain("EMPIEZA LA PELEA ENTRE Ash CONTRA Gary"));
         }
         [Test]
@@ -81,32 +78,27 @@ public class FachadaTests
         {
             // Arrange
             string nombreEntrenador = "Ash";
+            Fachada.Rendirse(nombreEntrenador);
             Fachada.MeterUsuarioAlLobby(nombreEntrenador);
+            Fachada.MeterUsuarioAlLobby("Gary");
             Fachada.IniciarBatalla(nombreEntrenador, "Gary");
-            // Simula un equipo completo
-            for (int i = 0; i < 6; i++)
-            {
-                Fachada.SeleccionarEquipo(nombreEntrenador, $"Pokemon_{i}");
-            }
-            // Act
             string resultado = Fachada.elegirRandomente(nombreEntrenador);
-            // Assert
-            Assert.That(resultado,Is.EqualTo("Ash, ya tenes un equipo completo de Pokémon."));
+            Assert.That(resultado,Does.Contain("Ash, estos son los Pokemones elegidos aleatoriamente:"));
         }
         [Test]
         public void CambiarPokemones_CambioExitoso_DevuelveMensajeCorrecto()
         {
-            // Arrange
             string nombreEntrenador = "Ash";
-            Fachada.Rendirse(nombreEntrenador);
-            Fachada.MeterUsuarioAlLobby(nombreEntrenador);
-            Fachada.IniciarBatalla(nombreEntrenador, "Gary");
-            Fachada.SeleccionarEquipo(nombreEntrenador, "Snorlax");
-            Fachada.SeleccionarEquipo(nombreEntrenador, "Jynx");
+            string nombreEntrenador2 = "Gary";
             string nombrePokemon = "Pikachu";
-            Fachada.CambiarPokemones(nombreEntrenador, nombrePokemon);
-            List<Pokemon> resultado = equipo;
-            // Assert
-            Assert.That(resultado,Does.Contain("Pikachu"));
+            Fachada.MeterUsuarioAlLobby(nombreEntrenador);
+            Fachada.MeterUsuarioAlLobby(nombreEntrenador2);
+            Fachada.IniciarBatalla(nombreEntrenador, nombreEntrenador2);
+            Fachada.elegirRandomente(nombreEntrenador);
+            Fachada.elegirRandomente(nombreEntrenador2);
+            Fachada.SeleccionarEquipo(nombreEntrenador, nombrePokemon);
+            Fachada.SeleccionarEquipo(nombreEntrenador2, "SNORLAX");
+            string resultado = Fachada.CambiarPokemones(nombreEntrenador, nombrePokemon);
+            Assert.That(resultado, Does.Contain("Pikachu"));
         }
     }
