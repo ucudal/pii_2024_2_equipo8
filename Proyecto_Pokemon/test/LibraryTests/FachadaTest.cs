@@ -296,7 +296,7 @@ public class FachadaTests
         Fachada.elegirRandomente(nombreEntrenador);
         string resultado = Fachada.VerMochila(nombreEntrenador);
 
-        Assert.That(resultado, Does.Contain("tenes en la mochila  siguientes objetos"));
+        Assert.That(resultado, Does.Contain("tenes en la mochila los siguientes objetos"));
     }
 
     [Test]
