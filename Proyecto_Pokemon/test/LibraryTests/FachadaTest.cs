@@ -17,7 +17,7 @@ public class FachadaTests
     
 
     
-     [Test]
+        [Test]
         public void MeterUsuarioAlLobby_NuevoUsuario_DevuelveMensajeExitoso()
         {
             string nombreEntrenador = "Ash";
@@ -43,8 +43,13 @@ public class FachadaTests
         {
             string entrenador1 = "Ash";
             string entrenador2 = "Gary";
+            Fachada.Rendirse(entrenador1);
+            Fachada.Rendirse(entrenador2);
             Fachada.MeterUsuarioAlLobby(entrenador1);
             Fachada.MeterUsuarioAlLobby(entrenador2);
+            string verLobby = Fachada.VerLobby();
+            Assert.That(verLobby, Does.Contain(entrenador1));
+            Assert.That(verLobby, Does.Contain(entrenador2));
             string resultado = Fachada.CrearBatalla(entrenador1, entrenador2);
 
             Assert.That(resultado,Does.Contain("EMPIEZA LA PELEA ENTRE Ash CONTRA Gary"));
@@ -168,6 +173,7 @@ public class FachadaTests
     public void RevisarTurno_EntrenadorNoEnBatalla_DevuelveMensajeError()
     {
         string nombreEntrenador = "Ash";
+        Fachada.Rendirse(nombreEntrenador);
         string resultado = Fachada.RevisarTurno(nombreEntrenador);
 
         Assert.That(resultado, Is.EqualTo($"El entrenador {nombreEntrenador} no se encuentra en ninguna batalla"));
@@ -204,6 +210,8 @@ public class FachadaTests
     {
         string nombreEntrenador1 = "Ash";
         string nombreEntrenador2 = "Gary";
+        Fachada.Rendirse(nombreEntrenador1);
+        Fachada.Rendirse(nombreEntrenador2);
         Fachada.SacarEntrenadorDelLobby(nombreEntrenador1);
         Fachada.SacarEntrenadorDelLobby(nombreEntrenador2);
         Fachada.MeterUsuarioAlLobby(nombreEntrenador1);
@@ -303,6 +311,7 @@ public class FachadaTests
     public void VerMochila_EntrenadorNoEnBatalla_DevuelveMensajeError()
     {
         string nombreEntrenador = "Ash";
+        Fachada.Rendirse(nombreEntrenador);
         string resultado = Fachada.VerMochila(nombreEntrenador);
  
         Assert.That(resultado, Is.EqualTo($"{nombreEntrenador}, no estas en batalla."));
@@ -312,6 +321,7 @@ public class FachadaTests
     public void UsarObjetoMochila_EntrenadorNoEnBatalla_DevuelveMensajeError()
     {
         string nombreEntrenador = "Ash";
+        Fachada.Rendirse(nombreEntrenador);
         string item = "Poción";
         string pokemon = "Pikachu";
         string resultado = Fachada.UsarObjetoMochila(nombreEntrenador, item, pokemon);
@@ -324,7 +334,7 @@ public class FachadaTests
     {
         string nombreEntrenador = "Ash";
         string nombreEntrenador2 = "Gary";
-        string nombrePokemon = "Snorlax";
+        string nombrePokemon = "SNORLAX";
         Fachada.MeterUsuarioAlLobby(nombreEntrenador);
         Fachada.MeterUsuarioAlLobby(nombreEntrenador2);
         Fachada.IniciarBatalla(nombreEntrenador, nombreEntrenador2);
