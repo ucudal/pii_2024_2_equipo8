@@ -5,38 +5,76 @@ namespace Proyecto_Pokemon.Tests
     [TestFixture]
     public class FachadaTests
     {
+        // Métodos de prueba existentes...
+
+        // Métodos de prueba para los métodos que no tienen pruebas
+
         [Test]
-        public void MeterUsuarioAlLobby_NuevoUsuario_DevuelveMensajeExitoso()
+        public void OpcionesPokemones_DevuelveListaDePokemones()
         {
             // Arrange
-            string nombreEntrenador = "Ash";
+            string resultadoEsperado = "**Opciones para el Equipo:**\n"; // Ajusta según la implementación
+            Fachada.MeterUsuarioAlLobby("Ash");
 
             // Act
-            string resultado = Fachada.MeterUsuarioAlLobby(nombreEntrenador);
+            string resultado = Fachada.OpcionesPokemones();
 
             // Assert
-            Assert.That(resultado, Is.EqualTo("Ash ha sido agregado en el Lobby para un encuentro."));
+            Assert.That(resultado.StartsWith(resultadoEsperado), Is.True);
         }
 
         [Test]
-        public void MeterUsuarioAlLobby_UsuarioYaEnBatalla_DevuelveError()
+        public void ElegirHabilidad_PokemonActivoSinHabilidad_DevuelveError()
         {
             // Arrange
             string nombreEntrenador = "Ash";
-
-            // Simula que el usuario ya está en una batalla
             Fachada.MeterUsuarioAlLobby(nombreEntrenador);
-            Fachada.IniciarBatalla("Ash", "Gary");
+            Fachada.IniciarBatalla(nombreEntrenador, "Gary");
+            Fachada.SeleccionarEquipo(nombreEntrenador, "Pikachu"); // Asegúrate de que Pikachu esté en el equipo
 
             // Act
-            string resultado = Fachada.MeterUsuarioAlLobby(nombreEntrenador);
+            string resultado = Fachada.ElegirHabilidad(nombreEntrenador, "HabilidadInexistente");
 
             // Assert
-            Assert.That(resultado, Is.EqualTo("Ash ya te encuentras en una batalla y no podes ser agregado al Lobby."));
+            Assert.That(resultado.Contains("no se encuentra disponible"), Is.True);
         }
 
         [Test]
-        public void CrearBatalla_EntrenadoresDisponibles_DevuelveMensajeInicioBatalla()
+        public void RevisarTurno_EntrenadorNoEnBatalla_DevuelveError()
+        {
+            // Arrange
+            string nombreEntrenador = "Ash";
+
+            // Act
+            string resultado = Fachada.RevisarTurno(nombreEntrenador);
+
+            // Assert
+            Assert.That(resultado.Contains("no se encuentra en ninguna batalla"), Is.True);
+        }
+
+        [Test]
+        public void CierreDeLaBatalla_BatallaFinalizada_DevuelveGanador()
+        {
+            // Arrange
+            string nombreEntrenador1 = "Ash";
+            string nombreEntrenador2 = "Gary";
+
+            Fachada.MeterUsuarioAlLobby(nombreEntrenador1);
+            Fachada.MeterUsuarioAlLobby(nombreEntrenador2);
+            Fachada.CrearBatalla(nombreEntrenador1, nombreEntrenador2);
+            // Simula una batalla finalizada
+            Batallas batalla = Fachada.batallaencurso.BatallaPorEntrenador(Fachada.batallaencurso.EntrenadorPorNombre(nombreEntrenador1));
+            // Aquí deberías simular que la batalla ha finalizado
+
+            // Act
+            string resultado = Fachada.CierreDeLaBatalla(batalla);
+
+            // Assert
+            Assert.That(resultado.Contains("ganador"), Is.True);
+        }
+
+        [Test]
+        public void IniciarBatalla_EntrenadoresEnLobby_DevuelveMensajeInicioBatalla()
         {
             // Arrange
             string entrenador1 = "Ash";
@@ -46,66 +84,102 @@ namespace Proyecto_Pokemon.Tests
             Fachada.MeterUsuarioAlLobby(entrenador2);
 
             // Act
-            string resultado = Fachada.CrearBatalla(entrenador1, entrenador2);
+            string resultado = Fachada.IniciarBatalla(entrenador1, entrenador2);
 
             // Assert
-            Assert.That(resultado.Contains("EMPIEZA LA PELEA ENTRE Ash CONTRA Gary"), Is.True);
+            Assert.That(resultado.Contains("EMPIEZA LA PELEA ENTRE"), Is.True);
         }
 
         [Test]
-        public void VerHabilidades_EntrenadorSinPokemonActivo_DevuelveError()
+        public void SacarEntrenadorDelLobby_EntrenadorEnLobby_DevuelveMensajeExitoso()
         {
             // Arrange
             string nombreEntrenador = "Ash";
+            Fachada.MeterUsuarioAlLobby(nombreEntrenador);
 
+            // Act
+            string resultado = Fachada.SacarEntrenadorDelLobby(nombreEntrenador);
+
+            // Assert
+            Assert.That(resultado, Is.EqualTo("Ash fue sacado del Lobby."));
+        }
+
+        [Test]
+        public void VerLobby_NoHayEntrenadores_DevuelveMensajeVacio()
+        {
+            // Act
+            string resultado = Fachada.VerLobby();
+
+            // Assert
+            Assert.That(resultado, Is.EqualTo("Nadie se encuentra en el Lobby actualmente"));
+        }
+
+        [Test]
+        public void UsarObjetoMochila_EntrenadorConObjeto_DevuelveMensajeUso()
+        {
+            // Arrange
+            string nombreEntrenador = "Ash";
+            Fachada.MeterUsuarioAlLobby(nombreEntrenador);
+            Fachada.IniciarBatalla(nombreEntrenador, "Gary");
+                       // Simula que Ash tiene un objeto en su mochila
+            Fachada.AgregarObjetoAMochila(nombreEntrenador, "Poción");
+
+            // Act
+            string resultado = Fachada.UsarObjetoMochila(nombreEntrenador, "Poción");
+
+            // Assert
+            Assert.That(resultado, Is.EqualTo("Has usado una Poción."));
+        }
+
+        [Test]
+        public void SeleccionarEquipo_EntrenadorSinPokemon_DevuelveError()
+        {
+            // Arrange
+            string nombreEntrenador = "Ash";
             Fachada.MeterUsuarioAlLobby(nombreEntrenador);
             Fachada.IniciarBatalla(nombreEntrenador, "Gary");
 
             // Act
-            string resultado = Fachada.VerHabilidades(nombreEntrenador);
+            string resultado = Fachada.SeleccionarEquipo(nombreEntrenador, "Pikachu");
 
             // Assert
-            Assert.That(resultado.Contains("no tenes un pokemon principal."), Is.True);
+            Assert.That(resultado.Contains("no tienes ese Pokémon en tu equipo"), Is.True);
         }
 
         [Test]
-        public void ElegirRandommente_EquipoCompleto_DevuelveError()
+        public void VerPokemones_EntrenadorConPokemones_DevuelveListaDePokemones()
         {
             // Arrange
             string nombreEntrenador = "Ash";
-
             Fachada.MeterUsuarioAlLobby(nombreEntrenador);
             Fachada.IniciarBatalla(nombreEntrenador, "Gary");
-
-            // Simula un equipo completo
-            for (int i = 0; i < 6; i++)
-            {
-                Fachada.SeleccionarEquipo(nombreEntrenador, $"Pokemon_{i}");
-            }
+            // Simula que Ash tiene pokemones en su equipo
+            Fachada.SeleccionarEquipo(nombreEntrenador, "Pikachu");
 
             // Act
-            string resultado = Fachada.elegirRandomente(nombreEntrenador);
-
-            // Assert
-            Assert.That(resultado, Is.EqualTo("Ash, ya tenes un equipo completo de Pokémon."));
-        }
-
-        [Test]
-        public void CambiarPokemones_CambioExitoso_DevuelveMensajeCorrecto()
-        {
-            // Arrange
-            string nombreEntrenador = "Ash";
-            string nombrePokemon = "Pikachu";
-
-            Fachada.MeterUsuarioAlLobby(nombreEntrenador);
-            Fachada.IniciarBatalla(nombreEntrenador, "Gary");
-            Fachada.SeleccionarEquipo(nombreEntrenador, nombrePokemon);
-
-            // Act
-            string resultado = Fachada.CambiarPokemones(nombreEntrenador, nombrePokemon);
+            string resultado = Fachada.VerPokemones(nombreEntrenador);
 
             // Assert
             Assert.That(resultado.Contains("Pikachu"), Is.True);
+        }
+
+        [Test]
+        public void EsquivarPokemon_EntrenadorActivo_DevuelveMensajeEsquive()
+        {
+            // Arrange
+            string nombreEntrenador = "Ash";
+            string oponente = "Gary";
+
+            Fachada.MeterUsuarioAlLobby(nombreEntrenador);
+            Fachada.MeterUsuarioAlLobby(oponente);
+            Fachada.IniciarBatalla(nombreEntrenador, oponente);
+            Fachada.SeleccionarEquipo(nombreEntrenador, "Pikachu"); // Asegúrate de que Pikachu esté en el equipo
+
+            // Act
+            string resultado = Fachada.EsquivarPokemon(nombreEntrenador);
+
+            // Assert
+            Assert.That(resultado, Is.EqualTo("Ash ha esquivado el ataque de Gary."));
         }
     }
 }

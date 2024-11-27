@@ -1,152 +1,171 @@
-namespace Proyecto_Pokemon;
-
-public class Entrenadores
+namespace Proyecto_Pokemon
 {
-    public string Nombre { get; }
-    public List<Pokemon> Pokemones { get; }
-    public int CantidadDePokemones
+    public class Entrenadores
     {
-        get { return Pokemones.Count; }
-    }
-    public Pokemon PokemonActivo { get; set; }
-    public List<Objetos> Mochila { get; }
-    public bool EnBatalla { get; set; }
-
-    public Entrenadores(string nombre)
-    {
-        Nombre = nombre;
-        Pokemones = new List<Pokemon>();
-        Mochila = InicializarMochila();
-        EnBatalla = false;
-    }
-
-    // Booleano que indica si un pokemon existe con ese nombre en string
-    public bool BuscarPokemon(string nombrePokemon)
-    {
-        foreach (Pokemon pokemon in Pokemones)
-            if (pokemon.Nombre == nombrePokemon)
-                return true;
-        return false;
-    }
-    
-    // Devolver pokemon según string de nombre, útil para fachada
-    public Pokemon BuscarPokemonYGuardar(string nombrePokemon)
-    {
-        foreach (Pokemon pokemon in Pokemones)
+        public string Nombre { get; }
+        public List<Pokemon> Pokemones { get; }
+        public int CantidadDePokemones
         {
-            if (pokemon.Nombre == nombrePokemon)
-            {
-                return pokemon;
-            }
+            get { return Pokemones.Count; }
         }
-        return null;
-    }
-    
-    // Creación de objetos de mochila para cada entrenador
-    private List<Objetos> InicializarMochila()
-    {
-        return new List<Objetos>
+        public Pokemon PokemonActivo { get; set; }
+        public List<Objetos> Mochila { get; }
+        public bool EnBatalla { get; set; }
+
+        public Entrenadores(string nombre)
         {
-            new SuperPocion(),
-            new SuperPocion(),
-            new SuperPocion(),
-            new SuperPocion(),
-            new Revivir(),
-            new CuraTotal(),
-            new CuraTotal()
-        };
-        
-    }
-    
-    // Cambio de pokemon activo al previsto, si no es al primero disponible
-    public bool FijarPokemonActual(Pokemon? pokemon = null)
-    {
-        if (pokemon != null)
+            Nombre = nombre;
+            Pokemones = new List<Pokemon>();
+            Mochila = InicializarMochila();
+            EnBatalla = false;
+        }
+
+        // Booleano que indica si un pokemon existe con ese nombre en string
+        public bool BuscarPokemon(string nombrePokemon)
         {
-            if (pokemon.Vida > 0)
-            {
-                PokemonActivo = pokemon;
-                return true;
-            }
+            foreach (Pokemon pokemon in Pokemones)
+                if (pokemon.Nombre == nombrePokemon)
+                    return true;
             return false;
         }
-        else
+        
+        // Devolver pokemon según string de nombre, útil para fachada
+        public Pokemon BuscarPokemonYGuardar(string nombrePokemon)
         {
-            foreach (Pokemon poke in Pokemones)
+            foreach (Pokemon pokemon in Pokemones)
             {
-                if (poke.Vida > 0)
+                if (pokemon.Nombre == nombrePokemon)
                 {
-                    PokemonActivo = poke;
-                    return true;
+                    return pokemon;
                 }
             }
+            return null;
         }
-        return false;
-    }
-    
-    // Devuelve pokemones de equipo 
-    public List<Pokemon> RecibirEquipoPokemon()
-    {
-        return Pokemones;
-    }
-    
-    // Check booleano de pokemones vivos, útil para batalla. Lógica hecha en entrenadores por srp
-    public bool TienePokemonesVivos()
-    {
-        return Pokemones.Any(pokemon => pokemon.Vida > 0);
-    }
-    
-    // Añadir pokemons a lista de entrenador
-    public bool AñadirPokemon(Pokemon pokemon)
-    {
-        if (Pokemones.Count < 6)
-        {
-            if (!Pokemones.Contains(pokemon))
-            {
-                if (Pokemones.Count == 0)
-                    FijarPokemonActual(pokemon);
-                Pokemones.Add(pokemon);
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    // Ver lista de objetos alocados en mochila del entrenador
-    public List<Objetos> MostrarMochila()
-    {
-        Dictionary<string, int> contadordeObjetos = new Dictionary<string, int>();
-        List<Objetos> listaObjetosUnicos = new List<Objetos>();
         
-        foreach (var objetos in Mochila)
+        // Creación de objetos de mochila para cada entrenador
+        private List<Objetos> InicializarMochila()
         {
-            if (contadordeObjetos.ContainsKey(objetos.Nombre))
+            return new List<Objetos>
             {
-                contadordeObjetos[objetos.Nombre]++;
+                new SuperPocion(),
+                new SuperPocion(),
+                new SuperPocion(),
+                new SuperPocion(),
+                new Revivir(),
+                new CuraTotal(),
+                new CuraTotal(),
+                new RestaurarTodo()
+            };
+        }
+        
+        // Cambio de pokemon activo al previsto, si no es al primero disponible
+        public bool FijarPokemonActual(Pokemon? pokemon = null)
+        {
+            if (pokemon != null)
+            {
+                if (pokemon.Vida > 0)
+                {
+                    PokemonActivo = pokemon;
+                    return true;
+                }
+                return false;
             }
             else
             {
-                contadordeObjetos[objetos.Nombre] = 1;
-                listaObjetosUnicos.Add(objetos);
+                foreach (Pokemon poke in Pokemones)
+                {
+                    if (poke.Vida > 0)
+                    {
+                        PokemonActivo = poke;
+                        return true;
+                    }
+                }
             }
+            return false;
         }
-
-        return listaObjetosUnicos;
-    }
-    
-    // Método para acceder a objetos desde strings
-    public Objetos? BuscarObjeto(string nombreObjeto)
-    {
-        foreach (Objetos objeto in Mochila)
+        
+        // Devuelve pokemones de equipo 
+        public List<Pokemon> RecibirEquipoPokemon()
         {
-            if (objeto.Nombre == nombreObjeto)
-            {
-                return objeto;
-            }
+            return Pokemones;
         }
-        return null;
-    }
+        
+        // Check booleano de pokemones vivos, útil para batalla. Lógica hecha en entrenadores por srp
+        public bool TienePokemonesVivos()
+        {
+            return Pokemones.Any(pokemon => pokemon.Vida > 0);
+        }
+        
+        // Añadir pokemons a lista de entrenador
+        public bool AñadirPokemon(Pokemon pokemon)
+        {
+            if (Pokemones.Count < 6)
+            {
+                if (!Pokemones.Contains(pokemon))
+                {
+                    if (Pokemones.Count == 0)
+                        FijarPokemonActual(pokemon);
+                    Pokemones.Add(pokemon);
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        // Ver lista de objetos alocados en mochila del entrenador
+        public List<Objetos> MostrarMochila()
+        {
+            Dictionary<string, int> contadordeObjetos = new Dictionary<string, int>();
+            List<Objetos> listaObjetosUnicos = new List<Objetos>();
+            
+            foreach (var objetos in Mochila)
+            {
+                if (contadordeObjetos.ContainsKey(objetos.Nombre))
+                {
+                    contadordeObjetos[objetos.Nombre]++;
+                }
+                else
+                {
+                    contadordeObjetos[objetos.Nombre] = 1;
+                    listaObjetosUnicos.Add(objetos);
+                }
+            }
 
-    
-    
+            return listaObjetosUnicos;
+        }
+        
+        // Método para acceder a objetos desde strings
+        public Objetos? BuscarObjeto(string nombreObjeto)
+        {
+            foreach (Objetos objeto in Mochila)
+            {
+                if (objeto.Nombre == nombreObjeto)
+                {
+                    return objeto;
+                }
+            }
+            return null;
+        }
+
+        // Método para usar un objeto de la mochila
+        public string UsarObjeto(string nombreObjeto, Pokemon pokemon)
+        {
+            // Buscar el objeto en la mochila
+            Objetos objeto = BuscarObjeto(nombreObjeto);
+
+            // Si el objeto no se encuentra en la mochila, se retorna un mensaje de error
+            if (objeto == null)
+            {
+                return "El objeto no está en la mochila.";
+            }
+
+            // Usar el objeto (esto llama al método Usar de la clase del objeto, como RestaurarTodo)
+            string resultado = objeto.Usar(pokemon, this);
+
+            // Eliminar el objeto de la mochila si se utilizó correctamente
+            Mochila.Remove(objeto);
+
+            return resultado;
+        }
+    }
 }
