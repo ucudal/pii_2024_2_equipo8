@@ -105,5 +105,22 @@ public class EntrenadoresTest
         var objeto = entrenador.BuscarObjeto("MasterBall");
         Assert.That(objeto, Is.Null);
     }
+    [Test]
+    public void Entrenador_FijarPokemonActual_NoDeberiaEstablecerPokemonConVidaCero()
+    {
+        pikachu.Vida = 0; 
+        bool resultado = entrenador.FijarPokemonActual(pikachu); 
 
+        Assert.That(resultado, Is.False);
+        Assert.That(entrenador.PokemonActivo.Nombre, Is.Not.EqualTo(pikachu));
+    }
+
+    [Test]
+    public void Entrenador_EliminarPokemon_DeberiaEliminarPokemonCorrectamente()
+    {
+        entrenador.Pokemones.Remove(pikachu);
+
+        Assert.That(entrenador.Pokemones.Count, Is.EqualTo(1));
+        Assert.That(entrenador.Pokemones.Contains(pikachu), Is.False);
+    }
 }
