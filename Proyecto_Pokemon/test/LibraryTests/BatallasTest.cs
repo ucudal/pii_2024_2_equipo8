@@ -147,6 +147,19 @@ public class BatallasTest
        // Assert.That(resultadoAtaque, Does.Contain("esquivar")); 
     }
     [Test]
+    public void RestaurarTodo_DeberiaRecuperarVidaCorrectamente()
+    {
+        Objetos restaurartodo = new Restaurartodo();
+        entrenador1.Mochila.Add(restaurartodo);
+        entrenador1.PokemonActivo.Vida = 10;
+        entrenador1.PokemonActivo.Estado = "quemado";
+
+        string resultado = batalla.UsarMochila(restaurartodo, entrenador1.PokemonActivo);
+        Assert.That(entrenador1.PokemonActivo.Estado,Is.EqualTo(null));
+        //Assert.That(resultado, Does.Contain("recuperaron"));
+        Assert.That(entrenador1.PokemonActivo.Vida, Is.EqualTo(100));
+    }
+    [Test]
     public void UsarMochila_DeberiaRecuperarVidaCorrectamente()
     {
         Objetos pocion = new SuperPocion();
