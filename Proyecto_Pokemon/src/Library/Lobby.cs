@@ -1,20 +1,28 @@
 ﻿using System.Collections.Generic;
 
 namespace Proyecto_Pokemon;
-
+/// <summary>
+/// 
+/// </summary>
 public class Lobby
 {
     // Lista de entrenadores en el lobby
     private List<Entrenadores> Entrenadoress { get; } = new List<Entrenadores>();
-   
+    /// <summary>
+    /// 
+    /// </summary>
     public int Cantidad
     {
         get { return Entrenadoress.Count; }
     }
     
     // Método para agregar un entrenador al lobby
+    /// <summary>
+    /// 
+    /// </summary>
     public bool AgregarEntrenadores(string NombreEntrenador)
     {
+        
         // Verificamos que el nombre no sea nulo o vacío
         if (string.IsNullOrEmpty(NombreEntrenador))
             throw new ArgumentException(nameof(NombreEntrenador));
@@ -29,8 +37,12 @@ public class Lobby
     }
     
     // Método para eliminar un entrenador del lobby, bool para indicar si se completó
+    /// <summary>
+    /// 
+    /// </summary>
     public bool SacarEntrenadores(string EntrenadoresName)
     {
+        
         // Buscamos al entrenador por nombre string, si no está, no se puede eliminar
         Entrenadores? Entrenadores = EntrenadorPorNombre(EntrenadoresName);
         if (Entrenadores == null)
@@ -42,6 +54,9 @@ public class Lobby
     }
     
     // Método para obtener un entrenador por su nombre como string, útil para fachada y futuras implementaciones
+    /// <summary>
+    /// 
+    /// </summary>
     public Entrenadores? EntrenadorPorNombre(string EntrenadoresName)
     {
         foreach (Entrenadores Entrenadores in Entrenadoress)
@@ -53,6 +68,9 @@ public class Lobby
     }
     
     // Método para asignar un oponente random
+    /// <summary>
+    /// 
+    /// </summary>
     public Entrenadores? AnadirRandom(string EntrenadoresName)
     {
         Random random = new Random();
@@ -71,6 +89,9 @@ public class Lobby
     }
     
     // Método para ver la lista de entrenadores en el lobby
+    /// <summary>
+    /// 
+    /// </summary>
     public string VerListaLobby()
     {
         string result = null;

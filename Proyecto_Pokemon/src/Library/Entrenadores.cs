@@ -1,17 +1,39 @@
 namespace Proyecto_Pokemon;
-
+/// <summary>
+/// 
+/// </summary>
 public class Entrenadores
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public string Nombre { get; }
+    /// <summary>
+    /// 
+    /// </summary>
     public List<Pokemon> Pokemones { get; }
+    /// <summary>
+    /// 
+    /// </summary>
     public int CantidadDePokemones
     {
         get { return Pokemones.Count; }
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public Pokemon PokemonActivo { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
     public List<Objetos> Mochila { get; } = new List<Objetos>();
+    /// <summary>
+    /// 
+    /// </summary>
     public bool EnBatalla { get; set; }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public Entrenadores(string nombre)
     {
         Nombre = nombre;
@@ -21,6 +43,9 @@ public class Entrenadores
     }
 
     // Booleano que indica si un pokemon existe con ese nombre en string
+    /// <summary>
+    /// 
+    /// </summary>
     public bool BuscarPokemon(string nombrePokemon)
     {
         foreach (Pokemon pokemon in Pokemones)
@@ -30,6 +55,9 @@ public class Entrenadores
     }
     
     // Devolver pokemon según string de nombre, útil para fachada
+    /// <summary>
+    /// 
+    /// </summary>
     public Pokemon BuscarPokemonYGuardar(string nombrePokemon)
     {
         foreach (Pokemon pokemon in Pokemones)
@@ -43,6 +71,9 @@ public class Entrenadores
     }
     
     // Creación de objetos de mochila para cada entrenador
+    /// <summary>
+    /// 
+    /// </summary>
     private List<Objetos> InicializarMochila()
     {
         return new List<Objetos>
@@ -59,6 +90,9 @@ public class Entrenadores
     }
     
     // Cambio de pokemon activo al previsto, si no es al primero disponible
+    /// <summary>
+    /// 
+    /// </summary>
     public bool FijarPokemonActual(Pokemon? pokemon = null)
     {
         if (pokemon != null)
@@ -84,19 +118,28 @@ public class Entrenadores
         return false;
     }
     
-    // Devuelve pokemones de equipo 
+    // Devuelve pokemones de equipo
+    /// <summary>
+    /// 
+    /// </summary>
     public List<Pokemon> RecibirEquipoPokemon()
     {
         return Pokemones;
     }
     
     // Check booleano de pokemones vivos, útil para batalla. Lógica hecha en entrenadores por srp
+    /// <summary>
+    /// 
+    /// </summary>
     public bool TienePokemonesVivos()
     {
         return Pokemones.Any(pokemon => pokemon.Vida > 0);
     }
     
     // Añadir pokemons a lista de entrenador
+    /// <summary>
+    /// 
+    /// </summary>
     public bool AñadirPokemon(Pokemon pokemon)
     {
         if (Pokemones.Count < 6)
@@ -113,6 +156,9 @@ public class Entrenadores
     }
     
     // Ver lista de objetos alocados en mochila del entrenador
+    /// <summary>
+    /// 
+    /// </summary>
     public List<Objetos> MostrarMochila()
     {
         Dictionary<string, int> contadordeObjetos = new Dictionary<string, int>();
@@ -140,6 +186,9 @@ public class Entrenadores
     }
     
     // Método para acceder a objetos desde strings
+    /// <summary>
+    /// 
+    /// </summary>
     public Objetos? BuscarObjeto(string nombreObjeto)
     {
         foreach (Objetos objeto in Mochila)
@@ -151,20 +200,6 @@ public class Entrenadores
         }
         return null;
     }
-    
-    public int ItemCount(string itemName)
-    {
-        int result = 0;
-        foreach (Objetos item in Mochila)
-        {
-            if (item.Nombre == itemName)
-            {
-                result++;
-            }
-        }
-        return result;
-    }
-
     
     
 }
