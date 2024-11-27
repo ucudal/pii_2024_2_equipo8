@@ -4,7 +4,7 @@ using Discord;
 namespace ProyectoPokemon;
 
 /// <summary>
-/// 
+/// Te muestra la tabla de tipos
 /// </summary>
 public class TiposCommand : ModuleBase<SocketCommandContext>
 {

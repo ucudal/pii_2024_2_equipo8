@@ -6,7 +6,7 @@ using Library;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// 
+/// comando que devuelve de quien es el turno.
 /// </summary>
 public class TurnoCommand : ModuleBase<SocketCommandContext>
 {
@@ -14,11 +14,7 @@ public class TurnoCommand : ModuleBase<SocketCommandContext>
     /// Devuelve de quien es el turno.
     /// </summary>
     [Command("turno")]
-    [Summary(
-        """
-        Devuelve de quien es el turno.
-        Se debe estar en partida para utilizar este comando.
-        """)]
+    [Summary("Te notifica si es tu turno de jugar")]
     public async Task ExecuteAsync()
     {
         string playerName = CommandHelper.GetDisplayName(Context);

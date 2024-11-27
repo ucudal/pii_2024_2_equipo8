@@ -6,51 +6,44 @@ using Library;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// 
+/// comando para usar un item de la mochila
 /// </summary>
 public class UsarMochilaCommand : ModuleBase<SocketCommandContext>
 {
     /// <summary>
-    /// Envía a la fachada un mensaje con el item de cura a usar y el Pokemons que se verá beneficiado.
+    /// envia a la fachada un mensaje con el item de cura a usar y el pokemon que se va a potenciar
     /// </summary>
     [Command("curar")]
-    [Summary(
-        """
-        Usa el item seleccionado para beneficiar al Pokemon especificado.
-        Si no se pudo utilizar el item el jugador no pierde el turno.
-        Este comando solo puede ser utilizado por un jugador mientras
-        sea su turno.
-        """)]
+    [Summary("usa el objeto seleccionado para beneficiar al pokemon especificado.")]
     public async Task ExecuteAsync(
         [Remainder]
         [Summary("Nombre del item a usar y del Pokemon a ser beneficiado concatenados")]
-        string itemAndPokemonName
+        string itemAndnombreEntrenador
     )
     {
-        string itemName;
-        string pokemonName;
-        string result;
-        
-        string[] itemAndPokemonSplit = itemAndPokemonName.Split(" ");
-        if (itemAndPokemonSplit.Length > 2)
+        string nombreEntrenador;
+        string final;
+        string objeto;
+        string[] objetoconpokemon = itemAndnombreEntrenador.Split(" ");
+        if (objetoconpokemon.Length > 2)
         {
-            itemName = String.Join(" ", itemAndPokemonSplit, 0, itemAndPokemonSplit.Length-1);
-            pokemonName = itemAndPokemonSplit[itemAndPokemonSplit.Length-1];
+            objeto = String.Join(" ", objetoconpokemon, 0, objetoconpokemon.Length-1);
+            nombreEntrenador = objetoconpokemon[objetoconpokemon.Length-1];
         }
-        else if (itemAndPokemonSplit.Length == 2)
+        else if (objetoconpokemon.Length == 2)
         {
-            itemName = itemAndPokemonSplit[0];          
-            pokemonName = itemAndPokemonSplit[1];
+            objeto = objetoconpokemon[0];          
+            nombreEntrenador = objetoconpokemon[1];
         }
         else
         {
-            result = "Para usar un item debes usar el siguiente formato:\n**!use** <**item**> <**pokemon**>";
-            await ReplyAsync(result);
+            final = "Para usar un item debes usar el siguiente formato:\n**!use** <**objeto**> <**pokemon**>";
+            await ReplyAsync(final);
             return;
         }
 
         string displayName = CommandHelper.GetDisplayName(Context);
-        result = Fachada.UsarObjetoMochila(displayName, itemName, pokemonName);
-        await ReplyAsync(result);
+        final = Fachada.UsarObjetoMochila(displayName, objeto, nombreEntrenador);
+        await ReplyAsync(final);
     }
 }

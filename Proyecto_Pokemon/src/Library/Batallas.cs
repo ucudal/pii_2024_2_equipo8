@@ -34,18 +34,16 @@ public class Batallas
         entrenadorActual = entrenador1;
         turno = 1;
     }
-    // Verifica si alguno de los entrenadores ya no tiene pokemones vivos
     /// <summary>
-    /// 
+    /// Verifica si alguno de los entrenadores ya no tiene pokemones vivos
     /// </summary>
     public bool ChequerMuerte()
     {
         return !entrenador1.TienePokemonesVivos() || !entrenador2.TienePokemonesVivos();
     }
     
-    // Comprobar si el entrenador está participando en esta batalla
     /// <summary>
-    /// 
+    /// Comprobar si el entrenador está participando en esta batalla
     /// </summary>
     public bool ConfirmarSiEntrenadorEstaPeleando(Entrenadores entrenadores)
     {
@@ -63,9 +61,8 @@ public class Batallas
         return false;
     }
     
-    // Verifica si ambos entrenadores ya tienen sus equipos completos
     /// <summary>
-    /// 
+    /// Verifica si ambos entrenadores ya tienen sus equipos completos
     /// </summary>
     public bool ConfirmandoEquipoCompleto()
     {
@@ -73,9 +70,8 @@ public class Batallas
                entrenador2.RecibirEquipoPokemon().Count == 6;
     }
     
-    // Requisitos previos para iniciar batalla
     /// <summary>
-    /// 
+    /// Requisitos previos para iniciar batalla
     /// </summary>
     public string Iniciar(Entrenadores Entrenador1, Entrenadores Entrenador2)
     {
@@ -100,9 +96,8 @@ public class Batallas
         return $"{entrenador1.Nombre} y {entrenador2.Nombre} están listos para la batalla \n {entrenadorActual.Nombre} empieza.";
     }
 
-    // Método para gestionar ataque
     /// <summary>
-    /// 
+    /// Método para gestionar ataque
     /// </summary>
     public string Atacar(IHabilidades habilidad)
     {
@@ -156,18 +151,16 @@ public class Batallas
         return resultadoAtaqueNormal + "\n" + cambioTurnoNormal + estadoResultado;
     }
     
-    // Devuelve lista de entrenadores disponibles
     /// <summary>
-    /// 
+    /// Devuelve lista de entrenadores disponibles
     /// </summary>
     public List<Entrenadores> JugadoresDisponibles()
     {
         return new List<Entrenadores> { entrenador1, entrenador2 };
     }
     
-    // Método interno de esquivo, utilizado en fachada
     /// <summary>
-    /// 
+    /// Método interno de esquivo, utilizado en fachada
     /// </summary>
     public string Esquivar()
     {
@@ -177,9 +170,8 @@ public class Batallas
         return $"{atacante.Nombre} de {entrenadorActual.Nombre} está preparado para esquivar el proximo movimiento\n{estadoResultado}";
     }
     
-    // Verificar si ambos entrenadores aún tienen pokemones vivos
     /// <summary>
-    /// 
+    /// Verificar si ambos entrenadores aún tienen pokemones vivos
     /// </summary>
     public bool StatusBatalla()
     {
@@ -201,9 +193,8 @@ public class Batallas
         return true;
     }
     
-    // Cambio interno de cambiar pokemon, utilizado en fachada
     /// <summary>
-    /// 
+    /// Cambio interno de cambiar pokemon, utilizado en fachada
     /// </summary>
     public string CambiarPokemon(Pokemon pokemon)
     {
@@ -224,9 +215,8 @@ public class Batallas
         return $"{entrenadorActual.Nombre} no pudo cambiar a {pokemon.Nombre}.";
     }
     
-    // Método interno de usar mochila, uso de objetos presentes en mochila
     /// <summary>
-    /// 
+    /// Método interno de usar mochila, uso de objetos presentes en mochila
     /// </summary>
     public string UsarMochila(Objetos? objeto, Pokemon? pokemon)
     {
@@ -249,9 +239,8 @@ public class Batallas
         return final;
     }
 
-    // Verifica el caso de cada pokemon para ver como se gestiona
     /// <summary>
-    /// 
+    /// Verifica el caso de cada pokemon para ver como se gestiona
     /// </summary>
     public string VerificarEstado(Pokemon atacante)
     {
@@ -293,9 +282,8 @@ public class Batallas
         return "";
     }
 
-    // En cambio de turno se chequea estado de batalla,
     /// <summary>
-    /// 
+    /// En cambio de turno se chequea estado de batalla
     /// </summary>
     public string CambiarTurno()
     {
@@ -332,9 +320,8 @@ public class Batallas
         return null;
     }
     
-    // Chequeo de ganador según si tiene pokemones vivos, el que tenga vivos gana, si ninguno tiene es empate
     /// <summary>
-    /// 
+    /// Chequeo de ganador según si tiene pokemones vivos, el que tenga vivos gana, si ninguno tiene es empate
     /// </summary>
     public string DeterminarGanador()
     {

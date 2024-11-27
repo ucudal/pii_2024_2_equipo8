@@ -3,15 +3,15 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase implementa el comando 'cambiar' del bot.
+/// comando para cambiar de pokemon durante la batalla.
 /// </summary>
 public class CambiarCommand : ModuleBase<SocketCommandContext>
 {
     /// <summary>
-    /// Permite el cambio de pokemon, muestra con ayuda de cambio pokemon.
+    /// Permite el cambio entre pokemones del mismo equipo
     /// </summary>
     [Command("cambiar")]
-    [Summary("")]
+    [Summary("cambia el pokemon que está a la cabeza por otro del equipo")]
     public async Task ExecuteAsync(
         [Remainder]
         [Summary("")]

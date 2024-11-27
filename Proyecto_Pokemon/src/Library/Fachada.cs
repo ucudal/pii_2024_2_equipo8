@@ -1,8 +1,7 @@
 namespace Proyecto_Pokemon;
 
-//Clase que actúa como interfaz principal del proyecto, hace la conexión entre logica de proyecto y usuario
 /// <summary>
-/// 
+/// Clase que actúa como interfaz principal del proyecto, hace la conexión entre logica de proyecto y usuario
 /// </summary>
 public static class Fachada
 {
@@ -15,18 +14,16 @@ public static class Fachada
     // Instancia para manejar las batallas activas
     private static BatallasEnCurso batallaencurso { get; } = new BatallasEnCurso();
     
-    // Muestra lista de pokemon disponibles para usar
     /// <summary>
-    /// 
+    /// Muestra lista de pokemon disponibles para usar
     /// </summary>
     public static string OpcionesPokemones()
     {
         return "**Opciones para el Equipo:**\n" + CantidadPokemones.MostrarPokemones();
     }
     
-    // Inicia batalla entre dos entrenadores dados
     /// <summary>
-    /// 
+    /// Inicia batalla entre dos entrenadores dados
     /// </summary>
     public static string CrearBatalla(string NombreEntrenador1, string NombreEntrenador2)
     {
@@ -38,9 +35,8 @@ public static class Fachada
         return $"**EMPIEZA LA PELEA ENTRE {NombreEntrenador1} CONTRA {NombreEntrenador2}**\n";
     }
     
-    // Muestra habilidades de pokemon activo
     /// <summary>
-    /// 
+    /// Muestra habilidades de pokemon activo
     /// </summary>
     public static string VerHabilidades(string nombreEntrenador)
     {
@@ -63,9 +59,8 @@ public static class Fachada
         return $"{nombreEntrenador} estas son las habilidades de tu __{pokemonActivo.Nombre}__:\n{ataques}";
     }
 
-    // Usar habilidad de pokemon activo
     /// <summary>
-    /// 
+    /// Usar habilidad de pokemon activo
     /// </summary>
     public static string ElegirHabilidad(string nombreEntrenador, string nombreHabilidad) 
     {
@@ -107,9 +102,8 @@ public static class Fachada
         return $"{finaladoAtaque}{estadoJuego}";
     }
 
-    // Confirma si es el turno del entrenador actual
     /// <summary>
-    /// 
+    /// Confirma si es el turno del entrenador actual
     /// </summary>
     public static string RevisarTurno(string nombreEntrenador)
     {
@@ -134,9 +128,8 @@ public static class Fachada
         return null;
     }
 
-    // Verifica si una batalla ha finalizado y anuncia al ganador
     /// <summary>
-    /// 
+    /// Verifica si una batalla ha finalizado y anuncia al ganador
     /// </summary>
     public static string CierreDeLaBatalla(Batallas batalla)
     {
@@ -153,7 +146,7 @@ public static class Fachada
         return "La partida no pudo ser encontrada";
     }
     /// <summary>
-    /// 
+    /// Permite que un entrenador se rinda durante una batalla. devuelve un mensaje indicando el resultado de la rendicion
     /// </summary>
     public static string Rendirse(string entrenadorNombre)
     {
@@ -172,9 +165,8 @@ public static class Fachada
         return $"EL INCREIBLE ENTRENADOR {batalla.JugadoresDisponibles()[noEntrenadorActual].Nombre} SE RINDIÓ.\nEL GANADOR ES {batalla.JugadoresDisponibles()[batalla.turno].Nombre} \nY EL PERDEDOR {batalla.JugadoresDisponibles()[noEntrenadorActual].Nombre}";
     }
     
-    // Inicia una batalla buscando un oponente en el lobby o con un nombre específico solo si se cumplen requisitos de disponibilidad, se llama a CrearBatalla
     /// <summary>
-    /// 
+    /// Inicia una batalla buscando un oponente en el lobby o con un nombre específico solo si se cumplen requisitos de disponibilidad, se llama a CrearBatalla
     /// </summary>
     public static string IniciarBatalla(string NombreEntrenador1, string NombreEntrenador2)
     {
@@ -233,9 +225,8 @@ public static class Fachada
         }
     }
     
-    // Remueve a un entrenador del lobby
     /// <summary>
-    /// 
+    /// Remueve a un entrenador del lobby
     /// </summary>
     public static string SacarEntrenadorDelLobby(string nombre)
     {
@@ -246,9 +237,8 @@ public static class Fachada
         return $"{nombre} ni siquiera está en el Lobby.";
     }
     
-    // Agrega a un entrenador al lobby
     /// <summary>
-    /// 
+    /// Agrega a un entrenador al lobby
     /// </summary>
     public static string MeterUsuarioAlLobby(string nombre)
     {
@@ -266,9 +256,8 @@ public static class Fachada
         return $"{nombre} ya se encuentra en el Lobby.";
     }
     
-    // Muestra los entrenadores actualmente en el lobby
     /// <summary>
-    /// 
+    /// Muestra los entrenadores actualmente en el lobby
     /// </summary>
     public static string VerLobby()
     {
@@ -280,9 +269,8 @@ public static class Fachada
         return "Gente en Lobby: \n" + lobby.VerListaLobby();
     }
     
-    // Permite a un entrenador esquivar un ataque durante su turno
     /// <summary>
-    /// 
+    /// Permite a un entrenador esquivar un ataque durante su turno
     /// </summary>
     public static string EsquivarPokemon(string nombreEntrenador)
     {
@@ -312,9 +300,8 @@ public static class Fachada
         return "No es tu turno, no podes hacer movimientos";
     }
     
-    // Cambia el pokemon activo de un entrenador
     /// <summary>
-    /// 
+    /// Cambia el pokemon activo de un entrenador
     /// </summary>
     public static string CambiarPokemones(string nombreEntrenador, string nombrePokemon)
     {
@@ -362,9 +349,8 @@ public static class Fachada
         return "No es tu turno, no podes hacer movimientos";
     }
     
-    // Muestra los objetos disponibles en la mochila de un entrenador
     /// <summary>
-    /// 
+    /// Muestra los objetos disponibles en la mochila de un entrenador
     /// </summary>
     public static string VerMochila(string nombreEntrenador)
     {
@@ -386,9 +372,8 @@ public static class Fachada
         return final += "```" ;
     }
     
-    // Usa un objeto de la mochila de un entrenador sobre un pokemon
     /// <summary>
-    /// 
+    /// Usa un objeto de la mochila de un entrenador sobre un pokemon
     /// </summary>
     public static string UsarObjetoMochila(string nombreEntrenador, string item, string pokemon)
     {
@@ -425,9 +410,8 @@ public static class Fachada
         return $"{player.Nombre}, no eres el jugador activo, no puedes realizar acciones";
     }
 
-    // Seleccionar equipo usando strings
     /// <summary>
-    /// 
+    /// Seleccionar equipo usando strings
     /// </summary>
     public static string SeleccionarEquipo(string nombreEntrenador, string nombrePokemon)
     {
@@ -458,9 +442,8 @@ public static class Fachada
         return $"{nombreEntrenador} ya tenes 6 pokemones en el equipo, no podes elegir más";
     }
     
-    //Método utilizado para formar un equipo de forma aleatoria, sin pasar por selección uno a uno
     /// <summary>
-    /// 
+    /// Método utilizado para formar un equipo de forma aleatoria, sin pasar por selección uno a uno
     /// </summary>
     public static string elegirRandomente(string nombreEntrenador)
     {
@@ -492,10 +475,9 @@ public static class Fachada
         }
         return final += "**";
     }
-    // Muestra la lista de pokemon de un entrenador, junto con su estado, vida y tipo.
-    // Si se especifica un segundo entrenador, muestra la lista de pokemon de ese entrenador.
     /// <summary>
-    /// 
+    /// Muestra la lista de pokemon de un entrenador, junto con su estado, vida y tipo.
+    /// Si se especifica un segundo entrenador, muestra la lista de pokemon de ese entrenador.
     /// </summary>
     public static string VerPokemones(string nombreEntrenador, string? nombreEntrenador2 = null)
     {

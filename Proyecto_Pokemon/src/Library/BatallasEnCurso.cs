@@ -1,20 +1,18 @@
 namespace Proyecto_Pokemon;
 
-// Clase que gestiona batallas en curso, se divide responsabilidad con batallas para que sea una unica responsabilidad
 /// <summary>
-/// 
+/// Clase que gestiona batallas en curso, se divide responsabilidad con batallas para que sea una unica responsabilidad
 /// </summary>
 public class BatallasEnCurso
 {
     /// <summary>
-    /// 
+    /// Se crea una lista de las partidas
     /// </summary>
     private List<Batallas> Partidas = new List<Batallas>();
     private Lobby lobby = new Lobby();
     
-    // Terminar batalla, bool de indicador si se logra
     /// <summary>
-    /// 
+    /// Terminar batalla, bool de indicador si se logra
     /// </summary>
     public bool TerminarPartida(Batallas partida)
     {
@@ -25,9 +23,8 @@ public class BatallasEnCurso
         return false;
     }
 
-    // Devolver batalla que contiene entrenador
     /// <summary>
-    /// 
+    /// Devolver batalla que contiene entrenador
     /// </summary>
     public Batallas BatallaPorEntrenador(Entrenadores entrenador)
     {
@@ -41,7 +38,9 @@ public class BatallasEnCurso
         return null;
     }
     
-    // Devolver entrenador presente en batalla según el nombre string
+    /// <summary>
+    /// Devolver entrenador presente en batalla según el nombre string
+    /// </summary>
     public Entrenadores? EntrenadorPorNombre(string nombre)
     {
         foreach (Batallas partida in Partidas)
@@ -51,7 +50,9 @@ public class BatallasEnCurso
         return null;
     }
 
-    // Se agrega nueva batalla a batallasencurso, se retorna la misma
+    /// <summary>
+    /// Se agrega nueva batalla a batallasencurso, se retorna la misma
+    /// </summary>
     public Batallas CrearPartida(Entrenadores entrenador1, Entrenadores entrenador2)
     {
         Batallas partida = new Batallas(entrenador1, entrenador2);

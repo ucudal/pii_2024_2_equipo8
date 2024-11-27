@@ -2,23 +2,21 @@
 
 namespace Proyecto_Pokemon;
 /// <summary>
-/// 
+/// Clase que representa un lobby donde los entrenadores pueden unirse, retirarse, buscar oponentes y ver la lista de participantes
 /// </summary>
 public class Lobby
 {
-    // Lista de entrenadores en el lobby
     private List<Entrenadores> Entrenadoress { get; } = new List<Entrenadores>();
     /// <summary>
-    /// 
+    /// Lista de entrenadores en el lobby
     /// </summary>
     public int Cantidad
     {
         get { return Entrenadoress.Count; }
     }
     
-    // Método para agregar un entrenador al lobby
     /// <summary>
-    /// 
+    /// Método para agregar un entrenador al lobby
     /// </summary>
     public bool AgregarEntrenadores(string NombreEntrenador)
     {
@@ -36,9 +34,8 @@ public class Lobby
         return true;
     }
     
-    // Método para eliminar un entrenador del lobby, bool para indicar si se completó
     /// <summary>
-    /// 
+    /// Método para eliminar un entrenador del lobby, bool para indicar si se completó
     /// </summary>
     public bool SacarEntrenadores(string EntrenadoresName)
     {
@@ -53,9 +50,8 @@ public class Lobby
         return true;
     }
     
-    // Método para obtener un entrenador por su nombre como string, útil para fachada y futuras implementaciones
     /// <summary>
-    /// 
+    /// Método para obtener un entrenador por su nombre como string, útil para fachada y futuras implementaciones
     /// </summary>
     public Entrenadores? EntrenadorPorNombre(string EntrenadoresName)
     {
@@ -67,9 +63,8 @@ public class Lobby
         return null;
     }
     
-    // Método para asignar un oponente random
     /// <summary>
-    /// 
+    /// Método para asignar un oponente random
     /// </summary>
     public Entrenadores? AnadirRandom(string EntrenadoresName)
     {
@@ -88,9 +83,8 @@ public class Lobby
         return Entrenadoress[numerorandom];
     }
     
-    // Método para ver la lista de entrenadores en el lobby
     /// <summary>
-    /// 
+    /// Método para ver la lista de entrenadores en el lobby
     /// </summary>
     public string VerListaLobby()
     {

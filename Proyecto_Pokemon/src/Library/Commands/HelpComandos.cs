@@ -4,7 +4,7 @@ using Library.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// 
+/// comando para iniciar una batalla entre dos jugadores en el lobby.
 /// </summary>
 public class HelpComandos : ModuleBase<SocketCommandContext>
 {

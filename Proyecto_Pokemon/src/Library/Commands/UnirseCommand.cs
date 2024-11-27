@@ -4,12 +4,12 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// 
+/// Comando para que un usuario se una al lobby.
 /// </summary>
 public class UnirseCommand : ModuleBase<SocketCommandContext>
 {
     /// <summary>
-    /// Comando para unirse al lobby.
+    /// Permite al usuario unirse al lobby.
     /// </summary>
     [Command("unirse")]
     [Summary("Ingresa al usuario al Lobby")]

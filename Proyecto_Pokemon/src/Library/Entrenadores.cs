@@ -1,38 +1,38 @@
 namespace Proyecto_Pokemon;
 /// <summary>
-/// 
+/// Representa un entrenador en el mundo pokemon con un equipo, una mochila y estado de batalla.
 /// </summary>
 public class Entrenadores
 {
     /// <summary>
-    /// 
+    /// Define el nombre del entrenador
     /// </summary>
     public string Nombre { get; }
     /// <summary>
-    /// 
+    /// Lista de Pokemon del entrenador.
     /// </summary>
     public List<Pokemon> Pokemones { get; }
     /// <summary>
-    /// 
+    /// cantidad de pokemon en el equipo del entrenador
     /// </summary>
     public int CantidadDePokemones
     {
         get { return Pokemones.Count; }
     }
     /// <summary>
-    /// 
+    /// pokemon que el entrenador tiene actualmente en batalla
     /// </summary>
     public Pokemon PokemonActivo { get; set; }
     /// <summary>
-    /// 
+    /// creacion de objetos de mochila para cada entrenador
     /// </summary>
     public List<Objetos> Mochila { get; } = new List<Objetos>();
     /// <summary>
-    /// 
+    /// indica si el entrenador esta en batalla
     /// </summary>
     public bool EnBatalla { get; set; }
     /// <summary>
-    /// 
+    /// constructor para inicializar el entrenador con nombre, pokemones y mochila
     /// </summary>
     public Entrenadores(string nombre)
     {
@@ -42,9 +42,8 @@ public class Entrenadores
         EnBatalla = false;
     }
 
-    // Booleano que indica si un pokemon existe con ese nombre en string
     /// <summary>
-    /// 
+    /// Booleano que indica si un pokemon existe con ese nombre en string
     /// </summary>
     public bool BuscarPokemon(string nombrePokemon)
     {
@@ -54,9 +53,8 @@ public class Entrenadores
         return false;
     }
     
-    // Devolver pokemon según string de nombre, útil para fachada
     /// <summary>
-    /// 
+    /// Devolver pokemon según string de nombre, útil para fachada
     /// </summary>
     public Pokemon BuscarPokemonYGuardar(string nombrePokemon)
     {
@@ -70,9 +68,8 @@ public class Entrenadores
         return null;
     }
     
-    // Creación de objetos de mochila para cada entrenador
     /// <summary>
-    /// 
+    /// Creación de objetos de mochila para cada entrenador
     /// </summary>
     private List<Objetos> InicializarMochila()
     {
@@ -89,9 +86,8 @@ public class Entrenadores
         
     }
     
-    // Cambio de pokemon activo al previsto, si no es al primero disponible
     /// <summary>
-    /// 
+    /// Cambio de pokemon activo al previsto, si no es al primero disponible
     /// </summary>
     public bool FijarPokemonActual(Pokemon? pokemon = null)
     {
@@ -118,27 +114,24 @@ public class Entrenadores
         return false;
     }
     
-    // Devuelve pokemones de equipo
     /// <summary>
-    /// 
+    /// Devuelve pokemones de equipo
     /// </summary>
     public List<Pokemon> RecibirEquipoPokemon()
     {
         return Pokemones;
     }
     
-    // Check booleano de pokemones vivos, útil para batalla. Lógica hecha en entrenadores por srp
     /// <summary>
-    /// 
+    /// Check booleano de pokemones vivos, útil para batalla. Lógica hecha en entrenadores por srp
     /// </summary>
     public bool TienePokemonesVivos()
     {
         return Pokemones.Any(pokemon => pokemon.Vida > 0);
     }
     
-    // Añadir pokemons a lista de entrenador
     /// <summary>
-    /// 
+    /// Añadir pokemons a lista de entrenador
     /// </summary>
     public bool AñadirPokemon(Pokemon pokemon)
     {
@@ -155,9 +148,8 @@ public class Entrenadores
         return false;
     }
     
-    // Ver lista de objetos alocados en mochila del entrenador
     /// <summary>
-    /// 
+    /// Ver lista de objetos alocados en mochila del entrenador
     /// </summary>
     public List<Objetos> MostrarMochila()
     {
@@ -181,16 +173,15 @@ public class Entrenadores
     }
     
     /// <summary>
-    /// 
+    /// devuelve la lista completa de objetos en la mochila
     /// </summary>
     public List<Objetos> GetItemList()
     {
         return Mochila;
     }
     
-    // Método para acceder a objetos desde strings
     /// <summary>
-    /// 
+    /// Método para acceder a objetos desde strings
     /// </summary>
     public Objetos? BuscarObjeto(string nombreObjeto)
     {

@@ -2,7 +2,7 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// Esta clase se encarga de usar las habilidades disponibles del pokemon para usarlos en el rival.
+/// Esta clase se encarga de agregar a tu equipo el pokemon que selecciones
 /// </summary>
 public class ElegirCommand : ModuleBase<SocketCommandContext>
 {
@@ -10,11 +10,7 @@ public class ElegirCommand : ModuleBase<SocketCommandContext>
     /// Agregar pokemon al equipo.
     /// </summary>
     [Command("elegir")]
-    [Summary(
-        """
-        Agrega al equipo del jugador el Pokemon seleccionado.
-        Si no se logra agregar envía un mensaje avisando al usuario.
-        """)]
+    [Summary("Agrega al equipo del jugador el Pokemon que selecciones")]
     public async Task ExecuteAsync(
         [Remainder] [Summary("Nombre del pokemon.")]
         string pokemonName)

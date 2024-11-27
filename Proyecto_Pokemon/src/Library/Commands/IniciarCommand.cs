@@ -3,7 +3,7 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// 
+/// comando para iniciar una batalla entre dos jugadores en el lobby.
 /// </summary>
 public class IniciarCommand : ModuleBase<SocketCommandContext>
 {

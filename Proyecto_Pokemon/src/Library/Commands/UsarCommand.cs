@@ -2,15 +2,15 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// 
+/// Comando para usar una habilidad de ataque.
 /// </summary>
 public class UsarCommand : ModuleBase<SocketCommandContext>
 {
     /// <summary>
-    /// Comando para usar habilidad como atacar.
+    /// Comando para elegir y ejecutar una habilidad de ataque.
     /// </summary>
     [Command("usar")]
-    [Summary("")]
+    [Summary("Usa el ataque o habilidad especificada por el jugador.")]
     public async Task ExecuteAsync(
         [Remainder]
         [Summary("Ataque que vas a usar.")]

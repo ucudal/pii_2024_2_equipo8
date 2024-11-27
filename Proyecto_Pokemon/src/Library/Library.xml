@@ -4,14 +4,144 @@
         <name>Library</name>
     </assembly>
     <members>
+        <member name="T:Proyecto_Pokemon.Batallas">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Batallas.entrenador1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Batallas.entrenador2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Batallas.entrenadorActual">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Batallas.turno">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Proyecto_Pokemon.Batallas.esquivo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.#ctor(Proyecto_Pokemon.Entrenadores,Proyecto_Pokemon.Entrenadores)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.ChequerMuerte">
+            <summary>
+            Verifica si alguno de los entrenadores ya no tiene pokemones vivos
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.ConfirmarSiEntrenadorEstaPeleando(Proyecto_Pokemon.Entrenadores)">
+            <summary>
+            Comprobar si el entrenador está participando en esta batalla
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.ConfirmandoEquipoCompleto">
+            <summary>
+            Verifica si ambos entrenadores ya tienen sus equipos completos
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.Iniciar(Proyecto_Pokemon.Entrenadores,Proyecto_Pokemon.Entrenadores)">
+            <summary>
+            Requisitos previos para iniciar batalla
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.Atacar(Proyecto_Pokemon.IHabilidades)">
+            <summary>
+            Método para gestionar ataque
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.JugadoresDisponibles">
+            <summary>
+            Devuelve lista de entrenadores disponibles
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.Esquivar">
+            <summary>
+            Método interno de esquivo, utilizado en fachada
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.StatusBatalla">
+            <summary>
+            Verificar si ambos entrenadores aún tienen pokemones vivos
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.CambiarPokemon(Proyecto_Pokemon.Pokemon)">
+            <summary>
+            Cambio interno de cambiar pokemon, utilizado en fachada
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.UsarMochila(Proyecto_Pokemon.Objetos,Proyecto_Pokemon.Pokemon)">
+            <summary>
+            Método interno de usar mochila, uso de objetos presentes en mochila
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.VerificarEstado(Proyecto_Pokemon.Pokemon)">
+            <summary>
+            Verifica el caso de cada pokemon para ver como se gestiona
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.CambiarTurno">
+            <summary>
+            En cambio de turno se chequea estado de batalla
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Batallas.DeterminarGanador">
+            <summary>
+            Chequeo de ganador según si tiene pokemones vivos, el que tenga vivos gana, si ninguno tiene es empate
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.BatallasEnCurso">
+            <summary>
+            Clase que gestiona batallas en curso, se divide responsabilidad con batallas para que sea una unica responsabilidad
+            </summary>
+        </member>
+        <member name="F:Proyecto_Pokemon.BatallasEnCurso.Partidas">
+            <summary>
+            Se crea una lista de las partidas
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.BatallasEnCurso.TerminarPartida(Proyecto_Pokemon.Batallas)">
+            <summary>
+            Terminar batalla, bool de indicador si se logra
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.BatallasEnCurso.BatallaPorEntrenador(Proyecto_Pokemon.Entrenadores)">
+            <summary>
+            Devolver batalla que contiene entrenador
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.BatallasEnCurso.EntrenadorPorNombre(System.String)">
+            <summary>
+            Devolver entrenador presente en batalla según el nombre string
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.BatallasEnCurso.CrearPartida(Proyecto_Pokemon.Entrenadores,Proyecto_Pokemon.Entrenadores)">
+            <summary>
+            Se agrega nueva batalla a batallasencurso, se retorna la misma
+            </summary>
+        </member>
         <member name="T:Proyecto_Pokemon.CambiarCommand">
             <summary>
-            Esta clase implementa el comando 'cambiar' del bot.
+            comando para cambiar de pokemon durante la batalla.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.CambiarCommand.ExecuteAsync(System.String)">
             <summary>
-            Permite el cambio de pokemon, muestra con ayuda de cambio pokemon.
+            Permite el cambio entre pokemones del mismo equipo
             </summary>
         </member>
         <member name="T:Proyecto_Pokemon.CommandHelper">
@@ -31,7 +161,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.ElegirCommand">
             <summary>
-            Esta clase implementa el comando 'elegir' del bot.
+            Esta clase se encarga de agregar a tu equipo el pokemon que selecciones
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.ElegirCommand.ExecuteAsync(System.String)">
@@ -41,7 +171,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.ElegirRandomCommand">
             <summary>
-            Esta clase implementa el comando 'elegirRandom' del bot.
+            Esta clase implementa el comando elegirRandom del bot.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.ElegirRandomCommand.ExecuteAsync">
@@ -51,7 +181,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.EsquivoCommand">
             <summary>
-            Esta clase implementa el comando 'esquivar' del bot.
+            comando para preparar el esquivo para el siguiente ataque.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.EsquivoCommand.ExecuteAsync">
@@ -61,7 +191,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.HelpComandos">
             <summary>
-            Esta clase implementa el comando 'Help' del bot.
+            comando para iniciar una batalla entre dos jugadores en el lobby.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.HelpComandos.ExecuteAsync">
@@ -71,7 +201,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.IniciarCommand">
             <summary>
-            Esta clase implementa el comando 'iniciar' del bot.
+            comando para iniciar una batalla entre dos jugadores en el lobby.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.IniciarCommand.ExecuteAsync(System.String)">
@@ -81,17 +211,27 @@
         </member>
         <member name="T:Proyecto_Pokemon.OpcionesCommand">
             <summary>
-            Esta clase implementa el comando 'opciones' del bot.
+            comando para mostrar los pokemones disponibles para selección.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.OpcionesCommand.ExecuteAsync">
             <summary>
-            Comando para mostrar pokemones disponibles.
+            muestra todos los pokemones que se pueden seleccionar para el equipo.
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.RendirseCommand">
+            <summary>
+            comando para rendirse en la partida en curso.
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.RendirseCommand.ExecuteAsync">
+            <summary>
+            termina la partida en curso dandole la victoria al que no eligió la opcion de rendirse.
             </summary>
         </member>
         <member name="T:Proyecto_Pokemon.SalirCommand">
             <summary>
-            Esta clase implementa el comando 'salir' del bot.
+            comando para sacar al usuario del lobby.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.SalirCommand.ExecuteAsync">
@@ -101,7 +241,7 @@
         </member>
         <member name="T:Proyecto_Pokemon.TurnoCommand">
             <summary>
-            Esta clase implementa el comando 'turno' del bot.
+            comando que devuelve de quien es el turno.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.TurnoCommand.ExecuteAsync">
@@ -111,57 +251,57 @@
         </member>
         <member name="T:Proyecto_Pokemon.UnirseCommand">
             <summary>
-            Esta clase implementa el comando 'unirse' del bot.
+            Comando para que un usuario se una al lobby.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.UnirseCommand.ExecuteAsync">
             <summary>
-            Comando para unirse al lobby.
+            Permite al usuario unirse al lobby.
             </summary>
         </member>
         <member name="T:Proyecto_Pokemon.UsarCommand">
             <summary>
-            Esta clase implementa el comando 'usar' del bot.
+            Comando para usar una habilidad de ataque.
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.UsarCommand.ExecuteAsync(System.String)">
             <summary>
-            Comando para usar habilidad como atacar.
+            Comando para elegir y ejecutar una habilidad de ataque.
             </summary>
         </member>
         <member name="T:Proyecto_Pokemon.UsarMochilaCommand">
             <summary>
-            Esta clase implementa el comando 'curar' del bot.
+            comando para usar un item de la mochila
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.UsarMochilaCommand.ExecuteAsync(System.String)">
             <summary>
-            Envía a la fachada un mensaje con el item de cura a usar y el Pokemons que se verá beneficiado.
+            envia a la fachada un mensaje con el item de cura a usar y el pokemon que se va a potenciar
             </summary>
         </member>
         <member name="T:Proyecto_Pokemon.VerLobbyCommand">
             <summary>
-            Esta clase implementa el comando 'lobby' del bot.
+            Comando para saber qué entrenadores hay en el lobby
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.VerLobbyCommand.ExecuteAsync">
             <summary>
-            Comando para recibir los entrenadores en el lobby.
+            muestra quienes estan en el lobby esperando por una batalla
             </summary>
         </member>
         <member name="T:Proyecto_Pokemon.VerMochilaCommand">
             <summary>
-            Esta clase implementa el comando 'verMochila' del bot.
+            comando para ver los objetos de la mochila
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.VerMochilaCommand.ExecuteAsync">
             <summary>
-            Muestra los items disponibles del jugador.
+            Muestra los items disponibles del entrenador
             </summary>
         </member>
         <member name="T:Proyecto_Pokemon.VerVidaCommand">
             <summary>
-            Esta clase implementa el comando 'verVida' del bot.
+            comando para ver el estado de los pokemones
             </summary>
         </member>
         <member name="M:Proyecto_Pokemon.VerVidaCommand.ExecuteAsync(System.String)">
@@ -169,9 +309,560 @@
             Muestra el estado de los pokemones .
             </summary>
         </member>
+        <member name="T:Proyecto_Pokemon.Entrenadores">
+            <summary>
+            Representa un entrenador en el mundo pokemon con un equipo, una mochila y estado de batalla.
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Entrenadores.Nombre">
+            <summary>
+            Define el nombre del entrenador
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Entrenadores.Pokemones">
+            <summary>
+            Lista de Pokemon del entrenador.
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Entrenadores.CantidadDePokemones">
+            <summary>
+            cantidad de pokemon en el equipo del entrenador
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Entrenadores.PokemonActivo">
+            <summary>
+            pokemon que el entrenador tiene actualmente en batalla
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Entrenadores.Mochila">
+            <summary>
+            creacion de objetos de mochila para cada entrenador
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Entrenadores.EnBatalla">
+            <summary>
+            indica si el entrenador esta en batalla
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.#ctor(System.String)">
+            <summary>
+            constructor para inicializar el entrenador con nombre, pokemones y mochila
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.BuscarPokemon(System.String)">
+            <summary>
+            Booleano que indica si un pokemon existe con ese nombre en string
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.BuscarPokemonYGuardar(System.String)">
+            <summary>
+            Devolver pokemon según string de nombre, útil para fachada
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.InicializarMochila">
+            <summary>
+            Creación de objetos de mochila para cada entrenador
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.FijarPokemonActual(Proyecto_Pokemon.Pokemon)">
+            <summary>
+            Cambio de pokemon activo al previsto, si no es al primero disponible
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.RecibirEquipoPokemon">
+            <summary>
+            Devuelve pokemones de equipo
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.TienePokemonesVivos">
+            <summary>
+            Check booleano de pokemones vivos, útil para batalla. Lógica hecha en entrenadores por srp
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.AñadirPokemon(Proyecto_Pokemon.Pokemon)">
+            <summary>
+            Añadir pokemons a lista de entrenador
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.MostrarMochila">
+            <summary>
+            Ver lista de objetos alocados en mochila del entrenador
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.GetItemList">
+            <summary>
+            devuelve la lista completa de objetos en la mochila
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Entrenadores.BuscarObjeto(System.String)">
+            <summary>
+            Método para acceder a objetos desde strings
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.Fachada">
+            <summary>
+            Clase que actúa como interfaz principal del proyecto, hace la conexión entre logica de proyecto y usuario
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.OpcionesPokemones">
+            <summary>
+            Muestra lista de pokemon disponibles para usar
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.CrearBatalla(System.String,System.String)">
+            <summary>
+            Inicia batalla entre dos entrenadores dados
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.VerHabilidades(System.String)">
+            <summary>
+            Muestra habilidades de pokemon activo
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.ElegirHabilidad(System.String,System.String)">
+            <summary>
+            Usar habilidad de pokemon activo
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.RevisarTurno(System.String)">
+            <summary>
+            Confirma si es el turno del entrenador actual
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.CierreDeLaBatalla(Proyecto_Pokemon.Batallas)">
+            <summary>
+            Verifica si una batalla ha finalizado y anuncia al ganador
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.Rendirse(System.String)">
+            <summary>
+            Permite que un entrenador se rinda durante una batalla. devuelve un mensaje indicando el resultado de la rendicion
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.IniciarBatalla(System.String,System.String)">
+            <summary>
+            Inicia una batalla buscando un oponente en el lobby o con un nombre específico solo si se cumplen requisitos de disponibilidad, se llama a CrearBatalla
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.SacarEntrenadorDelLobby(System.String)">
+            <summary>
+            Remueve a un entrenador del lobby
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.MeterUsuarioAlLobby(System.String)">
+            <summary>
+            Agrega a un entrenador al lobby
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.VerLobby">
+            <summary>
+            Muestra los entrenadores actualmente en el lobby
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.EsquivarPokemon(System.String)">
+            <summary>
+            Permite a un entrenador esquivar un ataque durante su turno
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.CambiarPokemones(System.String,System.String)">
+            <summary>
+            Cambia el pokemon activo de un entrenador
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.VerMochila(System.String)">
+            <summary>
+            Muestra los objetos disponibles en la mochila de un entrenador
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.UsarObjetoMochila(System.String,System.String,System.String)">
+            <summary>
+            Usa un objeto de la mochila de un entrenador sobre un pokemon
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.SeleccionarEquipo(System.String,System.String)">
+            <summary>
+            Seleccionar equipo usando strings
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.elegirRandomente(System.String)">
+            <summary>
+            Método utilizado para formar un equipo de forma aleatoria, sin pasar por selección uno a uno
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Fachada.VerPokemones(System.String,System.String)">
+            <summary>
+            Muestra la lista de pokemon de un entrenador, junto con su estado, vida y tipo.
+            Si se especifica un segundo entrenador, muestra la lista de pokemon de ese entrenador.
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.IEfectos">
+            <summary>
+            interfaz que define los efectos de las habilidades
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IEfectos.Nombre">
+            <summary>
+            nombre del efecto
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.IHabilidades">
+            <summary>
+            interfaz que define las habilidades de los pokemons
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IHabilidades.Nombre">
+            <summary>
+            nombre de la habilidad
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IHabilidades.Tipo">
+            <summary>
+            tipo de la habilidad
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IHabilidades.Danio">
+            <summary>
+            danio que causa la habilidad
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IHabilidades.Precision">
+            <summary>
+            precision de la habilidad
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IHabilidades.Puntos_de_Poder">
+            <summary>
+            Los PP son los puntos de poder, que serian la cantidad de veces que se puede usar una habilidad, o sea que si se quedan sin PP, no se podrá usar de nuevo la habilidad
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IHabilidades.EsDobleTurno">
+            <summary>
+            indica si la habilidad es de doble turno
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IHabilidades.Efectos">
+            <summary>
+            efectos que aplica la habilidad
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.IPokemon">
+            <summary>
+            interfaz que define las operaciones para los pokemons
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IPokemon.Nombre">
+            <summary>
+            nombre del pokemon
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IPokemon.Vida">
+            <summary>
+            vida del pokemon
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IPokemon.Habilidades">
+            <summary>
+            lista de habilidades que tiene el pokemon
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IPokemon.TipoPrincipal">
+            <summary>
+            tipo principal del pokemon
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IPokemon.TipoSecundario">
+            <summary>
+            tipo secundario del pokemon
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.IPokemon.HabilidadCargando">
+            <summary>
+            habilidad que esta siendo cargada por el pokemon
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.IPokemon.AprenderHabilidad(Proyecto_Pokemon.IHabilidades)">
+            <summary>
+            metodo para aprender una nueva habilidad
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.ITipo">
+            <summary>
+            interfaz que define las operaciones para los tipos de los pokemon
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.ITipo.Nombre">
+            <summary>
+            nombre del tipo de pokemon
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.ITipo.EsEfectivoOPocoEfectivo(Proyecto_Pokemon.ITipo)">
+            <summary>
+            metodo que calcula si el tipo es efectivo o poco efectivo contra otro tipo de pokemon
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.Lobby">
+            <summary>
+            Clase que representa un lobby donde los entrenadores pueden unirse, retirarse, buscar oponentes y ver la lista de participantes
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Lobby.Cantidad">
+            <summary>
+            Lista de entrenadores en el lobby
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Lobby.AgregarEntrenadores(System.String)">
+            <summary>
+            Método para agregar un entrenador al lobby
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Lobby.SacarEntrenadores(System.String)">
+            <summary>
+            Método para eliminar un entrenador del lobby, bool para indicar si se completó
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Lobby.EntrenadorPorNombre(System.String)">
+            <summary>
+            Método para obtener un entrenador por su nombre como string, útil para fachada y futuras implementaciones
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Lobby.AnadirRandom(System.String)">
+            <summary>
+            Método para asignar un oponente random
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Lobby.VerListaLobby">
+            <summary>
+            Método para ver la lista de entrenadores en el lobby
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.CuraTotal">
+            <summary>
+            clase que representa el objeto "Cura Total", que elimina los estados alterados de un pokemon
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.CuraTotal.#ctor">
+            <summary>
+            constructor de cura total, llama al constructor base de la clase objetos y le da el nombre "cura total"
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.CuraTotal.Usar(Proyecto_Pokemon.Pokemon,Proyecto_Pokemon.Entrenadores)">
+            <summary>
+            metodo para usar el objeto en un pokemon, si el pokemon no tiene estado alterado, 
+            devuelve un mensaje indicando que no esta afectado, si tiene, lo cura eliminando cualquier estado alterado
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.Objetos">
+            <summary>
+            clase abstracta que representa un objeto en el juego, con un nombre y un metodo para usarlo
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Objetos.Nombre">
+            <summary>
+            nombre del objeto que es representativo
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Objetos.#ctor(System.String)">
+            <summary>
+            constructor de objetos que solo necesita el nombre
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Objetos.Usar(Proyecto_Pokemon.Pokemon,Proyecto_Pokemon.Entrenadores)">
+            <summary>
+            metodo abstracto para usar el objeto en un pokemon
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.Revivir">
+            <summary>
+            clase que representa el objeto "Revivir", que se utiliza para revivir a un pokemon debilitado con la mitad de su vida
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Revivir.#ctor">
+            <summary>
+            constructor de revivir, llama al constructor base de la clase objetos y le da el nombre "revivir"
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Proyecto_Pokemon.Revivir.Usar(Proyecto_Pokemon.Pokemon,Proyecto_Pokemon.Entrenadores)" -->
+        <member name="T:Proyecto_Pokemon.SuperPocion">
+            <summary>
+            clase que representa el objeto "SuperPocion", que se utiliza para curar a un pokemon 70HP
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.SuperPocion.#ctor">
+            <summary>
+            constructor de SuperPocion, llama al constructor base de la clase Objetos y le asigna el nombre "SuperPocion"
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Proyecto_Pokemon.SuperPocion.Usar(Proyecto_Pokemon.Pokemon,Proyecto_Pokemon.Entrenadores)" -->
+        <member name="T:Proyecto_Pokemon.Efectos">
+            <summary>
+            clase que representa los efectos que puede tener una habilidad
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Efectos.Nombre">
+            <summary>
+            nombre del efecto (ejemplo: paralizar, noqueado, etc.)
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Efectos.#ctor(System.String)">
+            <summary>
+            constructor de efectos que solo usa el nombre para determinar cual efecto se usa despues de usar la habilidad
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.Habilidades">
+            <summary>
+            clase que representa las habilidades en el juego
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Habilidades.Nombre">
+            <summary>
+            nombre de la habilidad
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Habilidades.Tipo">
+            <summary>
+            tipo de la habilidad (agua, fuego, etc.)
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Habilidades.Danio">
+            <summary>
+            daño que causa la habilidad
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Habilidades.Precision">
+            <summary>
+            precisión de la habilidad, indica la probabilidad de acierto
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Habilidades.Puntos_de_Poder">
+            <summary>
+            Los PP son los puntos de poder, que serian la cantidad de veces que se puede usar una habilidad, o sea que si se quedan sin PP, no se podrá usar de nuevo la habilidad
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Habilidades.EsDobleTurno">
+            <summary>
+            indica si la habilidad ocupa dos turnos para ejecutarse
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Habilidades.Efectos">
+            <summary>
+            efectos adicionales para los ataques dobles
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Habilidades.#ctor(System.String,Proyecto_Pokemon.ITipo,System.Int32,System.Int32,System.Int32,System.Boolean,Proyecto_Pokemon.IEfectos)">
+            <summary>
+            constructor de las habilidades
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.LogicaDePokemones">
+            <summary>
+            clase que maneja la logica de los pokemones, tipos y habilidades en el sistema
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.LogicaDePokemones.Instance">
+            <summary>
+            propiedad que devuelve la instancia de la clase LogicaDePokemones
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.LogicaDePokemones.InicializarPokemones">
+            <summary>
+            Programacion de todos los tipos de los pokemones
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.LogicaDePokemones.MostrarPokemones">
+            <summary>
+            Muestra los pokemones del equipo con su respectivo nombre, tipo y vida
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.Pokemon">
+            <summary>
+            clase que representa un pokemon en la simulacion de batalla
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Pokemon.Nombre">
+            <summary>
+            nombre del pokemon
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Pokemon.Vida">
+            <summary>
+            vida actual del pokemon
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Pokemon.VidaBase">
+            <summary>
+            vida base del pokemon
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Pokemon.Habilidades">
+            <summary>
+            lista de habilidades que el pokemon conoce
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Pokemon.TipoPrincipal">
+            <summary>
+            tipo principal del pokemon
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Pokemon.TipoSecundario">
+            <summary>
+            tipo secundario del pokemon (si tiene)
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Pokemon.HabilidadCargando">
+            <summary>
+            habilidad que el pokemon esta cargando actualmente
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Pokemon.Estado">
+            <summary>
+            estado actual del pokemon (por ejemplo, paralizado)
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Pokemon.#ctor(System.String,System.Int32,Proyecto_Pokemon.ITipo,Proyecto_Pokemon.ITipo,System.String)">
+            <summary>
+            constructor que inicializa los atributos basicos del pokemon
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Pokemon.AprenderHabilidad(Proyecto_Pokemon.IHabilidades)">
+            <summary>
+            metodo que permite al pokemon aprender las habilidades
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Pokemon.MostrarHabilidades">
+            <summary>
+            metodo que devuelve una lista con las habilidades del pokemon
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Pokemon.EjecutarAtaque(Proyecto_Pokemon.Pokemon,Proyecto_Pokemon.Pokemon,Proyecto_Pokemon.IHabilidades,System.Boolean)">
+            <summary>
+            metodo que ejecuta un ataque entre dos pokemones
+            </summary>
+        </member>
+        <member name="T:Proyecto_Pokemon.Tipo">
+            <summary>
+            Clase que representa un tipo de pokemon, como agua, fuego o planta.
+            Almacena ventajas y desventajas frente a otros tipos.
+            </summary>
+        </member>
+        <member name="P:Proyecto_Pokemon.Tipo.Nombre">
+            <summary>
+            Define el nombre del tipo
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Tipo.#ctor(System.String,System.Collections.Generic.Dictionary{System.String,System.Double})">
+            <summary>
+            constructor de la clase tipo, se usa para darle nombre y una lista de ventajas contra otros tipos
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.Tipo.EsEfectivoOPocoEfectivo(Proyecto_Pokemon.ITipo)">
+            <summary>
+            metodo para verificar la efectividad de este tipo contra otro tipo.
+            si existe ventaja en el diccionario, la usa, si no, devuelve una efectividad neutral de 1.0
+            </summary>
+        </member>
         <member name="T:Library.Commands.AtaquesCommand">
             <summary>
-            Esta clase implementa el comando 'ataques' del bot.
+            Esta clase se encarga de usar las habilidades disponibles del pokemon para usarlos en el entrenador rival.
             </summary>
         </member>
         <member name="M:Library.Commands.AtaquesCommand.ExecuteAsync">
@@ -181,7 +872,7 @@
         </member>
         <member name="T:ProyectoPokemon.TiposCommand">
             <summary>
-            Esta clase implementa el comando 'tipos' del bot.
+            Te muestra la tabla de tipos
             </summary>
         </member>
         <member name="M:ProyectoPokemon.TiposCommand.ExecuteAsync">
@@ -194,15 +885,40 @@
             Esta clase implementa el bot de Discord.
             </summary>
         </member>
+        <member name="M:Ucu.Poo.DiscordBot.Services.Bot.#ctor(Microsoft.Extensions.Logging.ILogger{Ucu.Poo.DiscordBot.Services.Bot},Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Ucu.Poo.DiscordBot.Services.Bot.StopAsync">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Ucu.Poo.DiscordBot.Services.BotLoader">
             <summary>
             Esta clase ejecuta el bot de Discord hasta que en la terminal donde se
             ejecuta el bot se oprime la tecla 'Q'.
             </summary>
         </member>
+        <member name="M:Ucu.Poo.DiscordBot.Services.BotLoader.LoadAsync">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Ucu.Poo.DiscordBot.Services.IBot">
             <summary>
             La interfaz del Bot de Discord para usar con inyección de dependencias.
+            </summary>
+        </member>
+        <member name="M:Ucu.Poo.DiscordBot.Services.IBot.StartAsync(Microsoft.Extensions.DependencyInjection.ServiceProvider)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Ucu.Poo.DiscordBot.Services.IBot.StopAsync">
+            <summary>
+            
             </summary>
         </member>
     </members>

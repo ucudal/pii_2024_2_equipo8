@@ -3,7 +3,7 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// 
+/// comando para sacar al usuario del lobby.
 /// </summary>
 public class SalirCommand : ModuleBase<SocketCommandContext>
 {

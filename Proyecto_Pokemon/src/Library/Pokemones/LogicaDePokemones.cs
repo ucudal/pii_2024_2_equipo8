@@ -1,6 +1,6 @@
 namespace Proyecto_Pokemon;
 /// <summary>
-/// 
+/// clase que maneja la logica de los pokemones, tipos y habilidades en el sistema
 /// </summary>
 public class LogicaDePokemones
 {
@@ -25,7 +25,7 @@ public class LogicaDePokemones
     private Pokemon Sylveon;
     
     /// <summary>
-    /// 
+    /// propiedad que devuelve la instancia de la clase LogicaDePokemones
     /// </summary>
     public static LogicaDePokemones Instance
     {
@@ -40,7 +40,7 @@ public class LogicaDePokemones
         }
     }
     /// <summary>
-    /// 
+    /// Programacion de todos los tipos de los pokemones
     /// </summary>
     public List<Pokemon> InicializarPokemones()
     {
@@ -457,7 +457,7 @@ public class LogicaDePokemones
     }
     
     /// <summary>
-    /// 
+    /// Muestra los pokemones del equipo con su respectivo nombre, tipo y vida
     /// </summary>
     public string MostrarPokemones()
     {

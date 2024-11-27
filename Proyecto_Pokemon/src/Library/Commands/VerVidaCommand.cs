@@ -3,7 +3,7 @@ using Discord.Commands;
 namespace Proyecto_Pokemon;
 
 /// <summary>
-/// 
+/// comando para ver el estado de los pokemones
 /// </summary>
 public class VerVidaCommand : ModuleBase<SocketCommandContext>
 {
