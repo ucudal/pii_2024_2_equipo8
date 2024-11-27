@@ -3,7 +3,7 @@
 namespace Proyecto_Pokemon.Tests
 {
     [TestFixture]
-    public class FachadaTest
+    public class FachadaTests
     {
         [Test]
         public void MeterUsuarioAlLobby_NuevoUsuario_DevuelveMensajeExitoso()
@@ -15,7 +15,7 @@ namespace Proyecto_Pokemon.Tests
             string resultado = Fachada.MeterUsuarioAlLobby(nombreEntrenador);
 
             // Assert
-            Assert.AreEqual("Ash ha sido agregado en el Lobby para un encuentro.", resultado);
+            Assert.That(resultado, Is.EqualTo("Ash ha sido agregado en el Lobby para un encuentro."));
         }
 
         [Test]
@@ -25,13 +25,14 @@ namespace Proyecto_Pokemon.Tests
             string nombreEntrenador = "Ash";
 
             // Simula que el usuario ya está en una batalla
+            Fachada.MeterUsuarioAlLobby(nombreEntrenador);
             Fachada.IniciarBatalla("Ash", "Gary");
 
             // Act
             string resultado = Fachada.MeterUsuarioAlLobby(nombreEntrenador);
 
             // Assert
-            Assert.AreEqual("Ash ya te encuentras en una batalla y no podes ser agregado al Lobby.", resultado);
+            Assert.That(resultado, Is.EqualTo("Ash ya te encuentras en una batalla y no podes ser agregado al Lobby."));
         }
 
         [Test]
@@ -48,7 +49,7 @@ namespace Proyecto_Pokemon.Tests
             string resultado = Fachada.CrearBatalla(entrenador1, entrenador2);
 
             // Assert
-            Assert.IsTrue(resultado.Contains("EMPIEZA LA PELEA ENTRE Ash CONTRA Gary"));
+            Assert.That(resultado.Contains("EMPIEZA LA PELEA ENTRE Ash CONTRA Gary"), Is.True);
         }
 
         [Test]
@@ -64,7 +65,7 @@ namespace Proyecto_Pokemon.Tests
             string resultado = Fachada.VerHabilidades(nombreEntrenador);
 
             // Assert
-            Assert.IsTrue(resultado.Contains("no tenes un pokemon principal."));
+            Assert.That(resultado.Contains("no tenes un pokemon principal."), Is.True);
         }
 
         [Test]
@@ -86,7 +87,7 @@ namespace Proyecto_Pokemon.Tests
             string resultado = Fachada.elegirRandomente(nombreEntrenador);
 
             // Assert
-            Assert.AreEqual("Ash, ya tenes un equipo completo de Pokémon.", resultado);
+            Assert.That(resultado, Is.EqualTo("Ash, ya tenes un equipo completo de Pokémon."));
         }
 
         [Test]
@@ -104,7 +105,7 @@ namespace Proyecto_Pokemon.Tests
             string resultado = Fachada.CambiarPokemones(nombreEntrenador, nombrePokemon);
 
             // Assert
-            Assert.IsTrue(resultado.Contains("Pikachu"));
+            Assert.That(resultado.Contains("Pikachu"), Is.True);
         }
     }
 }
