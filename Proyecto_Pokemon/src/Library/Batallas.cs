@@ -1,33 +1,38 @@
 namespace Proyecto_Pokemon;
 /// <summary>
-/// 
+/// clase que representa una batalla entre dos entrenadores.
 /// </summary>
 public class Batallas
 {
     /// <summary>
-    /// 
+    /// primer entrenador que participa en la batalla.
     /// </summary>
     public Entrenadores entrenador1 {get; set;}
     /// <summary>
-    /// 
+    /// segundo entrenador que participa en la batalla.
     /// </summary>
     public Entrenadores entrenador2 {get; set;}
     /// <summary>
-    /// 
+    /// entrenador que tiene el turno actual en la batalla.
     /// </summary>
     public Entrenadores entrenadorActual {get; set;}
     /// <summary>
-    /// 
+    /// numero del turno actual de la batalla.
     /// </summary>
     public int turno {get; set;}
+    /// <summary>
+    /// numero de turnos que un pokemon permanece noqueado.
+    /// </summary>
     int turnos_noqueado = 4;
     /// <summary>
-    /// 
+    /// indica si el pokemon actual tiene activado el "esquivar"
     /// </summary>
     public bool esquivo;
     /// <summary>
-    /// 
+    /// inicializa una nueva instancia de la clase batalla con los entrenadores especificados.
     /// </summary>
+    /// /// <param name="AshKetchup">primer entrenador.</param>
+    /// <param name="diezMedallasGary">segundo entrenador.</param>
     public Batallas(Entrenadores AshKetchup, Entrenadores diezMedallasGary)
     {
         entrenador1 = AshKetchup;
