@@ -157,6 +157,38 @@ public class BatallasTest
         Assert.That(resultado, Does.Contain("recuperaron"));
         Assert.That(entrenador1.PokemonActivo.Vida, Is.EqualTo(100));
     }
+    //Test para usar restaurarTodo chequeando que recupere la vida al máximo (valor inicial)
+    [Test]
+    public void UsarMochila_DeberiaRestaurarVidaPokemonCorrectamente()
+    {
+        entrenador1.PokemonActivo.Vida -= 70;
+
+        string resultado = batalla.UsarMochila(entrenador1.BuscarObjeto("Restaurar Todo"), entrenador1.PokemonActivo);
+        Assert.That(resultado, Does.Contain("recuperaron"));
+        Assert.That(entrenador1.PokemonActivo.Vida, Is.EqualTo(entrenador1.PokemonActivo.VidaBase));
+    }
+    //Test para usar restaurarTodo chequeando que recupere el estado (sin estado)
+    [Test]
+    public void UsarMochila_DeberiaRestaurarEfectoPokemonCorrectamente()
+    {
+        entrenador1.PokemonActivo.Vida -= 70;
+        electrobola.Precision = 100; 
+        batalla.Atacar(electrobola);
+
+        Assert.That(entrenador2.PokemonActivo.Estado, Is.EqualTo("paralizado"));
+
+        string resultado = batalla.UsarMochila(entrenador2.BuscarObjeto("Restaurar Todo"), entrenador2.PokemonActivo);
+        Assert.That(resultado, Does.Contain("recuperaron"));
+        Assert.That(entrenador2.PokemonActivo.Estado, Is.EqualTo(null));
+    }
+    //Test para ver si RestaurarTodo se usa una sola vez
+    [Test]
+    public void UsarMochila_DeberiaNoHacerEfectoRestaurar()
+    {
+        string resultado = batalla.UsarMochila(entrenador2.BuscarObjeto("Restaurar Todo"), entrenador2.PokemonActivo);
+        Assert.That(resultado, Does.Contain("No fue necesario"));
+        
+    }
     [Test]
     public void VerificarEstado_DeberiaAplicarEfectosDeEstadoAlterado()
     {

@@ -81,7 +81,8 @@ public class Entrenadores
             new SuperPocion(),
             new Revivir(),
             new CuraTotal(),
-            new CuraTotal()
+            new CuraTotal(),
+            new RestaurarTodo() //Se agrega a la inicialización de la mochila el item restaurarTodo, uno solo para que sea de unico uso
         };
         
     }

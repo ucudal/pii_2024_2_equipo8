@@ -378,4 +378,21 @@ public class FachadaTests
 
         Assert.That(resultado, Is.EqualTo($"{nombreEntrenador} aún no tenés tu equipo completo."));
     }
+    //Test para ver si RestaurarTodo está presente en la mochila al iniciar
+    [Test]
+    public void VerMochila_DeberiaTenerRestaurarTodo()
+    {
+        string nombreEntrenador = "Ash";
+        string nombreEntrenador2 = "Gary";
+        Fachada.Rendirse(nombreEntrenador);
+        Fachada.SacarEntrenadorDelLobby(nombreEntrenador);
+        Fachada.MeterUsuarioAlLobby(nombreEntrenador);
+        Fachada.MeterUsuarioAlLobby(nombreEntrenador2);
+        Fachada.IniciarBatalla(nombreEntrenador, nombreEntrenador2);
+        string resultado = Fachada.VerMochila(nombreEntrenador);
+
+        Assert.That(resultado, Does.Contain("Restaurar Todo"));
+    }
+    
+   
 }

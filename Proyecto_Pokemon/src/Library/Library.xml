@@ -671,6 +671,16 @@
             metodo abstracto para usar el objeto en un pokemon
             </summary>
         </member>
+        <member name="M:Proyecto_Pokemon.RestaurarTodo.#ctor">
+            <summary>
+            constructor de RestaurarTodo, llama al constructor base de la clase objetos y le da el nombre "restaurartodo"
+            </summary>
+        </member>
+        <member name="M:Proyecto_Pokemon.RestaurarTodo.Usar(Proyecto_Pokemon.Pokemon,Proyecto_Pokemon.Entrenadores)">
+            <summary>
+            metodo para usar el objeto en un pokemon, 
+            </summary>
+        </member>
         <member name="T:Proyecto_Pokemon.Revivir">
             <summary>
             clase que representa el objeto "Revivir", que se utiliza para revivir a un pokemon debilitado con la mitad de su vida
