@@ -1,16 +1,45 @@
 namespace Proyecto_Pokemon;
-
+/// <summary>
+/// 
+/// </summary>
 public class Pokemon
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public string Nombre { get; }
+    /// <summary>
+    /// 
+    /// </summary>
     public int Vida { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
     public int VidaBase { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
     public List<IHabilidades> Habilidades { get; }
+    /// <summary>
+    /// 
+    /// </summary>
     public ITipo TipoPrincipal { get; }
+    /// <summary>
+    /// 
+    /// </summary>
     public ITipo TipoSecundario { get; }
+    /// <summary>
+    /// 
+    /// </summary>
     public IHabilidades HabilidadCargando { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
     public string Estado { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public Pokemon(string nombre, int vida, ITipo tipoPrincipal, ITipo tipoSecundario = null, string estado = null)
     {
         Nombre = nombre;
@@ -23,12 +52,18 @@ public class Pokemon
         Estado = estado;
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
     // metodo que permite al pokemon aprender las habilidades
     public void AprenderHabilidad(IHabilidades habilidad)
     {
         Habilidades.Add(habilidad);
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
     // metodo que devuelve una lista con las habilidades del pokemon
     public string MostrarHabilidades()
     {
@@ -43,6 +78,9 @@ public class Pokemon
         return resultado;
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
     public static string EjecutarAtaque(Pokemon atacante, Pokemon defensor, IHabilidades habilidad, bool esquivo)
     {
         Random random = new Random();

@@ -1,5 +1,7 @@
 namespace Proyecto_Pokemon;
-
+/// <summary>
+/// 
+/// </summary>
 public class LogicaDePokemones
 {
     private static LogicaDePokemones? _instance;
@@ -22,6 +24,9 @@ public class LogicaDePokemones
     private Pokemon Dragonite;
     private Pokemon Sylveon;
     
+    /// <summary>
+    /// 
+    /// </summary>
     public static LogicaDePokemones Instance
     {
         get
@@ -34,7 +39,9 @@ public class LogicaDePokemones
             return _instance;
         }
     }
-    
+    /// <summary>
+    /// 
+    /// </summary>
     public List<Pokemon> InicializarPokemones()
     {
         var elementoFuego = new Dictionary<string, double>
@@ -449,6 +456,9 @@ public class LogicaDePokemones
             Umbreon, Gengar, Lapras, Metagross, Dragonite, Sylveon };
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
     public string MostrarPokemones()
     {
         string pokemones = "```";

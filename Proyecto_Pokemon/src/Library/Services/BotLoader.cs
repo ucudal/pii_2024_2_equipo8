@@ -11,6 +11,9 @@ namespace Ucu.Poo.DiscordBot.Services;
 /// </summary>
 public static class BotLoader
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static async Task LoadAsync()
     {
         var configuration = new ConfigurationBuilder()

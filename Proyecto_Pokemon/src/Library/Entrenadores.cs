@@ -180,6 +180,9 @@ public class Entrenadores
         return listaObjetosUnicos;
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
     public List<Objetos> GetItemList()
     {
         return Mochila;

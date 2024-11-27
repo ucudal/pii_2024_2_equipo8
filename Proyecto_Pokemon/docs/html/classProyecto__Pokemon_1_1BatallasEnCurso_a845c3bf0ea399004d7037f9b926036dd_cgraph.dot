@@ -1,0 +1,12 @@
+digraph "Proyecto_Pokemon.BatallasEnCurso.CrearPartida"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="Proyecto_Pokemon.Batallas\lEnCurso.CrearPartida",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Se agrega nueva batalla a batallasencurso, se retorna la misma."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="Proyecto_Pokemon.Batallas.\lIniciar",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classProyecto__Pokemon_1_1Batallas.html#a4bca72cbb1ee4550900344543df77524",tooltip="Requisitos previos para iniciar batalla."];
+}

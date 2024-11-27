@@ -7,7 +7,13 @@ namespace Ucu.Poo.DiscordBot.Services;
 /// </summary>
 public interface IBot
 {
+    /// <summary>
+    /// 
+    /// </summary>
     Task StartAsync(ServiceProvider services);
 
+    /// <summary>
+    /// 
+    /// </summary>
     Task StopAsync();
 }

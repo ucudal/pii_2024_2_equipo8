@@ -1,0 +1,14 @@
+digraph "Proyecto_Pokemon.Lobby.EntrenadorPorNombre"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="Proyecto_Pokemon.Lobby.Entrenador\lPorNombre",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Método para obtener un entrenador por su nombre como string, útil para fachada y futuras implementaci..."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="Proyecto_Pokemon.Lobby.Agregar\lEntrenadores",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classProyecto__Pokemon_1_1Lobby.html#a0943551a483d2da6379c0a786b6a6573",tooltip="Método para agregar un entrenador al lobby."];
+  Node1 -> Node3 [id="edge2_Node000001_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="Proyecto_Pokemon.Lobby.Sacar\lEntrenadores",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classProyecto__Pokemon_1_1Lobby.html#afed69126bd6f6d535bad75b7d81efe68",tooltip="Método para eliminar un entrenador del lobby, bool para indicar si se completó"];
+}

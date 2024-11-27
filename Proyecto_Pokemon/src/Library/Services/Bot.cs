@@ -18,7 +18,9 @@ public class Bot : IBot
     private readonly IConfiguration configuration;
     private readonly DiscordSocketClient client;
     private readonly CommandService commands;
-
+    /// <summary>
+    /// 
+    /// </summary>
     public Bot(ILogger<Bot> logger, IConfiguration configuration)
     {
         this.logger = logger;
@@ -53,6 +55,9 @@ public class Bot : IBot
         client.MessageReceived += HandleCommandAsync;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public async Task StopAsync()
     {
         logger.LogInformation("Finalizando");

@@ -1,0 +1,16 @@
+digraph "Graphical Class Hierarchy"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node0 [id="Node000000",label="Proyecto_Pokemon.Objetos",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classProyecto__Pokemon_1_1Objetos.html",tooltip="clase abstracta que representa un objeto en el juego, con un nombre y un metodo para usarlo"];
+  Node0 -> Node1 [id="edge22_Node000000_Node000001",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node1 [id="Node000001",label="Proyecto_Pokemon.CuraTotal",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classProyecto__Pokemon_1_1CuraTotal.html",tooltip="clase que representa el objeto \"Cura Total\", que elimina los estados alterados de un pokemon"];
+  Node0 -> Node2 [id="edge23_Node000000_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="Proyecto_Pokemon.Revivir",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classProyecto__Pokemon_1_1Revivir.html",tooltip="clase que representa el objeto \"Revivir\", que se utiliza para revivir a un pokemon debilitado con la ..."];
+  Node0 -> Node3 [id="edge24_Node000000_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="Proyecto_Pokemon.SuperPocion",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classProyecto__Pokemon_1_1SuperPocion.html",tooltip="clase que representa el objeto \"SuperPocion\", que se utiliza para curar a un pokemon 70HP"];
+}

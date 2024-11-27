@@ -1,0 +1,12 @@
+digraph "Proyecto_Pokemon.Batallas.DeterminarGanador"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="Proyecto_Pokemon.Batallas.\lDeterminarGanador",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Chequeo de ganador según si tiene pokemones vivos, el que tenga vivos gana, si ninguno tiene es empat..."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="Proyecto_Pokemon.Entrenadores.\lTienePokemonesVivos",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classProyecto__Pokemon_1_1Entrenadores.html#aed37e19dc22b417fd387e524229dae49",tooltip="Check booleano de pokemones vivos, útil para batalla. Lógica hecha en entrenadores por srp."];
+}

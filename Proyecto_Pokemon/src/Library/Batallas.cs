@@ -1,14 +1,32 @@
 namespace Proyecto_Pokemon;
-
+/// <summary>
+/// 
+/// </summary>
 public class Batallas
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public Entrenadores entrenador1 {get; set;}
+    /// <summary>
+    /// 
+    /// </summary>
     public Entrenadores entrenador2 {get; set;}
+    /// <summary>
+    /// 
+    /// </summary>
     public Entrenadores entrenadorActual {get; set;}
+    /// <summary>
+    /// 
+    /// </summary>
     public int turno {get; set;}
-    
+    /// <summary>
+    /// 
+    /// </summary>
     public bool esquivo;
-    
+    /// <summary>
+    /// 
+    /// </summary>
     public Batallas(Entrenadores AshKetchup, Entrenadores diezMedallasGary)
     {
         entrenador1 = AshKetchup;
@@ -17,12 +35,18 @@ public class Batallas
         turno = 1;
     }
     // Verifica si alguno de los entrenadores ya no tiene pokemones vivos
+    /// <summary>
+    /// 
+    /// </summary>
     public bool ChequerMuerte()
     {
         return !entrenador1.TienePokemonesVivos() || !entrenador2.TienePokemonesVivos();
     }
     
     // Comprobar si el entrenador está participando en esta batalla
+    /// <summary>
+    /// 
+    /// </summary>
     public bool ConfirmarSiEntrenadorEstaPeleando(Entrenadores entrenadores)
     {
         if (entrenadores != null)
@@ -40,6 +64,9 @@ public class Batallas
     }
     
     // Verifica si ambos entrenadores ya tienen sus equipos completos
+    /// <summary>
+    /// 
+    /// </summary>
     public bool ConfirmandoEquipoCompleto()
     {
         return entrenador1.RecibirEquipoPokemon().Count == 6 &&
@@ -47,6 +74,9 @@ public class Batallas
     }
     
     // Requisitos previos para iniciar batalla
+    /// <summary>
+    /// 
+    /// </summary>
     public string Iniciar(Entrenadores Entrenador1, Entrenadores Entrenador2)
     {
         if(entrenador1.EnBatalla && entrenador2.EnBatalla)
@@ -71,6 +101,9 @@ public class Batallas
     }
 
     // Método para gestionar ataque
+    /// <summary>
+    /// 
+    /// </summary>
     public string Atacar(IHabilidades habilidad)
     {
         Random random = new Random();
@@ -124,12 +157,18 @@ public class Batallas
     }
     
     // Devuelve lista de entrenadores disponibles
+    /// <summary>
+    /// 
+    /// </summary>
     public List<Entrenadores> JugadoresDisponibles()
     {
         return new List<Entrenadores> { entrenador1, entrenador2 };
     }
     
-    // Método interno de esquivo, utilizado en fachada 
+    // Método interno de esquivo, utilizado en fachada
+    /// <summary>
+    /// 
+    /// </summary>
     public string Esquivar()
     {
         Pokemon atacante = entrenadorActual.PokemonActivo;
@@ -139,6 +178,9 @@ public class Batallas
     }
     
     // Verificar si ambos entrenadores aún tienen pokemones vivos
+    /// <summary>
+    /// 
+    /// </summary>
     public bool StatusBatalla()
     {
         foreach (var entrenador in JugadoresDisponibles())
@@ -160,6 +202,9 @@ public class Batallas
     }
     
     // Cambio interno de cambiar pokemon, utilizado en fachada
+    /// <summary>
+    /// 
+    /// </summary>
     public string CambiarPokemon(Pokemon pokemon)
     {
         if (pokemon == null)
@@ -180,9 +225,11 @@ public class Batallas
     }
     
     // Método interno de usar mochila, uso de objetos presentes en mochila
+    /// <summary>
+    /// 
+    /// </summary>
     public string UsarMochila(Objetos? objeto, Pokemon? pokemon)
     {
-        Entrenadores entrenador = JugadoresDisponibles()[turno];
         if (pokemon == null)
         {
             return $" {JugadoresDisponibles()[turno].Nombre} ese pokemon no está en tu equipo.\nBusca otro.\n";
@@ -196,16 +243,16 @@ public class Batallas
         if (final.Contains("recuperaron"))
         {
             // Remueve el objeto usado de la mochila
-            Objetos objetoEnMochila = entrenador.Mochila.FirstOrDefault(o => o.Nombre == objeto.Nombre);
-            if (objetoEnMochila != null)
-            {
-                entrenador.GetItemList().Remove(objetoEnMochila);
-            }
+            entrenadorActual.GetItemList().Remove(objeto);
+
         }
         return final;
     }
 
     // Verifica el caso de cada pokemon para ver como se gestiona
+    /// <summary>
+    /// 
+    /// </summary>
     public string VerificarEstado(Pokemon atacante)
     {
         Random random = new Random();
@@ -246,7 +293,10 @@ public class Batallas
         return "";
     }
 
-    // En cambio de turno se chequea estado de batalla, 
+    // En cambio de turno se chequea estado de batalla,
+    /// <summary>
+    /// 
+    /// </summary>
     public string CambiarTurno()
     {
         if (ChequerMuerte())
@@ -283,6 +333,9 @@ public class Batallas
     }
     
     // Chequeo de ganador según si tiene pokemones vivos, el que tenga vivos gana, si ninguno tiene es empate
+    /// <summary>
+    /// 
+    /// </summary>
     public string DeterminarGanador()
     {
         if (entrenador1.TienePokemonesVivos()) return entrenador1.Nombre;

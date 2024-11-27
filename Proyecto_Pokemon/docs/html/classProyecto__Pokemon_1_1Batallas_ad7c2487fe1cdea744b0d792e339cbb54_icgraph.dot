@@ -1,0 +1,12 @@
+digraph "Proyecto_Pokemon.Batallas.CambiarTurno"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="Proyecto_Pokemon.Batallas.\lCambiarTurno",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="En cambio de turno se chequea estado de batalla."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="Proyecto_Pokemon.Batallas.\lAtacar",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classProyecto__Pokemon_1_1Batallas.html#a4595705e2232c7b1631fd2679ab756a5",tooltip="Método para gestionar ataque."];
+}
