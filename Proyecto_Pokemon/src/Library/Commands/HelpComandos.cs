@@ -32,7 +32,7 @@ public class HelpComandos : ModuleBase<SocketCommandContext>
             - **!cambiar**:  Cambiar Pokemon activo en batalla.
             - **!esquivar**:  Intenta esquivar el ataque del oponente.
             - **!turno**:  Devuelve de quien es el turno.
-            - **!curar**:  Usa el item seleccionado para beneficiar al Pokemon especificado.
+            - **!curar + item + pokemon** :  Usa el item seleccionado para beneficiar al Pokemon especificado.
             - **!verMochila**:  Muestra los items disponibles del jugador.
             - **!rendirse**:  Rendirse y perder
         """;
