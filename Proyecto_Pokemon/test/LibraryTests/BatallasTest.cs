@@ -203,5 +203,4 @@ public class BatallasTest
         Assert.That(entrenador1.PokemonActivo.Nombre, Is.EqualTo("Bulbasaur"));
     }
 
-
 }

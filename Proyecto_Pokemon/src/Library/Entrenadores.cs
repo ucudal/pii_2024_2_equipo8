@@ -81,7 +81,8 @@ public class Entrenadores
             new SuperPocion(),
             new Revivir(),
             new CuraTotal(),
-            new CuraTotal()
+            new CuraTotal(),
+            new RestaurarTodo()
         };
         
     }
