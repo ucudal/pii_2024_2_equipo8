@@ -20,6 +20,7 @@ public class Batallas
     /// 
     /// </summary>
     public int turno {get; set;}
+    int turnos_noqueado = 4;
     /// <summary>
     /// 
     /// </summary>
@@ -145,10 +146,31 @@ public class Batallas
         // Ataque normal
         bool esEsquivoNormal = esquivo;
         esquivo = false;
-        string resultadoAtaqueNormal = Pokemon.EjecutarAtaque(atacante, defensor, habilidad, esEsquivoNormal);
-        string cambioTurnoNormal = CambiarTurno();
-        estadoResultado = VerificarEstado(atacante);
-        return resultadoAtaqueNormal + "\n" + cambioTurnoNormal + estadoResultado;
+        if (atacante.Estado == "noqueado")
+        {
+            estadoResultado = VerificarEstado(atacante);
+            if (estadoResultado.Contains("noqueado"))
+            {
+                entrenadorActual = (entrenadorActual == entrenador1) ? entrenador2 : entrenador1;
+                return estadoResultado;
+            }
+            else
+            {
+                string resultadoAtaqueNormal = Pokemon.EjecutarAtaque(atacante, defensor, habilidad, esEsquivoNormal);
+                string cambioTurnoNormal = CambiarTurno();
+                estadoResultado += VerificarEstado(atacante);
+                return estadoResultado + resultadoAtaqueNormal + "\n" + cambioTurnoNormal;
+            }
+        }
+        else
+        {
+            string resultadoAtaqueNormal = Pokemon.EjecutarAtaque(atacante, defensor, habilidad, esEsquivoNormal);
+            string cambioTurnoNormal = CambiarTurno();
+            estadoResultado = VerificarEstado(atacante);
+            return resultadoAtaqueNormal + "\n" + cambioTurnoNormal + estadoResultado;
+        }
+
+        return null;
     }
     
     /// <summary>
@@ -245,7 +267,7 @@ public class Batallas
     public string VerificarEstado(Pokemon atacante)
     {
         Random random = new Random();
-        int turnos_noqueado = 4;
+        
         switch (atacante.Estado)
         {
             case "envenenado":
@@ -269,12 +291,20 @@ public class Batallas
                 break;
 
             case "noqueado":
-                if (random.Next(1, 5) < turnos_noqueado)
+                if (random.Next(1, 5) > turnos_noqueado)
                 {
                     atacante.Estado = null;
+                    turnos_noqueado = 4;
                     return $"{atacante.Nombre} se ha recuperado del noqueo y puede volver a atacar.";
                 }
-                entrenadorActual = (entrenadorActual == entrenador1) ? entrenador2 : entrenador1;
+
+                if (turnos_noqueado == 4)
+                {
+                    turnos_noqueado--;
+                    return null;
+                }
+                
+                turnos_noqueado--;
                 return $"{atacante.Nombre} está noqueado. No puede moverse.";
                 break;
         }

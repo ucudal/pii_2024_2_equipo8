@@ -97,6 +97,7 @@ public static class Fachada
         {
             return $"La habilidad '{nombreHabilidad}' no se encuentra disponible en la lista del Pokemon {atacante.Nombre}";
         }
+        
         string finaladoAtaque = batalla.Atacar(habilidad);
         string estadoJuego = CierreDeLaBatalla(batalla);
         return $"{finaladoAtaque}{estadoJuego}";

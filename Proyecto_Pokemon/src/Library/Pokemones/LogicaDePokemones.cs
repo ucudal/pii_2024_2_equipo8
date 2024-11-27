@@ -287,7 +287,7 @@ public class LogicaDePokemones
         IHabilidades golpecuerpo = new Habilidades("Golpe cuerpo", tipoNormal, 85, 100, 15, false);
         IHabilidades mordisco = new Habilidades("Mordisco", tipoSiniestro, 60, 100, 25, false);
         IHabilidades fuerzaequina = new Habilidades("Fuerza equina", tipoTierra, 95, 95, 10, false);
-        IHabilidades gigaimpacto = new Habilidades("Gigaimpacto", tipoNormal, 150, 60, 5, true, noqueado);
+        IHabilidades gigaimpacto = new Habilidades("Gigaimpacto", tipoNormal, 150, 100, 5, true, noqueado);
         
         Snorlax.AprenderHabilidad(golpecuerpo);
         Snorlax.AprenderHabilidad(mordisco);
